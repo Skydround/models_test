@@ -43,12 +43,14 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Create `.env` file with API keys:
+Create `.env` file with your OpenRouter API key:
 ```
-ANTHROPIC_API_KEY=your_key_here
-OPENAI_API_KEY=your_key_here
-GOOGLE_API_KEY=your_key_here
+OPENROUTER_API_KEY=your_key_here
 ```
+
+Get your API key from: https://openrouter.ai/keys
+
+OpenRouter provides unified access to multiple AI models (Anthropic Claude, OpenAI GPT, Google Gemini, and many more) through a single API.
 
 ## Usage
 

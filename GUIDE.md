@@ -40,11 +40,11 @@ cp .env.example .env
 nano .env  # Add your API keys
 ```
 
-### 2. Get API Keys
+### 2. Get API Key
 
-- **Anthropic**: https://console.anthropic.com/
-- **OpenAI**: https://platform.openai.com/api-keys
-- **Google**: https://aistudio.google.com/app/apikey
+- **OpenRouter**: https://openrouter.ai/keys
+
+OpenRouter provides unified access to all models (Anthropic Claude, OpenAI GPT, Google Gemini, and many more) through a single API.
 
 ### 3. Run Pipeline
 
@@ -55,7 +55,7 @@ nano .env  # Add your API keys
 
 **Option B: Run step by step**
 ```bash
-# Step 1: Extract questions (uses Claude Haiku, ~$1-3)
+# Step 1: Extract questions (uses OpenAI GPT-4o-mini via OpenRouter, ~$1-3)
 python scripts/1_extract_questions.py
 
 # Step 2: Test models (cost varies by models selected, ~$6-10)
@@ -110,12 +110,13 @@ Edit `scripts/2_test_models.py` and add to `MODELS` list:
 ```python
 {
     'name': 'your-model-name',
-    'provider': 'anthropic|openai|google',
-    'model_id': 'model-id',
+    'model_id': 'provider/model-id',  # e.g., 'anthropic/claude-3-opus'
     'input_cost_per_1m': 0.0,
     'output_cost_per_1m': 0.0
 }
 ```
+
+See available models at: https://openrouter.ai/models
 
 ### Add More Exams
 
@@ -171,7 +172,7 @@ models_test/
 Run step 1 first: `python scripts/1_extract_questions.py`
 
 ### "API key not found"
-Check your `.env` file has the correct keys
+Check your `.env` file has `OPENROUTER_API_KEY` set correctly
 
 ### "Rate limit exceeded"
 Add delays in `scripts/2_test_models.py` (increase `time.sleep()` value)
@@ -197,6 +198,7 @@ To extend this project:
 ## 📝 Notes
 
 - All responses are evaluated at temperature=0 for consistency
-- Evaluation uses Claude 3.5 Haiku as judge (cheap and reliable)
+- Evaluation uses Claude 3.5 Haiku via OpenRouter (cheap and reliable)
 - Database stores everything for future re-analysis
 - Excel report can be customized in `scripts/3_evaluate.py`
+- OpenRouter adds a small markup (~10-20%) to base model costs

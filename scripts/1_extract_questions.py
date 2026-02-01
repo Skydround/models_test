@@ -23,8 +23,15 @@ from utils import QuestionDatabase, extract_text_from_pdf, save_json
 # Load environment variables
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Initialize OpenRouter client (using OpenAI-compatible interface)
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv('OPENROUTER_API_KEY'),
+    default_headers={
+        "HTTP-Referer": "https://github.com/models_test",
+        "X-Title": "Models Test - Question Extraction"
+    }
+)
 
 
 def parse_exam_with_ai(exam_pages: list, answer_pages: list, exam_name: str) -> list:
@@ -97,7 +104,7 @@ Important:
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="openai/gpt-4o-mini",
             messages=[{
                 "role": "user", 
                 "content": prompt
@@ -142,8 +149,9 @@ def main():
     print("="*70)
     
     # Check for API key
-    if not os.getenv('OPENAI_API_KEY'):
-        print("\n❌ ERROR: OPENAI_API_KEY not found in environment")
+    if not os.getenv('OPENROUTER_API_KEY'):
+        print("\n❌ ERROR: OPENROUTER_API_KEY not found in environment")
+        print("Get your API key from: https://openrouter.ai/keys")
         return
     
     # Initialize database

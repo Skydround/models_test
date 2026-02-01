@@ -1,0 +1,16 @@
+# PDF Processing
+pdfplumber==0.11.0
+pymupdf==1.24.0
+
+# AI/LLM Libraries
+anthropic==0.39.0
+openai==1.54.0
+google-generativeai==0.8.3
+
+# Data Processing
+pandas==2.2.0
+openpyxl==3.1.2
+
+# Utilities
+python-dotenv==1.0.0
+tqdm==4.66.1

@@ -1,0 +1,74 @@
+[
+  {
+    "question_number": "1",
+    "question_text": "Na podstawie tekstu Carla Saganawyjaśnij sens zdania: Rozpoczęliśmy wędrówkę pośród „wędrowców”.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Nazwa „planeta” pochodzi od greckiego słowa „wędrujący”. Dlatego też podróże kosmiczne pomiędzy planetami zostały nazwane wędrówką pomiędzy wędrowcami.",
+    "answer_explanation": "Odpowiedź powinna wyjaśniać, że wędrówka odnosi się do podróży między planetami.",
+    "page_number": 6
+  },
+  {
+    "question_number": "2",
+    "question_text": "Rozstrzygnij, czy w tekście Carla Saganaiw tekście Marty Trepczyńskiej jest mowa o takiej samej przyczynie zainteresowania kosmosem. W uzasadnieniu odpowiedzi odwołaj się do obu tekstów.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "Nie. W tekście Carla Sagana motywacją główną do odkrywania kosmosu jest ciekawość, ale także szukanie jakichkolwiek znaków życia na planetach, natomiast w tekście Marty Trepczyńskiej głównym impulsem do odkrywania kosmosu jest znalezienie warunków do życia na innych planetach.",
+    "answer_explanation": "Odpowiedź powinna zawierać odniesienia do obu tekstów i wyjaśniać różnice w motywacjach.",
+    "page_number": 6
+  },
+  {
+    "question_number": "3",
+    "question_text": "Wyjaśnij, dlaczego zgodnie z tekstem Carla Sagana nie możemy po prostu spakować się i wyruszyć na Marsa. Czy o takim samym ograniczeniu w eksplorowaniu kosmosu jest mowa w tekście Marty Trepczyńskiej? Uzasadnij odpowiedź.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "Według Carla Sagana nie możemy podróżować w kosmos, ponieważ ograniczają nas koszty. Trepczyńska nie mówi o takim samym ograniczeniu, bo wskazuje, że przeszkodą są warunki panujące w kosmosie.",
+    "answer_explanation": "Odpowiedź powinna zawierać odniesienia do obu tekstów i wyjaśniać różnice w ograniczeniach.",
+    "page_number": 6
+  },
+  {
+    "question_number": "4",
+    "question_text": "Oceń prawdziwość podanych stwierdzeń odnoszących się do tekstu Carla Sagana albo do tekstu Marty Trepczyńskiej. Zaznacz P, jeśli stwierdzenie jest prawdziwe, albo F – jeśli jest fałszywe.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "P, F",
+    "answer_explanation": "Odpowiedzi powinny być ocenione na podstawie treści tekstów.",
+    "page_number": 7
+  },
+  {
+    "question_number": "5",
+    "question_text": "Na podstawie obu tekstów napisz notatkę syntetyzującą na temat: odkrywanie kosmosu jako potrzeba człowieka. Twoja wypowiedź powinna liczyć 60–90 wyrazów.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "W obydwu tekstach wyrażono przekonanie, że odkrywanie kosmosu jest ważną potrzebą człowieka związaną z poszukiwaniem wiedzy o warunkach w nim panujących. Carl Sagan sądzi, że ta potrzeba wynika z naturalnej ciekawości ludzkiej. Natomiast Trepczyńska akcentuje konieczność poszukiwania planety, na której rodzaj ludzki byłby w stanie przeżyć.",
+    "answer_explanation": "Odpowiedź powinna zawierać kluczowe informacje z obu tekstów oraz być spójna i zorganizowana.",
+    "page_number": 8
+  },
+  {
+    "question_number": "6",
+    "question_text": "Do których postaci mitologicznych nawiązują przytoczone fragmenty wierszy? Każdemu z fragmentów wierszy A–B przyporządkuj po jednej postaci mitologicznej wybranej spośród 1–4.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A1, B4",
+    "answer_explanation": "Odpowiedzi powinny być poprawnie przyporządkowane do postaci mitologicznych.",
+    "page_number": 9
+  },
+  {
+    "question_number": "7.1",
+    "question_text": "Wyjaśnij, czym się różni postawa życiowa zalecana w przytoczonym fragmencie Rozmowy Mistrza Polikarpa ze Śmiercią od postawy życiowej zalecanej w przytoczonym fragmencie wiersza Wiosna Jana Andrzeja Morsztyna. W odpowiedzi odwołaj się do każdego z tekstów.",
+    "question_type": "extended",
+    "max_points": 1,
+    "correct_answer": "Postawa w Rozmowie Mistrza Polikarpa ze Śmiercią akcentuje refleksję nad życiem i śmiercią, podczas gdy w Wiośnie Morsztyna zaleca się korzystanie z życia i chwytanie chwil.",
+    "answer_explanation": "Odpowiedź powinna zawierać odniesienia do obu tekstów i wyjaśniać różnice w postawach życiowych.",
+    "page_number": 10
+  },
+  {
+    "question_number": "7.2",
+    "question_text": "Podaj nazwę epoki, w której powstała Rozmowa Mistrza Polikarpa ze Śmiercią, a następnie wykaż zgodność postawy zalecanej w przytoczonym fragmencie tego utworu ze światopoglądem rozpoznanej epoki.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Renesans",
+    "answer_explanation": "Odpowiedź powinna zawierać nazwę epoki oraz odniesienie do jej światopoglądu.",
+    "page_number": 10
+  }
+]

@@ -42,7 +42,9 @@ def parse_exam_with_ai(exam_pages: list, answer_pages: list, exam_name: str) -> 
         f"{p['page_number']}\n{p['text']}" for p in answer_pages[:10]
     ])
     
-    prompt = f"""You are an expert at parsing Polish exam documents. I need you to extract questions and answers from a Polish matura exam.
+    prompt = f"""You are an expert at parsing Polish matura exam documents. 
+    
+OBJECTIVE: Extract questions, answers, AND their associated reading passages (context).
 
 EXAM TEXT (first 10 pages):
 {exam_text}
@@ -50,34 +52,45 @@ EXAM TEXT (first 10 pages):
 ANSWER KEY TEXT (first 10 pages):
 {answer_text}
 
-Please extract ALL questions from the exam and match them with their correct answers. For each question, provide:
+INSTRUCTIONS:
+1. Extract ALL questions from the exam.
+2. Match them with their correct answers.
+3. **CRITICAL**: Extract the READING PASSAGE (context) for each question.
 
+CONTEXT EXTRACTION RULES:
+- **Explicit Context**: Look for texts labeled "Tekst 1", "Tekst 2", etc.
+- **Implicit Context**: If a text is not labeled but clearly precedes a group of questions (e.g. "Przeczytaj poniższy tekst..."), that is the context.
+- **Stateful Context**: Questions often don't repeat the text. If Question 2 follows Question 1, and Question 1 had "Tekst 1" as context, Question 2 likely has the SAME context unless a NEW text is introduced.
+- **Reset**: Only reset the context when a NEW text, distinct section header, or "Tekst X" appears.
+- **Output**: The `context_text` field should contain the FULL TEXT of the passage, or a description if it's an image/chart.
+
+For each question, provide:
 1. question_number: The task number (e.g., "1", "2.1", "3")
-2. question_text: The full question text in Polish
-3. question_type: One of: "multiple_choice", "short_answer", "extended"
-4. max_points: Maximum points for this question (look for patterns like "0-1", "0-2", "0-4")
-5. correct_answer: The correct answer from the answer key
-6. answer_explanation: Any explanation provided in the answer key (if available)
-7. page_number: The page number where the question appears
+2. question_text: The full question text
+3. question_type: "multiple_choice", "short_answer", "extended"
+4. max_points: Maximum points
+5. correct_answer: From answer key
+6. answer_explanation: From answer key (if any)
+7. page_number: Page number
+8. context_text: The full reading passage/text associated with this question.
 
-Return your response as a JSON array of question objects. Example format:
-
+Return JSON array:
 [
   {{
     "question_number": "1",
-    "question_text": "Które z podanych zdań...",
+    "question_text": "...",
     "question_type": "multiple_choice",
     "max_points": 1,
     "correct_answer": "B",
-    "answer_explanation": "Odpowiedź B jest poprawna ponieważ...",
-    "page_number": 4
+    "answer_explanation": "...",
+    "page_number": 4,
+    "context_text": "FULL TEXT OF THE READING PASSAGE HERE..."
   }}
 ]
 
 Important:
-- Extract ALL questions you can find
-- Focus on questions from pages 4 onwards (skip instructions)
-- Return ONLY the JSON array"""
+- Focus on questions from pages 4 onwards.
+- Return ONLY the JSON array."""
 
     print(f"\n🤖 Sending to OpenAI (GPT-4o-mini) for parsing: {exam_name}")
     print(f"   Exam pages: {len(exam_pages)}, Answer pages: {len(answer_pages)}")
@@ -181,6 +194,40 @@ def main():
         save_json(questions, f"data/{exam['name']}_questions.json")
         print(f"   Saved structured questions to data/{exam['name']}_questions.json")
         
+        # --- HUMAN REVIEW STEP ---
+        print(f"\n👀 HUMAN REVIEW: {exam['name']}")
+        print("="*40)
+        
+        # Group by context to show summary
+        contexts = {}
+        no_context_count = 0
+        for q in questions:
+            ctx = q.get('context_text')
+            q_num = q.get('question_number')
+            if ctx:
+                ctx_hash = hash(ctx) # simple grouping
+                if ctx_hash not in contexts:
+                    contexts[ctx_hash] = {'text': ctx, 'questions': []}
+                contexts[ctx_hash]['questions'].append(q_num)
+            else:
+                no_context_count += 1
+        
+        print(f"Found {len(contexts)} unique contexts.")
+        print(f"Questions without context: {no_context_count}")
+        
+        for i, (h, data) in enumerate(contexts.items(), 1):
+            text_preview = data['text'][:100].replace('\n', ' ') + "..."
+            q_list = ", ".join(data['questions'])
+            print(f"\nContext {i} (Questions: {q_list}):")
+            print(f"  \"{text_preview}\"")
+        
+        print("="*40)
+        user_input = input("\n💾 Proceed to save to database? [y/N]: ").lower().strip()
+        
+        if user_input != 'y':
+            print("❌ Skipping database insertion (JSON saved).")
+            continue
+            
         # Add to database
         print(f"\n💾 Adding questions to database...")
         for q in tqdm(questions, desc="Saving"):
@@ -194,7 +241,8 @@ def main():
                 max_points=q.get('max_points', 0),
                 correct_answer=q.get('correct_answer'),
                 answer_explanation=q.get('answer_explanation'),
-                page_number=q.get('page_number', 0)
+                page_number=q.get('page_number', 0),
+                context_text=q.get('context_text')
             )
             db.add_question(question)
         

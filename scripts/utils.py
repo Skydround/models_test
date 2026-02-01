@@ -21,6 +21,7 @@ class Question:
     correct_answer: Optional[str]
     answer_explanation: Optional[str]
     page_number: int
+    context_text: Optional[str] = None  # Text passage the question refers to
     
     def to_dict(self):
         return asdict(self)
@@ -50,6 +51,7 @@ class QuestionDatabase:
                 correct_answer TEXT,
                 answer_explanation TEXT,
                 page_number INTEGER,
+                context_text TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
@@ -88,8 +90,8 @@ class QuestionDatabase:
         cursor.execute("""
             INSERT INTO questions 
             (exam_name, question_number, question_text, question_type, 
-             max_points, correct_answer, answer_explanation, page_number)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+             max_points, correct_answer, answer_explanation, page_number, context_text)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             question.exam_name,
             question.question_number,
@@ -98,7 +100,8 @@ class QuestionDatabase:
             question.max_points,
             question.correct_answer,
             question.answer_explanation,
-            question.page_number
+            question.page_number,
+            question.context_text
         ))
         self.conn.commit()
         return cursor.lastrowid

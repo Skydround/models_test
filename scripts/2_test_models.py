@@ -75,7 +75,44 @@ MODELS = [
 ]
 
 
-def ask_model(model_config: dict, question_text: str) -> dict:
+def normalize_optional_text(value: str | None) -> str | None:
+    """Convert placeholder strings to missing values."""
+    if value is None:
+        return None
+    normalized = str(value).strip()
+    if not normalized or normalized.lower() in {'null', 'none', 'brak'}:
+        return None
+    return normalized
+
+
+def build_question_prompt(question: dict) -> str:
+    """Build a subject-aware prompt for a single exam task."""
+    context_text = normalize_optional_text(question.get('context_text'))
+    prompt_parts = [
+        "Odpowiedz na następujące pytanie z egzaminu maturalnego.",
+        "Odpowiedz zwięźle, precyzyjnie i tylko na podstawie podanego polecenia oraz kontekstu.",
+        f"Egzamin: {question.get('exam_name', 'nieznany')}",
+        f"Typ zadania: {question.get('question_type', 'unknown')}",
+        f"Maksymalna liczba punktów: {question.get('max_points', 'nieznana')}",
+    ]
+
+    if context_text:
+        prompt_parts.extend([
+            "",
+            "Kontekst zadania:",
+            context_text,
+        ])
+
+    prompt_parts.extend([
+        "",
+        "Pytanie:",
+        question['question_text'],
+    ])
+
+    return "\n".join(prompt_parts)
+
+
+def ask_model(model_config: dict, question: dict) -> dict:
     """Ask any model a question via OpenRouter"""
     start_time = time.time()
     
@@ -83,7 +120,7 @@ def ask_model(model_config: dict, question_text: str) -> dict:
         model=model_config['model_id'],
         messages=[{
             "role": "user",
-            "content": f"Odpowiedz na następujące pytanie z egzaminu maturalnego. Odpowiedz zwięźle i precyzyjnie.\n\nPytanie:\n{question_text}"
+            "content": build_question_prompt(question)
         }],
         temperature=0,
         max_tokens=2000
@@ -111,7 +148,7 @@ def test_model_on_question(model_config: dict, question: dict) -> dict:
     """Test a single model on a single question"""
     
     try:
-        return ask_model(model_config, question['question_text'])
+        return ask_model(model_config, question)
     
     except Exception as e:
         print(f"\n❌ Error with {model_config['name']}: {e}")
@@ -155,34 +192,44 @@ def main():
         print(f"   - {model['name']} ({model['model_id']})")
     
     # Test each model on each question
-    total_tests = len(questions) * len(available_models)
+    pending_tests = []
+    for question in questions:
+        for model in available_models:
+            if not db.response_exists(question['id'], model['name']):
+                pending_tests.append((question, model))
+
+    total_tests = len(pending_tests)
     total_cost = 0
     
     print(f"\n📊 Total tests to run: {total_tests}")
     print(f"   ({len(questions)} questions × {len(available_models)} models)")
+
+    if not pending_tests:
+        print("\n✅ All question/model pairs already have saved responses")
+        db.close()
+        return
     
     with tqdm(total=total_tests, desc="Testing") as pbar:
-        for question in questions:
-            for model in available_models:
-                pbar.set_description(f"{model['name']} Q{question['question_number']}")
-                
-                result = test_model_on_question(model, question)
-                
-                # Save to database
-                db.add_response(
-                    question_id=question['id'],
-                    model_name=model['name'],
-                    response=result['response'],
-                    latency_ms=result['latency_ms'],
-                    tokens_used=result['tokens_used'],
-                    cost_usd=result['cost_usd']
-                )
-                
-                total_cost += result['cost_usd']
-                pbar.update(1)
-                
-                # Small delay to avoid rate limits
-                time.sleep(0.5)
+        for question, model in pending_tests:
+            pbar.set_description(f"{model['name']} Q{question['question_number']}")
+
+            result = test_model_on_question(model, question)
+
+            # Save to database
+            db.add_response(
+                question_id=question['id'],
+                model_name=model['name'],
+                response=result['response'],
+                latency_ms=result['latency_ms'],
+                tokens_used=result['tokens_used'],
+                cost_usd=result['cost_usd']
+            )
+
+            total_cost += result['cost_usd']
+            pbar.update(1)
+
+            # Small delay to avoid rate limits
+            time.sleep(0.5)
     
     # Summary
     print(f"\n{'='*70}")

@@ -39,6 +39,7 @@ class QuestionDatabase:
         """Initialize database with schema"""
         self.conn = sqlite3.connect(self.db_path)
         cursor = self.conn.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
         
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS questions (
@@ -109,9 +110,53 @@ class QuestionDatabase:
     def get_all_questions(self) -> List[Dict]:
         """Get all questions from database"""
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM questions")
+        cursor.execute("SELECT * FROM questions ORDER BY exam_name, page_number, question_number")
         columns = [desc[0] for desc in cursor.description]
         return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    def clear_exam_data(self, exam_name: str):
+        """Remove questions, responses, and evaluations for a single exam."""
+        cursor = self.conn.cursor()
+
+        cursor.execute(
+            """
+            DELETE FROM evaluations
+            WHERE response_id IN (
+                SELECT mr.id
+                FROM model_responses mr
+                JOIN questions q ON q.id = mr.question_id
+                WHERE q.exam_name = ?
+            )
+            """,
+            (exam_name,),
+        )
+
+        cursor.execute(
+            """
+            DELETE FROM model_responses
+            WHERE question_id IN (
+                SELECT id FROM questions WHERE exam_name = ?
+            )
+            """,
+            (exam_name,),
+        )
+
+        cursor.execute("DELETE FROM questions WHERE exam_name = ?", (exam_name,))
+        self.conn.commit()
+
+    def response_exists(self, question_id: int, model_name: str) -> bool:
+        """Check whether a model response already exists for a question."""
+        cursor = self.conn.cursor()
+        cursor.execute(
+            """
+            SELECT 1
+            FROM model_responses
+            WHERE question_id = ? AND model_name = ?
+            LIMIT 1
+            """,
+            (question_id, model_name),
+        )
+        return cursor.fetchone() is not None
     
     def add_response(self, question_id: int, model_name: str, response: str,
                      latency_ms: int, tokens_used: int, cost_usd: float) -> int:

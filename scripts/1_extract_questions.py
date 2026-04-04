@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Step 1: Extract questions and answers from exam PDFs using AI
+Step 1: Extract questions and answers from exam PDFs using AI.
 
 This script:
 1. Extracts raw text from exam and answer PDFs
-2. Uses Claude to parse and structure the Q&A pairs
+2. Uses an OpenRouter model to parse and structure the Q&A pairs
 3. Stores everything in SQLite database
 """
 
 import os
+import re
 import sys
 from pathlib import Path
 from dotenv import load_dotenv
@@ -33,78 +34,307 @@ client = OpenAI(
     }
 )
 
+EXTRACTION_MODEL = os.getenv('OPENROUTER_EXTRACTION_MODEL', 'openai/gpt-4o-mini')
+EXAM_START_PAGE = int(os.getenv('EXAM_START_PAGE', '4'))
+EXAM_BATCH_SIZE = int(os.getenv('EXAM_BATCH_SIZE', '4'))
+EXAM_BATCH_OVERLAP = min(int(os.getenv('EXAM_BATCH_OVERLAP', '1')), EXAM_BATCH_SIZE - 1)
+MAX_CONTEXT_CHARS = int(os.getenv('MAX_CONTEXT_CHARS', '1200'))
 
-def parse_exam_with_ai(exam_pages: list, answer_pages: list, exam_name: str) -> list:
-    """
-    Use OpenAI (GPT-4o-mini) to parse exam and answer PDFs into structured Q&A pairs
-    """
-    
-    # Combine first few pages of exam for context
-    exam_text = "\n\n=== PAGE {} ===\n\n".join([
-        f"{p['page_number']}\n{p['text']}" for p in exam_pages[:10]
-    ])
-    
-    # Combine answer key pages
-    answer_text = "\n\n=== PAGE {} ===\n\n".join([
-        f"{p['page_number']}\n{p['text']}" for p in answer_pages[:10]
-    ])
-    
-    prompt = f"""You are an expert at parsing Polish matura exam documents. 
-    
-OBJECTIVE: Extract questions, answers, AND their associated reading passages (context).
 
-EXAM TEXT (first 10 pages):
+def format_pages(pages: list) -> str:
+    """Render pages into a prompt-friendly string."""
+    return "\n\n".join(
+        [f"=== PAGE {page['page_number']} ===\n{page['text']}" for page in pages]
+    )
+
+
+def build_page_batches(exam_pages: list) -> list:
+    """Split exam pages into overlapping batches starting from the question pages."""
+    relevant_pages = [page for page in exam_pages if page['page_number'] >= EXAM_START_PAGE]
+    if not relevant_pages:
+        return []
+
+    batches = []
+    start = 0
+    while start < len(relevant_pages):
+        end = min(start + EXAM_BATCH_SIZE, len(relevant_pages))
+        batches.append(relevant_pages[start:end])
+        if end >= len(relevant_pages):
+            break
+        start = max(end - EXAM_BATCH_OVERLAP, start + 1)
+    return batches
+
+
+def parse_int_field(value, default: int = 0) -> int:
+    """Parse integer-like values returned by the model."""
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    digits = re.findall(r"\d+", str(value or ""))
+    if not digits:
+        return default
+    return max(int(part) for part in digits)
+
+
+def truncate_context(context_text: str | None) -> str | None:
+    """Keep context compact enough for downstream prompts and reports."""
+    if not context_text:
+        return None
+    normalized = context_text.strip()
+    if normalized.lower() in {'null', 'none', 'brak'}:
+        return None
+    if len(normalized) <= MAX_CONTEXT_CHARS:
+        return normalized
+    return normalized[:MAX_CONTEXT_CHARS].rstrip() + "..."
+
+
+def normalize_question(raw_question: dict) -> dict | None:
+    """Normalize model output into the expected question schema."""
+    question_number = str(raw_question.get('question_number', '')).strip()
+    question_text = str(raw_question.get('question_text', '')).strip()
+    if not question_number or not question_text:
+        return None
+
+    return {
+        'question_number': question_number,
+        'question_text': question_text,
+        'question_type': str(raw_question.get('question_type', 'unknown')).strip() or 'unknown',
+        'max_points': parse_int_field(raw_question.get('max_points'), 0),
+        'correct_answer': raw_question.get('correct_answer'),
+        'answer_explanation': raw_question.get('answer_explanation'),
+        'page_number': parse_int_field(raw_question.get('page_number'), 0),
+        'context_text': truncate_context(raw_question.get('context_text')),
+    }
+
+
+def normalize_text_for_compare(value: str | None) -> str:
+    """Normalize text for rough semantic equality checks."""
+    if not value:
+        return ''
+    collapsed = re.sub(r'\s+', ' ', str(value)).strip().lower()
+    return re.sub(r'[^\wąćęłńóśźż]+', '', collapsed)
+
+
+def question_marker_patterns(question_number: str) -> list[str]:
+    """Return likely textual markers for a question number inside raw page text."""
+    escaped = re.escape(question_number)
+    return [
+        rf"{escaped}\.\s*Zadanie\s+{escaped}\.",
+        rf"Zadanie\s+{escaped}\.",
+        rf"(?:^|\n){escaped}\.\s",
+        rf"(?:^|\n){escaped}\.\n",
+    ]
+
+
+def find_question_block(page_text: str, question_number: str, next_question_number: str | None) -> str | None:
+    """Extract the raw text block for one question from a page."""
+    start_match = None
+    for pattern in question_marker_patterns(question_number):
+        start_match = re.search(pattern, page_text, flags=re.IGNORECASE)
+        if start_match:
+            break
+
+    if not start_match:
+        return None
+
+    start_index = start_match.start()
+    end_index = len(page_text)
+
+    if next_question_number:
+        for pattern in question_marker_patterns(next_question_number):
+            next_match = re.search(pattern, page_text[start_match.end():], flags=re.IGNORECASE)
+            if next_match:
+                end_index = start_match.end() + next_match.start()
+                break
+
+    block = page_text[start_index:end_index].strip()
+    return block or None
+
+
+def clean_question_block(block: str | None) -> str | None:
+    """Remove obvious answer lines while keeping meaningful task details."""
+    if not block:
+        return None
+
+    lines = []
+    for line in block.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith('Strona '):
+            continue
+        if stripped.startswith('MPOP-'):
+            continue
+        if set(stripped) <= {'.', '_'}:
+            continue
+        lines.append(stripped)
+
+    cleaned = '\n'.join(lines).strip()
+    return cleaned or None
+
+
+def block_has_useful_details(block: str | None, question_text: str) -> bool:
+    """Detect whether a page block contains extra task detail beyond the stem."""
+    if not block:
+        return False
+
+    block_norm = normalize_text_for_compare(block)
+    question_norm = normalize_text_for_compare(question_text)
+    if not block_norm or block_norm == question_norm:
+        return False
+
+    detail_signals = [
+        '\nA.',
+        '\nB.',
+        '\nC.',
+        '\nD.',
+        'P F',
+        'Fragment',
+        'Postać',
+        'Tekst 1',
+        'Tekst 2',
+        'Nazwa środka retorycznego',
+        'Rycerz',
+    ]
+    return any(signal in block for signal in detail_signals)
+
+
+def enrich_questions_with_page_blocks(questions: list[dict], exam_pages: list) -> list[dict]:
+    """Inject page-local task details that the model may have omitted."""
+    page_lookup = {page['page_number']: page['text'] for page in exam_pages}
+    questions_by_page: dict[int, list[dict]] = {}
+    for question in questions:
+        questions_by_page.setdefault(question['page_number'], []).append(question)
+
+    for page_number, page_questions in questions_by_page.items():
+        page_questions.sort(key=question_sort_key)
+        page_text = page_lookup.get(page_number, '')
+        for index, question in enumerate(page_questions):
+            next_question_number = None
+            if index + 1 < len(page_questions):
+                next_question_number = page_questions[index + 1]['question_number']
+
+            block = clean_question_block(
+                find_question_block(page_text, question['question_number'], next_question_number)
+            )
+            if not block:
+                continue
+
+            current_context = question.get('context_text')
+            current_context_norm = normalize_text_for_compare(current_context)
+            question_text_norm = normalize_text_for_compare(question['question_text'])
+
+            if current_context_norm == question_text_norm:
+                question['context_text'] = None
+
+            if block_has_useful_details(block, question['question_text']):
+                question['context_text'] = truncate_context(block)
+
+                if question['question_type'] == 'multiple_choice' and block not in question['question_text']:
+                    question['question_text'] = block
+
+    return questions
+
+
+def merge_question(existing: dict | None, candidate: dict) -> dict:
+    """Merge duplicate question records gathered from overlapping batches."""
+    if existing is None:
+        return candidate
+
+    merged = dict(existing)
+    for field in ['question_text', 'correct_answer', 'answer_explanation', 'context_text']:
+        current_value = merged.get(field) or ''
+        candidate_value = candidate.get(field) or ''
+        if len(candidate_value) > len(current_value):
+            merged[field] = candidate.get(field)
+
+    if merged.get('question_type') in ('', 'unknown') and candidate.get('question_type'):
+        merged['question_type'] = candidate['question_type']
+
+    if candidate.get('max_points', 0) > merged.get('max_points', 0):
+        merged['max_points'] = candidate['max_points']
+
+    if merged.get('page_number', 0) == 0 and candidate.get('page_number', 0):
+        merged['page_number'] = candidate['page_number']
+
+    return merged
+
+
+def question_sort_key(question: dict):
+    """Sort question numbers naturally, e.g. 7.2 after 7.1."""
+    parts = re.findall(r"\d+|\D+", question['question_number'])
+    key = []
+    for part in parts:
+        key.append(int(part) if part.isdigit() else part.lower())
+    return key
+
+
+def parse_exam_batch_with_ai(exam_batch: list, answer_pages: list, exam_name: str, batch_index: int, batch_count: int) -> tuple[list, float]:
+    """
+    Parse one batch of exam pages into structured Q&A pairs.
+    """
+    exam_text = format_pages(exam_batch)
+    answer_text = format_pages(answer_pages)
+    batch_pages = ", ".join(str(page['page_number']) for page in exam_batch)
+
+    prompt = f"""You are an expert at parsing Polish matura exam documents across subjects.
+
+OBJECTIVE: Extract only the questions that appear on the provided exam pages, then match them to the answer key.
+
+EXAM NAME:
+{exam_name}
+
+CURRENT EXAM PAGES:
+{batch_pages}
+
+EXAM TEXT:
 {exam_text}
 
-ANSWER KEY TEXT (first 10 pages):
+FULL ANSWER KEY TEXT:
 {answer_text}
 
 INSTRUCTIONS:
-1. Extract ALL questions from the exam.
-2. Match them with their correct answers.
-3. **CRITICAL**: Extract the READING PASSAGE (context) for each question.
+1. Extract every question that appears on the CURRENT EXAM PAGES only.
+2. Do not include questions from other pages.
+3. Match each extracted question with its correct answer and explanation from the answer key.
+4. Preserve the original task numbering, e.g. 6, 7.1, 10.2.
+5. Infer question_type as one of: multiple_choice, short_answer, extended.
 
-CONTEXT EXTRACTION RULES:
-- **Explicit Context**: Look for texts labeled "Tekst 1", "Tekst 2", etc.
-- **Implicit Context**: If a text is not labeled but clearly precedes a group of questions (e.g. "Przeczytaj poniższy tekst..."), that is the context.
-- **Stateful Context**: Questions often don't repeat the text. If Question 2 follows Question 1, and Question 1 had "Tekst 1" as context, Question 2 likely has the SAME context unless a NEW text is introduced.
-- **Reset**: Only reset the context when a NEW text, distinct section header, or "Tekst X" appears.
-- **Output**: The `context_text` field should contain the FULL TEXT of the passage, or a description if it's an image/chart.
+CONTEXT RULES:
+- If a question refers to a reading passage, chart, table, diagram, or source text, include only the relevant passage or a concise excerpt.
+- Keep context_text under {MAX_CONTEXT_CHARS} characters.
+- If the wording says "na podstawie tekstu", "w przytoczonym fragmencie", "odwołaj się do obu tekstów", or otherwise depends on a source shown on the same or previous pages in the batch, context_text must contain that source excerpt.
+- Propagate the same source context to later questions until a new source text or fragment appears.
+- Use null only for truly standalone questions that do not depend on any external source.
 
-For each question, provide:
-1. question_number: The task number (e.g., "1", "2.1", "3")
-2. question_text: The full question text
-3. question_type: "multiple_choice", "short_answer", "extended"
-4. max_points: Maximum points
-5. correct_answer: From answer key
-6. answer_explanation: From answer key (if any)
-7. page_number: Page number
-8. context_text: The full reading passage/text associated with this question.
+OUTPUT FORMAT:
+Return a JSON object with a single key named questions.
 
-Return JSON array:
-[
-  {{
-    "question_number": "1",
-    "question_text": "...",
-    "question_type": "multiple_choice",
-    "max_points": 1,
-    "correct_answer": "B",
-    "answer_explanation": "...",
-    "page_number": 4,
-    "context_text": "FULL TEXT OF THE READING PASSAGE HERE..."
-  }}
-]
+Example:
+{{
+  "questions": [
+    {{
+      "question_number": "1",
+      "question_text": "...",
+      "question_type": "short_answer",
+      "max_points": 2,
+      "correct_answer": "...",
+      "answer_explanation": "...",
+      "page_number": 6,
+      "context_text": "..."
+    }}
+  ]
+}}
 
-Important:
-- Focus on questions from pages 4 onwards.
-- Return ONLY the JSON array."""
+Return only valid JSON."""
 
-    print(f"\n🤖 Sending to OpenAI (GPT-4o-mini) for parsing: {exam_name}")
-    print(f"   Exam pages: {len(exam_pages)}, Answer pages: {len(answer_pages)}")
+    print(f"\n🤖 Parsing batch {batch_index}/{batch_count} for {exam_name}")
+    print(f"   Exam pages: {batch_pages}")
     
     try:
         response = client.chat.completions.create(
-            model="openai/gpt-4o-mini",
+            model=EXTRACTION_MODEL,
             messages=[{
                 "role": "user", 
                 "content": prompt
@@ -118,13 +348,14 @@ Important:
         
         # Parse JSON
         data = json.loads(response_text)
-        # Handle if wrapped in a key like "questions" or just a list
-        if isinstance(data, dict):
-            questions = data.get('questions', list(data.values())[0])
-        else:
-            questions = data
+        questions = data.get('questions', []) if isinstance(data, dict) else []
+        normalized_questions = []
+        for raw_question in questions:
+            normalized = normalize_question(raw_question)
+            if normalized is not None:
+                normalized_questions.append(normalized)
             
-        print(f"✅ Extracted {len(questions)} questions")
+        print(f"✅ Extracted {len(normalized_questions)} questions from batch")
         
         # Calculate cost (approximate)
         input_tokens = response.usage.prompt_tokens
@@ -132,20 +363,20 @@ Important:
         cost = (input_tokens * 0.15 + output_tokens * 0.60) / 1_000_000
         print(f"   Cost: ${cost:.4f} ({input_tokens} in + {output_tokens} out tokens)")
         
-        return questions
+        return normalized_questions, cost
         
     except Exception as e:
         print(f"❌ Error parsing with AI: {e}")
         import traceback
         traceback.print_exc()
-        return []
+        return [], 0.0
 
 
 def main():
     """Main extraction workflow"""
     
     print("="*70)
-    print("STEP 1: EXTRACT QUESTIONS FROM PDFs (OpenAI Mode)")
+    print("STEP 1: EXTRACT QUESTIONS FROM PDFs")
     print("="*70)
     
     # Check for API key
@@ -158,7 +389,9 @@ def main():
     db = QuestionDatabase()
     print("\n✅ Database initialized")
     
-    # Define exams to process - ONLY POLSKI
+    auto_approve = os.getenv('AUTO_APPROVE_EXTRACT', '0') == '1' or not sys.stdin.isatty()
+
+    # Define exams to process
     exams = [
         {
             'name': 'polski_2025',
@@ -191,8 +424,29 @@ def main():
         }, f"data/{exam['name']}_raw.json")
         print(f"   Saved raw text to data/{exam['name']}_raw.json")
         
-        # Parse with AI
-        questions = parse_exam_with_ai(exam_pages, answer_pages, exam['name'])
+        # Parse with AI in batches to cover the full exam
+        batches = build_page_batches(exam_pages)
+        print(f"\n🧩 Parsing {len(batches)} batch(es) starting from page {EXAM_START_PAGE}")
+
+        merged_questions = {}
+        total_cost = 0.0
+        for batch_index, batch in enumerate(batches, start=1):
+            batch_questions, batch_cost = parse_exam_batch_with_ai(
+                batch,
+                answer_pages,
+                exam['name'],
+                batch_index,
+                len(batches),
+            )
+            total_cost += batch_cost
+            for question in batch_questions:
+                number = question['question_number']
+                merged_questions[number] = merge_question(merged_questions.get(number), question)
+
+        questions = sorted(merged_questions.values(), key=question_sort_key)
+        questions = enrich_questions_with_page_blocks(questions, exam_pages)
+        print(f"\n✅ Total unique questions extracted: {len(questions)}")
+        print(f"   Total extraction cost: ${total_cost:.4f}")
         
         if not questions:
             print(f"⚠️  No questions extracted for {exam['name']}")
@@ -230,12 +484,19 @@ def main():
             print(f"  \"{text_preview}\"")
         
         print("="*40)
-        user_input = input("\n💾 Proceed to save to database? [y/N]: ").lower().strip()
+        if auto_approve:
+            user_input = 'y'
+            print("\n💾 Non-interactive mode detected, proceeding automatically.")
+        else:
+            user_input = input("\n💾 Proceed to save to database? [y/N]: ").lower().strip()
         
         if user_input != 'y':
             print("❌ Skipping database insertion (JSON saved).")
             continue
             
+        db.clear_exam_data(exam['name'])
+        print(f"🧹 Cleared existing database rows for {exam['name']}")
+
         # Add to database
         print(f"\n💾 Adding questions to database...")
         for q in tqdm(questions, desc="Saving"):

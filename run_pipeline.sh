@@ -30,7 +30,7 @@ fi
 
 echo "Step 1: Extracting questions from PDFs..."
 echo "=========================================="
-python scripts/1_extract_questions.py
+AUTO_APPROVE_EXTRACT=1 python scripts/1_extract_questions.py
 echo ""
 
 echo "Step 2: Testing models..."
@@ -45,4 +45,5 @@ echo ""
 
 echo "✅ Pipeline complete!"
 echo ""
-echo "📊 Check results/comparison.xlsx for the full comparison"
+echo "📊 Check results/comparison.xlsx for the spreadsheet comparison"
+echo "🌐 Check results/comparison.html for the readable report"

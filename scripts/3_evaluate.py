@@ -14,12 +14,13 @@ import html
 from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
+from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 import pandas as pd
 from tqdm import tqdm
 import json
 
 sys.path.append(str(Path(__file__).parent))
-from utils import QuestionDatabase
+from utils import QuestionDatabase, excel_safe_sheet_name, exam_sort_key, parse_exam_name
 
 load_dotenv()
 
@@ -63,6 +64,18 @@ def normalize_evaluation_result(result: dict, max_points: int | None) -> dict:
     normalized['score'] = score
     normalized['is_correct'] = score >= 0.999
     return normalized
+
+
+def sanitize_excel_value(value):
+    """Remove characters that openpyxl cannot write into worksheet cells."""
+    if isinstance(value, str):
+        return ILLEGAL_CHARACTERS_RE.sub('', value)
+    return value
+
+
+def sanitize_excel_dataframe(df: pd.DataFrame) -> pd.DataFrame:
+    """Return a DataFrame copy with Excel-safe cell values."""
+    return df.map(sanitize_excel_value)
 
 
 def evaluate_response_with_llm(question: dict, response: str, correct_answer: str) -> dict:
@@ -189,6 +202,10 @@ def generate_excel_report(db: QuestionDatabase, output_path: str):
     if df.empty:
         print("❌ No data to export")
         return
+
+    exam_metadata = df['exam_name'].apply(parse_exam_name).apply(pd.Series)
+    df = pd.concat([df, exam_metadata], axis=1)
+    df.rename(columns={'name': 'exam_code'}, inplace=True)
     
     # Create pivot table for easier comparison
     pivot_data = []
@@ -198,6 +215,10 @@ def generate_excel_report(db: QuestionDatabase, output_path: str):
         
         row = {
             'Exam': q_data.iloc[0]['exam_name'],
+            'Exam Label': q_data.iloc[0]['session_label'],
+            'Subject': q_data.iloc[0]['subject_label'],
+            'Year': q_data.iloc[0]['year'],
+            'Level': q_data.iloc[0]['level'],
             'Question #': q_data.iloc[0]['question_number'],
             'Question': q_data.iloc[0]['question_text'][:100] + '...',  # Truncate
             'Type': q_data.iloc[0]['question_type'],
@@ -218,11 +239,12 @@ def generate_excel_report(db: QuestionDatabase, output_path: str):
         pivot_data.append(row)
     
     pivot_df = pd.DataFrame(pivot_data)
+    pivot_df_excel = sanitize_excel_dataframe(pivot_df)
     
     # Create Excel file with multiple sheets
     with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
         # Sheet 1: Full comparison
-        pivot_df.to_excel(writer, sheet_name='Comparison', index=False)
+        pivot_df_excel.to_excel(writer, sheet_name='Comparison', index=False)
         
         # Sheet 2: Summary statistics
         summary_data = []
@@ -239,11 +261,40 @@ def generate_excel_report(db: QuestionDatabase, output_path: str):
                 'Cost per Question': f"${model_data['cost_usd'].mean():.4f}"
             })
         
-        summary_df = pd.DataFrame(summary_data)
+        summary_df = sanitize_excel_dataframe(pd.DataFrame(summary_data))
         summary_df.to_excel(writer, sheet_name='Summary', index=False)
+
+        exam_summary_rows = []
+        for exam_name in sorted(df['exam_name'].dropna().unique(), key=exam_sort_key):
+            exam_data = df[df['exam_name'] == exam_name]
+            for model in exam_data['model_name'].dropna().unique():
+                model_data = exam_data[exam_data['model_name'] == model]
+                exam_summary_rows.append({
+                    'Exam': exam_name,
+                    'Exam Label': exam_data.iloc[0]['session_label'],
+                    'Subject': exam_data.iloc[0]['subject_label'],
+                    'Year': exam_data.iloc[0]['year'],
+                    'Level': exam_data.iloc[0]['level'],
+                    'Model': model,
+                    'Responses': len(model_data),
+                    'Accuracy': f"{model_data['is_correct'].mean() * 100:.1f}%",
+                    'Avg Score': f"{model_data['score'].mean():.2f}",
+                    'Total Cost (USD)': f"${model_data['cost_usd'].sum():.4f}",
+                })
+
+        exam_summary_df = sanitize_excel_dataframe(pd.DataFrame(exam_summary_rows))
+        exam_summary_df.to_excel(writer, sheet_name='By Exam', index=False)
+
+        for exam_name in sorted(df['exam_name'].dropna().unique(), key=exam_sort_key):
+            exam_pivot = pivot_df_excel[pivot_df_excel['Exam'] == exam_name]
+            exam_pivot.to_excel(
+                writer,
+                sheet_name=excel_safe_sheet_name(exam_name, fallback='Exam'),
+                index=False,
+            )
         
         # Sheet 3: Raw data
-        df.to_excel(writer, sheet_name='Raw Data', index=False)
+        sanitize_excel_dataframe(df).to_excel(writer, sheet_name='Raw Data', index=False)
     
     print(f"✅ Excel report saved to: {output_path}")
 
@@ -284,6 +335,10 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                 print("❌ No data to export to HTML")
                 return
 
+        exam_metadata = df['exam_name'].apply(parse_exam_name).apply(pd.Series)
+        df = pd.concat([df, exam_metadata], axis=1)
+        df.rename(columns={'name': 'exam_code'}, inplace=True)
+
         def as_text(value, fallback='Brak'):
             if pd.isna(value) or value is None:
                 return fallback
@@ -312,7 +367,26 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                         """
                 )
 
-        question_sections = []
+                exam_summary_rows = []
+                for exam_name in sorted(df['exam_name'].dropna().unique(), key=exam_sort_key):
+                    exam_data = df[df['exam_name'] == exam_name]
+                    for model in exam_data['model_name'].dropna().unique():
+                        model_data = exam_data[exam_data['model_name'] == model]
+                        accuracy = model_data['is_correct'].fillna(0).astype(float).mean() * 100
+                        avg_score = model_data['score'].fillna(0).mean()
+                        exam_summary_rows.append(
+                            f"""
+                            <tr>
+                                <td>{html.escape(exam_data.iloc[0]['session_label'])}</td>
+                                <td>{html.escape(model)}</td>
+                                <td>{len(model_data)}</td>
+                                <td>{accuracy:.1f}%</td>
+                                <td>{avg_score:.2f}</td>
+                            </tr>
+                            """
+                        )
+
+        question_sections_by_exam = {}
         for question_id in df['question_id'].unique():
                 q_data = df[df['question_id'] == question_id]
                 q_row = q_data.iloc[0]
@@ -360,17 +434,18 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                 context_block = ''
                 if context_value != 'Brak':
                         context_block = f"""
-                            <details class="context-block">
-                                <summary>Question context</summary>
+                            <div class="panel context-block">
+                                <div class="panel-title">Question context</div>
                                 <div class="panel-body">{as_html_block(q_row['context_text'])}</div>
-                            </details>
+                            </div>
                         """
 
-                question_sections.append(
+                question_sections_by_exam.setdefault(q_row['exam_name'], []).append(
                         f"""
                         <section class="question-card">
                             <div class="question-topline">
                                 <span class="exam-pill">{html.escape(as_text(q_row['exam_name']))}</span>
+                                <span class="session-pill">{html.escape(as_text(q_row['session_label']))}</span>
                                 <span class="question-pill">Question {html.escape(as_text(q_row['question_number']))}</span>
                                 <span class="type-pill">{html.escape(as_text(q_row['question_type']))}</span>
                                 <span class="points-pill">{html.escape(as_text(q_row['max_points']))} pts</span>
@@ -390,6 +465,37 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                             <div class="responses-grid">
                                 {''.join(response_cards)}
                             </div>
+                        </section>
+                        """
+                )
+
+        grouped_sections = []
+        subject_names = sorted(df['subject'].dropna().unique())
+        for subject in subject_names:
+                subject_rows = df[df['subject'] == subject]
+                subject_label = subject_rows.iloc[0]['subject_label']
+                exam_sections = []
+                for exam_name in sorted(subject_rows['exam_name'].dropna().unique(), key=exam_sort_key):
+                        exam_rows = subject_rows[subject_rows['exam_name'] == exam_name]
+                        exam_sections.append(
+                                f"""
+                                <section class="exam-section">
+                                    <div class="exam-header">
+                                        <h3>{html.escape(exam_rows.iloc[0]['session_label'])}</h3>
+                                        <div class="exam-code">{html.escape(exam_name)}</div>
+                                    </div>
+                                    {''.join(question_sections_by_exam.get(exam_name, []))}
+                                </section>
+                                """
+                        )
+
+                grouped_sections.append(
+                        f"""
+                        <section class="subject-section">
+                            <div class="subject-header">
+                                <h2>{html.escape(subject_label)}</h2>
+                            </div>
+                            {''.join(exam_sections)}
                         </section>
                         """
                 )
@@ -424,10 +530,18 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
         .summary-table {{ width: 100%; border-collapse: collapse; margin-top: 24px; background: var(--surface); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }}
         .summary-table th, .summary-table td {{ padding: 14px 16px; border-bottom: 1px solid #efe2d3; text-align: left; }}
         .summary-table th {{ background: var(--surface-strong); }}
+        .subject-section {{ margin-top: 36px; }}
+        .subject-header {{ margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid rgba(184, 92, 56, 0.2); }}
+        .subject-header h2 {{ margin: 0; font-size: clamp(1.5rem, 2vw, 2rem); }}
+        .exam-section {{ margin-top: 18px; }}
+        .exam-header {{ display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 8px; }}
+        .exam-header h3 {{ margin: 0; font-size: 1.15rem; }}
+        .exam-code {{ color: var(--muted); font-size: 0.95rem; font-family: 'Courier New', monospace; }}
         .question-card {{ margin-top: 28px; background: rgba(255, 253, 248, 0.88); border: 1px solid var(--border); border-radius: 28px; padding: 24px; box-shadow: var(--shadow); backdrop-filter: blur(4px); }}
         .question-topline {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }}
-        .exam-pill, .question-pill, .type-pill, .points-pill, .badge {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; }}
+        .exam-pill, .session-pill, .question-pill, .type-pill, .points-pill, .badge {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; }}
         .exam-pill {{ background: var(--accent); color: white; }}
+        .session-pill {{ background: #f5dfc6; color: #6d4c37; }}
         .question-pill {{ background: #f0e3d1; }}
         .type-pill {{ background: #ede7dc; color: #53473f; }}
         .points-pill {{ background: #f7ead8; color: #6d4c37; }}
@@ -447,8 +561,7 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
         .panel {{ background: #fffaf3; border: 1px solid #efe1cf; border-radius: 16px; padding: 14px; margin-top: 12px; }}
         .panel-title {{ font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }}
         .panel-body {{ line-height: 1.6; white-space: normal; word-break: break-word; }}
-        .context-block {{ margin-top: 10px; border-top: 1px solid #eadbc9; padding-top: 14px; }}
-        .context-block summary {{ cursor: pointer; font-weight: 600; color: #5b4638; }}
+        .context-block {{ margin-top: 10px; }}
         @media (max-width: 720px) {{
             .page {{ padding: 20px 14px 40px; }}
             .question-card, .hero {{ padding: 18px; border-radius: 22px; }}
@@ -479,7 +592,22 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
             </tbody>
         </table>
 
-        {''.join(question_sections)}
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>Exam</th>
+                    <th>Model</th>
+                    <th>Responses</th>
+                    <th>Accuracy</th>
+                    <th>Avg score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {''.join(exam_summary_rows)}
+            </tbody>
+        </table>
+
+        {''.join(grouped_sections)}
     </main>
 </body>
 </html>

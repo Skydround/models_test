@@ -1,0 +1,192 @@
+[
+  {
+    "question_number": "1",
+    "question_text": "Na podstawie tekstu Agnieszki Krzemińskiej rozstrzygnij, czy turystyka zmienia podróżującego człowieka. Uzasadnij odpowiedź.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Tak, turystyka zmienia podróżującego człowieka, ponieważ w czasie podróży człowiek wygląda i zachowuje się inaczej niż zazwyczaj.",
+    "answer_explanation": "W tekście mowa o tym, że zmiany wyglądu i zachowania podróżującego są czasowe, chwilowe – wyłącznie na czas podróży.",
+    "page_number": 6,
+    "context_text": "Tekst 1. Agnieszka Krzemińska Po co człowiekowi czasowa zmiana miejsca..."
+  },
+  {
+    "question_number": "2",
+    "question_text": "Na podstawie tekstu Olgi Stanisławskiej wyjaśnij, jaka korzyść i jakie ryzyko wynikają dla turysty z przekroczenia ścian „bańki turystycznej”.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Korzyść: Turysta zobaczy świat taki, jaki jest, a nie taki, jaki jest kreowany dla podróżnych. Ryzyko: Turysta może się rozczarować tym, że świat jest niezgodny z jego wyobrażeniami o tym świecie.",
+    "answer_explanation": "Korzyść polega na poznaniu rzeczywistości, a ryzyko na rozczarowaniu.",
+    "page_number": 6,
+    "context_text": "Tekst 2. Olga Stanisławska Sens podróżowania..."
+  },
+  {
+    "question_number": "3",
+    "question_text": "Czy przekonanie, że zwiedzanie jest zawłaszczaniem, wyrażone w tekście Olgi Stanisławskiej, znajduje potwierdzenie w tekście Agnieszki Krzemińskiej? Uzasadnij odpowiedź, odwołując się do obu tekstów.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "Tak, znajduje potwierdzenie. W tekście Stanisławskiej podkreślono, że zwiedzanie jest zawłaszczaniem, ponieważ duża liczba turystów może naruszać prywatność miejscowej ludności. W tekście Krzemińskiej wspomina się, że turystyka pozwala zwiedzającym na zaspokajanie ich zachcianek poprzez zbudowanie odpowiedniej infrastruktury, co może prowadzić do zniszczenia środowiska naturalnego.",
+    "answer_explanation": "Odpowiedź uznawana jest za poprawną, jeśli zawiera rozstrzygnięcie i poprawne uzasadnienie w odniesieniu do obu tekstów.",
+    "page_number": 6,
+    "context_text": "Czy przekonanie, że zwiedzanie jest zawłaszczaniem, wyrażone w tekście Olgi Stanisławskiej, znajduje potwierdzenie w tekście Agnieszki Krzemińskiej? Uzasadnij odpowiedź, odwołując się do obu tekstów."
+  },
+  {
+    "question_number": "4",
+    "question_text": "Oceń prawdziwość podanych stwierdzeń odnoszących się do tekstu Agnieszki Krzemińskiej i tekstu Olgi Stanisławskiej. Zaznacz P, jeśli stwierdzenie jest prawdziwe, albo F – jeśli jest fałszywe.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "1. P, 2. P",
+    "answer_explanation": "W obu tekstach użyto wyliczeń oraz zastosowano słownictwo wartościujące.",
+    "page_number": 6,
+    "context_text": "Tekst 1. Agnieszka Krzemińska Po co człowiekowi czasowa zmiana miejsca... Tekst 2. Olga Stanisławska Sens podróżowania..."
+  },
+  {
+    "question_number": "5",
+    "question_text": "Wyjaśnij, na czym polega ironia zastosowana w 4. akapicie tekstu Olgi Stanisławskiej.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Ironia w tekście polega na nagromadzeniu podniosłych określeń użytych do opisu stworzonej dla turystów sztucznej rzeczywistości.",
+    "answer_explanation": "Ironia polega na skontrastowaniu/zestawieniu określeń podniosłych w odniesieniu do zwyczajnych zjawisk.",
+    "page_number": 6,
+    "context_text": "Wyjaśnij, na czym polega ironia zastosowana w 4. akapicie tekstu Olgi Stanisławskiej."
+  },
+  {
+    "question_number": "6",
+    "question_text": "Na podstawie obu tekstów napisz notatkę syntetyzującą na temat: skutki masowej turystyki. Twoja wypowiedź powinna liczyć 60–90 wyrazów.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "Autorki rozważają pozytywne i negatywne skutki masowej turystyki. Krzemińska podkreśla, że masowa turystyka pozytywnie – duchowo i materialnie – wpływa na człowieka i otaczający go świat. Zarazem dostrzega, że może ona stać się przyczyną m.in. degradacji rodzimych kultur. Z kolei Stanisławska akcentuje negatywne skutki umasowienia turystyki, zwracając uwagę, że stać się ona może przyczyną uprzedmiotowienia turysty oraz członków lokalnych społeczności („bańka turystyczna”).",
+    "answer_explanation": "Za notatkę syntetyzującą można uzyskać 4 punkty, w tym 3 punkty za treść i 1 punkt za poprawność językową, ortograficzną i interpunkcyjną.",
+    "page_number": 8,
+    "context_text": "Na podstawie obu tekstów napisz notatkę syntetyzującą na temat: skutki masowej turystyki."
+  },
+  {
+    "question_number": "7",
+    "question_text": "Odwołując się do mitu o wojnie trojańskiej, uzasadnij trafność nazwy wirusa komputerowego, którego opis podano wyżej.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Wirus jest ukryty – wojownicy byli ukryci w koniu trojańskim.",
+    "answer_explanation": "Odpowiedź uznawana jest za poprawną, jeśli zawiera poprawne uzasadnienie trafności nazwy wirusa w odwołaniu do mitu.",
+    "page_number": 9,
+    "context_text": "Trojan jest fragmentem kodu dołączonym do innego programu, zwykle wartościowego dla nas. Zdarza się, że zostaje ukryty w skryptach powłoki."
+  },
+  {
+    "question_number": "8",
+    "question_text": "Czy wizja końca świata zaprezentowana we fragmencie wiersza Czesława Miłosza Piosenka o końcu świata jest zgodna z wizją końca świata ukazaną we fragmencie Apokalipsy św. Jana? W uzasadnieniu odpowiedzi sformułuj dwa argumenty – każdy w odniesieniu do obu tekstów.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "Rozstrzygnięcie: Nie jest zgodna. Argumenty: 1) W wierszu Miłosza tylko siwy staruszek zauważa koniec świata. W Apokalipsie… koniec świata obejmuje wszystko i wszystkich. 2) Staruszek z wiersza Miłosza jest pogodzony z losem, w wizji apokaliptycznej pojawia się groza potęgowana przez zapowiedź dalszych zniszczeń.",
+    "answer_explanation": "W wierszu Miłosza koniec świata jest przedstawiony w sposób spokojny, natomiast w Apokalipsie św. Jana jest to gwałtowny kataklizm, co pokazuje różnice w wizji końca świata.",
+    "page_number": 10,
+    "context_text": "Tekst 2. Apokalipsa św. Jana 8 6 Siedmiu aniołów, którzy mieli siedem trąb, przygotowywało się do trąbienia. 7 Zatrąbił pierwszy. Na ziemię spadł grad i ogień zmieszany z krwią. Trzecia część ziemi została spalona, trzecia część drzew została spalona i wszelka trawa zielona została spalona."
+  },
+  {
+    "question_number": "9",
+    "question_text": "Jaką postawę życiową zaleca podmiot liryczny Pieśni IX Jana Kochanowskiego? Uzasadnij odpowiedź.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Postawa pełna nadziei – nieszczęścia nie trwają wiecznie.",
+    "answer_explanation": "Podmiot liryczny zaleca zaufanie Bogu niezależnie od tego, co przynosi los, ponieważ Bóg może go odmienić.",
+    "page_number": 11,
+    "context_text": "Przeczytaj fragment Pieśni IX Jana Kochanowskiego. Nie porzucaj nadzieje, Jakoć sie kolwiek dzieje: Bo nie już słońce ostatnie zachodzi, A po złej chwili piękny dzień przychodzi."
+  },
+  {
+    "question_number": "10",
+    "question_text": "Napisz, jaki motyw łączy przedstawiony obraz Fransa Halsa i wiersz Daniela Naborowskiego. Uzasadnij swoją odpowiedź, odwołując się do obu tekstów.",
+    "question_type": "extended",
+    "max_points": 1,
+    "correct_answer": "Motyw: vanitas/przemijania/marności i nietrwałości rzeczy doczesnych.",
+    "answer_explanation": "Na obrazie młodzieniec trzyma czaszkę, która jest symbolem przemijania. Gestem ręki wskazuje na widza, co oznacza, że życie każdego z nas (sportretowanego i oglądającego) kończy się śmiercią. W wierszu Naborowskiego mowa wprost o marności świata/życia.",
+    "page_number": 13,
+    "context_text": "Zapoznaj się z reprodukcją obrazu Fransa Halsa oraz przeczytaj wiersz Daniela Naborowskiego. Tekst 1. Frans Hals Young Man holding a Skull. Tekst 2. Daniel Naborowski Świat hołduje marności."
+  },
+  {
+    "question_number": "11",
+    "question_text": "Zadanie 11. (0–1)\nPrzeczytaj fragment Ody do młodości Adama Mickiewicza.\nAdam Mickiewicz\nOda do młodości\nBez serc, bez ducha, to szkieletów ludy;\nMłodości! dodaj mi skrzydła!\nNiech nad martwym wzlecę światem\nW rajską dziedzinę ułudy:\nKędy zapał tworzy cudy,\nNowości potrząsa kwiatem\nI obleka w nadziei złote malowidła.\nAdam Mickiewicz, Oda do młodości, [w:] Oda w poezji polskiej. Antologia, Wrocław 2009.\nOceń prawdziwość podanych stwierdzeń odnoszących się do przytoczonego 11.\nfragmentu Ody do młodości Adama Mickiewicza. Zaznacz P, jeśli stwierdzenie jest\n0–1\nprawdziwe, albo F – jeśli jest fałszywe.\nMotyw lotu, wykorzystany we fragmencie, jest symbolem ludzkiego\n1. P F\ndążenia do pokonywania ograniczeń.\nWizja rajskiej przestrzeni, wykreowana we fragmencie, podkreśla\n2. P F\nkontrast między rzeczywistością a marzeniami.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "1. P, 2. P",
+    "answer_explanation": "Motyw lotu, wykorzystany we fragmencie, jest symbolem ludzkiego dążenia do pokonywania ograniczeń. Wizja rajskiej przestrzeni, wykreowana we fragmencie, podkreśla kontrast między rzeczywistością a marzeniami.",
+    "page_number": 13,
+    "context_text": "Zadanie 11. (0–1)\nPrzeczytaj fragment Ody do młodości Adama Mickiewicza.\nAdam Mickiewicz\nOda do młodości\nBez serc, bez ducha, to szkieletów ludy;\nMłodości! dodaj mi skrzydła!\nNiech nad martwym wzlecę światem\nW rajską dziedzinę ułudy:\nKędy zapał tworzy cudy,\nNowości potrząsa kwiatem\nI obleka w nadziei złote malowidła.\nAdam Mickiewicz, Oda do młodości, [w:] Oda w poezji polskiej. Antologia, Wrocław 2009.\nOceń prawdziwość podanych stwierdzeń odnoszących się do przytoczonego 11.\nfragmentu Ody do młodości Adama Mickiewicza. Zaznacz P, jeśli stwierdzenie jest\n0–1\nprawdziwe, albo F – jeśli jest fałszywe.\nMotyw lotu, wykorzystany we fragmencie, jest symbolem ludzkiego\n1. P F\ndążenia do pokonywania ograniczeń.\nWizja rajskiej przestrzeni, wykreowana we fragmencie, podkreśla\n2. P F\nkontrast między rzeczywistością a marzeniami."
+  },
+  {
+    "question_number": "12.1",
+    "question_text": "Uzupełnij tabelę. Podaj tytuł utworu, z którego pochodzi fragment A, oraz tytuł utworu, z którego pochodzi fragment B.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Fragment A: Dziady cz. III; Fragment B: Kordian",
+    "answer_explanation": "Dopuszczalna odpowiedź: 'Dziady'.",
+    "page_number": 14,
+    "context_text": "12.1. Zadanie 12.1. (0–1)\nUzupełnij tabelę. Podaj tytuł utworu, z którego pochodzi fragment A, oraz tytuł utworu,\n0–1\nz którego pochodzi fragment B.\nFragment Tytuł\nA\nTyran wstał – Herod! – Panie, cała Polska młoda\nWydana w ręce Heroda. […]\nAch, Panie, już widzę krzyż – ach, jak długo, długo\nMusi go nosić – Panie, zlituj się nad sługą.\nDaj mu siły, bo w drodze upadnie i skona –\nKrzyż ma długie na całą Europę ramiona,\nZ trzech wyschłych ludów, jak z trzech twardych drzew ukuty. –\nJuż wleką; już mój Naród na tronie pokuty –\nRzekł: «Pragnę» – Rakus octem, Borus żółcią poi,\nA matka Wolność u nóg zapłakana stoi.\nB\nNie – myśli wielkiej trzeba z ziemi, lub z błękitu.\nSpojrzałem ze skały szczytu,\nDuch rycerza powstał z lodów…\nWinkelried dzidy wrogów zebrał i w pierś włożył,\nLudy! Winkelried ożył!\nPolska Winkelriedem narodów!\nPoświęci się, choć padnie jak dawniej! jak nieraz!\nNieście mię, chmury! nieście, wiatry! nieście, ptacy!"
+  },
+  {
+    "question_number": "12.2",
+    "question_text": "Wyjaśnij, czym różni się rola przypisana Polsce we fragmencie A od roli przypisanej Polsce we fragmencie B.",
+    "question_type": "extended",
+    "max_points": 1,
+    "correct_answer": "Z fragmentu A wynika, że Polska powinna znosić cierpienie jak Chrystus. Natomiast z fragmentu B wynika, że Polska powołana była do czynnego oporu przeciwko złu.",
+    "answer_explanation": "Fragment A przedstawia Polskę jako cierpiącą, a fragment B jako aktywną w walce.",
+    "page_number": 14,
+    "context_text": null
+  },
+  {
+    "question_number": "13",
+    "question_text": "W poniższej tabeli przedstawiono wybrane założenia dwóch epok literackich: pozytywizmu i Młodej Polski. Do każdej epoki dobierz odpowiedni cytat z utworu poetyckiego, wybrany spośród cytatów 1–3, ilustrujący założenia danej epoki. Wpisz właściwy numer cytatu w odpowiednie miejsce w tabeli.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "A1, B3",
+    "answer_explanation": "Cytat 1 ilustruje pozytywizm, a cytat 3 ilustruje Młodą Polskę.",
+    "page_number": 15,
+    "context_text": "Zadanie 13. (0–1) 13.\nW poniższej tabeli przedstawiono wybrane założenia dwóch epok literackich:\n0–1\npozytywizmu i Młodej Polski. Do każdej epoki dobierz odpowiedni cytat z utworu\npoetyckiego, wybrany spośród cytatów 1–3, ilustrujący założenia danej epoki. Wpisz\nwłaściwy numer cytatu w odpowiednie miejsce w tabeli.\nEpoka literacka – założenia Numer cytatu\nPozytywizm\nZałożenia filozofii pozytywizmu […] dostosowywano do\nszczególnych polskich warunków, wyciągając z niej przede\nwszystkim konsekwencje praktyczne: konieczność\nA.\nupowszechnienia oświaty, popularyzacji nauki i laickiego\nświatopoglądu.\nNa podstawie: Słownik terminów literackich,\nred. Janusz Sławiński, Wrocław 2002.\nMłoda Polska\nW pierwszej fazie swego rozwoju [ta epoka] skłaniała się\nku tendencjom dekadenckim […], zwłaszcza w liryce\nkreowała bohatera biernie przeżywającego świat\nB.\ni przekonanego o schyłkowym charakterze kultury, w której\nżyje.\nNa podstawie: Słownik terminów literackich,\nred. Janusz Sławiński, Wrocław 2002.\nCytaty z utworów poetyckich\n1. Nieście więc wiedzy pochodnię na czele\nI nowy udział bierzcie w wieków dziele,\nPrzyszłości podnoście gmach!\n2. A gawiedź wierzy głęboko;\nCzucie i wiara silniej mówi do mnie..."
+  },
+  {
+    "question_number": "14",
+    "question_text": "Czy na plakacie przedstawiono taką samą relację między inteligencją a chłopami, jaką ukazano w Weselu? Uzasadnij odpowiedź, odwołując się do plakatu i do podanego fragmentu Wesela albo do plakatu i do całego dramatu Stanisława Wyspiańskiego.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "Podobna. Na plakacie przedstawiono dwie nogi założone jedna na drugą. Ta na wierzchu jest w stroju inteligenta, a ta pod nią – w stroju chłopa. Oznacza to, że inteligencja stoi ponad chłopami i nimi dowodzi. We fragmencie Wesela chłopi domagają się od inteligencji dowodzenia akcją zbrojną – a więc uznają ich zwierzchność. Jednak inteligencja nie rozumie, o czym mówi Czepiec – z fragmentu wynika, że te dwie warstwy społeczne niczego o sobie nie wiedzą.",
+    "answer_explanation": "We fragmencie Wesela chłopi domagają się od inteligencji dowodzenia akcją zbrojną – a więc uznają ich zwierzchność. Jednak inteligencja nie rozumie, o czym mówi Czepiec – z fragmentu wynika, że te dwie warstwy społeczne niczego o sobie nie wiedzą.",
+    "page_number": 16,
+    "context_text": "Zadanie 14. (0–2)\nPrzeczytaj fragment Wesela Stanisława Wyspiańskiego oraz zapoznaj się z plakatem,\nktórego autorem jest Piotr Kunce.\nTekst 1.\nStanisław Wyspiański\nWesele\nAKT III\nSCENA 19\nPoprzedni, Gospodarz\n[…]\nCZEPIEC\n1 Byśwa – byśmy.\nZbierajcie się, poki czas, 2 Kiep – człowiek głupi; dureń.\nbyśwa1 byli radzi z was, 3 Som (gw.) – są.\n4 Jeno – tylko.\na nie stojcie jak te ćmy\nalbo kpy2;\nco kto ma, do ręki brać,\nna podwórze wyjść i stać;\ntam już ludzie som3,\nco sie sami rwiom:\nchłopi, tak! A chłopi, tak!\nPOETA\n– Jakiś znak.\nGOSPODARZ\nJakiś znak!\nCZEPIEC\nPanowie, jakeście som,\njeźli nie pójdziecie z nami,\nto my na was – i z kosami!\nGOSPODARZ\nWy, a jako – ?\nPOETA\nWiecież, kto my!?\nCo wy o nas wiecie – nic.\nCZEPIEC\nO, pon, widno, niewidomy;\nwidać, że nie znacie nas.\nPAN MŁODY\nWidzę, żeście krwi łakomy;\njeno4 że na krew nie czas.\nStanisław Wyspiański, Wesele, Wrocław 1977."
+  },
+  {
+    "question_number": "15",
+    "question_text": "Wybierz jeden z poniższych tytułów części Przedwiośnia: • Szklane domy • Wiatr od Wschodu. Wyjaśnij sens wybranego tytułu na podstawie znajomości powieści Stefana Żeromskiego.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Tytuł części: Wiatr od Wschodu. Wyjaśnienie: Tytuł ma stanowić ostrzeżenie przed „wschodnią” ideologią komunistyczną, którą propaguje Lulek.",
+    "answer_explanation": "1 pkt – poprawne wyjaśnienie sensu wybranego tytułu części Przedwiośnia.",
+    "page_number": 18,
+    "context_text": null
+  },
+  {
+    "question_number": "16.1",
+    "question_text": "Zadanie 16.1. (0–1) 16.1.\nSpośród podanych określeń (A–D) wybierz to, które charakteryzuje nowomowę\n0–1\nstworzoną w państwie opisanym w powieści Rok 1984 George’a Orwella. Zaznacz\nwłaściwą odpowiedź.\nA. zwiększanie liczby wyrazów nacechowanych emocjonalnie\nB. ograniczanie liczby wyrazów bliskoznacznych\nC. stosowanie wyrazów metaforycznych\nD. nadużywanie czasowników",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "Odpowiedź B jest poprawna, ponieważ nowomowa w powieści 'Rok 1984' charakteryzuje się ograniczaniem liczby wyrazów bliskoznacznych, co ma na celu uproszczenie języka i myślenia.",
+    "page_number": 19,
+    "context_text": "Zadanie 16.1. (0–1) 16.1.\nSpośród podanych określeń (A–D) wybierz to, które charakteryzuje nowomowę\n0–1\nstworzoną w państwie opisanym w powieści Rok 1984 George’a Orwella. Zaznacz\nwłaściwą odpowiedź.\nA. zwiększanie liczby wyrazów nacechowanych emocjonalnie\nB. ograniczanie liczby wyrazów bliskoznacznych\nC. stosowanie wyrazów metaforycznych\nD. nadużywanie czasowników"
+  },
+  {
+    "question_number": "16.2",
+    "question_text": "Na podstawie powieści Rok 1984 George’a Orwella wyjaśnij, czemu służyło stworzenie nowomowy.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "Twórcy nowomowy byli przekonani, że zniszczenie bogactwa języka pomoże im w lepszym sprawowaniu władzy nad obywatelami, którzy pozbawieni broni, jaką jest język, będą łatwiejszym celem.",
+    "answer_explanation": "Nowomowa miała na celu uproszczenie języka, co prowadziło do ograniczenia możliwości myślenia krytycznego i wyrażania indywidualnych emocji, co ułatwiało kontrolę nad obywatelami.",
+    "page_number": 19,
+    "context_text": "Zadanie 16. Przeczytaj fragment powieści Rok 1984 George’a Orwella. [...] Z czasem pojęcie dobra i zła ograniczy się do zaledwie sześciu słów, a naprawdę do jednego."
+  },
+  {
+    "question_number": "17",
+    "question_text": "Jaką postawę – typową dla bohatera romantycznego – przejawia Artur w zacytowanym fragmencie Tanga Sławomira Mrożka? W uzasadnieniu odpowiedzi odnieś się zarówno do postawy Artura, jak i do postawy wybranego bohatera dramatu romantycznego.",
+    "question_type": "extended",
+    "max_points": 1,
+    "correct_answer": "Artur przejawia postawę buntu i wyższości, porównywalną do postawy Konrada z Dziadów cz. III.",
+    "answer_explanation": "Artur, podobnie jak Konrad, sprzeciwia się obowiązującym zasadom i czuje się lepszy od innych, co jest typowe dla romantycznych bohaterów, którzy często są indywidualistami i buntownikami.",
+    "page_number": 20,
+    "context_text": "Zadanie 17. Przeczytaj fragment Tanga Sławomira Mrożka. [...] A spójrz na mnie! Czy władza nie jest także buntem? [...]"
+  }
+]

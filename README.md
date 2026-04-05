@@ -64,3 +64,23 @@ python scripts/2_test_models.py
 # Step 3: Evaluate and compare
 python scripts/3_evaluate.py
 ```
+
+## PDF Naming Convention
+
+Step 1 now auto-discovers exam sets from `pdfs/` based on file names.
+
+Required files:
+- `przedmiot_rok.pdf` - matura podstawowa
+- `przedmiot_rok_roz.pdf` - matura rozszerzona
+- `przedmiot_rok_odp.pdf` - odpowiedzi do podstawy
+- `przedmiot_rok_roz_odp.pdf` - odpowiedzi do rozszerzenia
+
+Optional transcript files:
+- `przedmiot_rok_transkrypcja.pdf`
+- `przedmiot_rok_roz_transkrypcja.pdf`
+
+Examples:
+- `polski_2025.pdf` + `polski_2025_odp.pdf`
+- `angielski_2024_roz.pdf` + `angielski_2024_roz_odp.pdf` + `angielski_2024_roz_transkrypcja.pdf`
+
+Files are grouped into one exam session by the shared base name, for example `angielski_2024_roz`.

@@ -1,0 +1,142 @@
+[
+  {
+    "question_number": "1",
+    "question_text": "W chwili początkowej (𝑡 = 0) masa substancji jest równa 4 gramom. Wskutek rozpadu cząsteczek tej substancji jej masa się zmniejsza. Po każdej kolejnej dobie ubywa 19% masy, jaka była na koniec doby poprzedniej. Dla każdej liczby całkowitej 𝑡 ≥ 0 funkcja 𝑚(𝑡) określa masę substancji w gramach po 𝑡 pełnych dobach (czas liczymy od chwili początkowej). Wyznacz wzór funkcji 𝒎(𝒕). Oblicz, po ilu pełnych dobach masa tej substancji będzie po raz pierwszy mniejsza od 1,5 grama. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "m(t) = 4 * 0.81^t; masa będzie mniejsza od 1,5 grama po 5 dobach.",
+    "answer_explanation": "2 pkt – zapisanie wzoru funkcji m: m(t) = 4⋅0,81^t oraz obliczenie liczby pełnych dni/dób, po których masa substancji będzie mniejsza od 1,5 grama: 5 dób. 1 pkt – zapisanie wzoru funkcji m: m(t) = 4⋅0,81^t ALBO – obliczenie liczby dób, po których masa substancji będzie mniejsza od 1,5 grama: 5 dób.",
+    "page_number": 4,
+    "context_text": null
+  },
+  {
+    "question_number": "2",
+    "question_text": "Tomek i Romek postanowili rozegrać między sobą pięć partii szachów. Prawdopodobieństwo wygrania pojedynczej partii przez Tomka jest równe 1/4. Oblicz prawdopodobieństwo wygrania przez Tomka co najmniej czterech z pięciu partii. Wynik podaj w postaci ułamka zwykłego nieskracalnego. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "P = 63/64.",
+    "answer_explanation": "3 pkt – zastosowanie poprawnej metody i poprawny wynik: P = 63/64. 2 pkt – zapisanie poprawnego prawdopodobieństwa uzyskania co najmniej czterech sukcesów w pięciu próbach Bernoullego. 1 pkt – zapisanie prawdopodobieństwa odniesienia sukcesu (p) i porażki (q) w pojedynczej partii: p = 1/4, q = 3/4.",
+    "page_number": 5,
+    "context_text": null
+  },
+  {
+    "question_number": "3",
+    "question_text": "Funkcja 𝑓 jest określona wzorem 𝑓(𝑥) = (3𝑥^2−2𝑥)/(𝑥^2+2𝑥+8). Punkt 𝑃 = (𝑥_0,3) należy do wykresu funkcji 𝑓. Oblicz 𝑥 oraz wyznacz równanie stycznej do wykresu funkcji 𝑓 w punkcie 𝑃.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "x = -3; y = -8/11 * x + 24/11.",
+    "answer_explanation": "3 pkt – zastosowanie poprawnej metody i poprawny wynik: x = -3 oraz y = -8/11 * x + 24/11. 2 pkt – obliczenie odciętej punktu 𝑃 i wyznaczenie pochodnej funkcji 𝑓. 1 pkt – obliczenie odciętej punktu 𝑃.",
+    "page_number": 6,
+    "context_text": null
+  },
+  {
+    "question_number": "4",
+    "question_text": "Liczby rzeczywiste 𝑥 oraz 𝑦 spełniają jednocześnie równanie 𝑥 +𝑦 = 4 i nierówność 𝑥^3 −𝑥^2𝑦 ≤ 𝑥𝑦^2 −𝑦^3. Wykaż, że 𝑥 = 2 oraz 𝑦 = 2.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "𝑥 = 2 oraz 𝑦 = 2.",
+    "answer_explanation": "3 pkt – przeprowadzenie pełnego rozumowania, tj. przekształcenie nierówności do postaci, z której można bezpośrednio wnioskować o równości liczb 𝑥 i 𝑦 oraz obliczenie tych liczb: 𝑥 = 2 oraz 𝑦 = 2. 2 pkt – zastosowanie wzoru na sześcian różnicy oraz kwadrat różnicy. 1 pkt – wykorzystanie zależności 𝑥+𝑦 = 4.",
+    "page_number": 7,
+    "context_text": null
+  },
+  {
+    "question_number": "5",
+    "question_text": "Wykaż, że |𝑁𝐷| = √3 + 1.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "|𝑁𝐷| = √3 + 1.",
+    "answer_explanation": "W trójkącie 𝐵𝐿𝑁, stosując twierdzenie sinusów oraz pole trójkątów, obliczamy długość odcinka |𝑁𝐷| = |𝐵𝐷| − |𝐵𝑁| = 2√3 − (√3 − 1) = √3 + 1.",
+    "page_number": 8,
+    "context_text": null
+  },
+  {
+    "question_number": "6",
+    "question_text": "Rozwiąż równanie 4sin(4𝑥)cos(6𝑥) = 2sin(10𝑥) + 1. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "𝑥 = 𝜋 + k𝜋, gdzie k ∈ ℤ.",
+    "answer_explanation": "Przekształcamy równanie do postaci 4sin(4𝑥)cos(6𝑥) = 2sin(10𝑥) + 1, a następnie stosujemy wzory trygonometryczne, aby uzyskać rozwiązania.",
+    "page_number": 10,
+    "context_text": null
+  },
+  {
+    "question_number": "7",
+    "question_text": "Oblicz wysokość trójkąta SBH poprowadzoną z punktu S na bok BH tego trójkąta. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "h = √6.",
+    "answer_explanation": "Zastosowanie poprawnej metody i obliczenie wysokości trójkąta na podstawie długości krawędzi sześcianu.",
+    "page_number": 11,
+    "context_text": "Dany jest sześcian ABCDEFGH o krawędzi długości 6. Punkt S jest punktem przecięcia HG przekątnych AH i DE ściany bocznej ADHE."
+  },
+  {
+    "question_number": "8",
+    "question_text": "Oblicz obwód czworokąta ABCD. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "Obwód = 16√3 + 10.",
+    "answer_explanation": "Zastosowanie poprawnej metody i obliczenie długości boków czworokąta na podstawie danych.",
+    "page_number": 12,
+    "context_text": "Czworokąt ABCD, w którym |BC| = 4 i |CD| = 5, jest opisany na okręgu."
+  },
+  {
+    "question_number": "9",
+    "question_text": "Rozwiąż nierówność 25√(x^2 + 4x + 4) < -√(x^2 - 6x + 9). Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "x ∈ (−∞,−2) ∪ (3,+∞)",
+    "answer_explanation": "Zauważamy, że √(x^2 + 4x + 4) = |x + 2| oraz √(x^2 - 6x + 9) = |x - 3|. Zapisujemy nierówność |x + 2| < -|x - 3|. Rozważamy przypadki dla wartości x, co prowadzi do rozwiązania nierówności.",
+    "page_number": 14,
+    "context_text": null
+  },
+  {
+    "question_number": "10",
+    "question_text": "Oblicz sumę wszystkich wyrazów tego nieskończonego ciągu. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "L = 8 * (4 + √10) * a / (1 - √10)",
+    "answer_explanation": "Obliczamy długości boków kolejnych kwadratów, a następnie sumę obwodów wszystkich kwadratów, co prowadzi do wyrażenia L = 4a(1 + 1/√10 + 1/10 + ...), które jest sumą szeregu geometrycznego.",
+    "page_number": 16,
+    "context_text": "Określamy kwadraty K1, K2, K3, ... następująco: K1 jest kwadratem o boku długości a, K2 jest kwadratem, którego każdy wierzchołek leży na innym boku kwadratu K1 i dzieli ten bok w stosunku 1:3, ..."
+  },
+  {
+    "question_number": "11",
+    "question_text": "Wyznacz wszystkie wartości parametru m ≠ 2, dla których równanie m−3/(m−2) * x^2 + 4x = 0 ma dwa różne rozwiązania rzeczywiste x1, x2 spełniające warunek x1^3 + x2^3 > -28. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 5,
+    "correct_answer": "m ∈ (−∞, 2) ∪ (2, +∞) oraz m ∈ (2, 9/4)",
+    "answer_explanation": "Rozwiązujemy nierówność Δ > 0: (20m - 44)(m - 2) > 0, co daje m ∈ (−∞, 2) ∪ (2, +∞). Następnie wyznaczamy wartości m dla x1^3 + x2^3 > -28, co prowadzi do (4m - 9)(m - 2) < 0, co daje m ∈ (2, 9/4).",
+    "page_number": 18,
+    "context_text": "Wyznacz wszystkie wartości parametru m ≠ 2, dla których równanie m−3/(m−2) * x^2 + 4x = 0 ma dwa różne rozwiązania rzeczywiste x1, x2 spełniające warunek x1^3 + x2^3 > -28."
+  },
+  {
+    "question_number": "12.1",
+    "question_text": "Wykaż, że dla każdej liczby dodatniej 𝒙 wyrażenie 𝟖𝟏𝐥𝐨𝐠 𝟑𝒙 +𝟐⋅𝐥𝐨𝐠 𝟐√𝟐𝟕⋅𝐥𝐨𝐠 𝟑𝟐 ⋅𝒙𝟐 −𝟔𝒙 można równoważnie przekształcić do postaci 𝒙𝟒 +𝒙𝟐 −𝟔𝒙.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "𝑥^4 + 𝑥^2 - 6𝑥",
+    "answer_explanation": "Dla każdego 𝑥 > 0 wyrażenie 81log3𝑥 + 2√27⋅log 2⋅𝑥^2 − 6𝑥 jest równe wyrażeniu 𝑥^4 + 𝑥^2 − 6𝑥. Obliczamy najmniejszą wartość funkcji 𝑓 określonej wzorem 𝑓(𝑥) = 𝑥^4 + 𝑥^2 − 6𝑥 dla 𝑥 ∈ (0,+∞).",
+    "page_number": 20,
+    "context_text": null
+  },
+  {
+    "question_number": "12.2",
+    "question_text": "Oblicz najmniejszą wartość funkcji 𝒇 określonej dla każdej liczby dodatniej 𝒙.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "−4",
+    "answer_explanation": "Funkcja 𝑓 przyjmuje wartość najmniejszą dla 𝑥 = 1 i obliczenie wartości najmniejszej funkcji 𝑓: 𝑓(1) = 1^4 + 1^2 - 6*1 = −4.",
+    "page_number": 21,
+    "context_text": null
+  },
+  {
+    "question_number": "13",
+    "question_text": "W kartezjańskim układzie współrzędnych (𝑥,𝑦) prosta 𝑙 o równaniu 𝑥−𝑦−2 = 0 przecina parabolę o równaniu 𝑦 = 4𝑥^2 −7𝑥 +1 w punktach 𝐴 oraz 𝐵. Odcinek 𝐴𝐵 jest średnicą okręgu 𝒪. Punkt 𝐶 leży na okręgu 𝒪 nad prostą 𝑙, a kąt 𝐵𝐴𝐶 jest ostry i ma miarę 𝛼 taką, że tg𝛼 = ... Oblicz współrzędne punktu 𝑪. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 6,
+    "correct_answer": "C = (1, -1)",
+    "answer_explanation": "Obliczamy współrzędne punktów przecięcia paraboli z prostą 𝑙: 𝑦 = 4𝑥^2 −7𝑥 +1 oraz 𝑥−𝑦−2 = 0. Otrzymujemy punkty 𝐴 = (1, -2) oraz 𝐵 = (3, -2). Prosta 𝑙 ma równanie kierunkowe 𝑦 = 𝑥 − 2. Obliczamy współczynnik kierunkowy prostej 𝐵𝐶 i wyznaczamy współrzędne punktu 𝐶.",
+    "page_number": 22,
+    "context_text": "Zadanie 13. (0–6) W kartezjańskim układzie współrzędnych (𝑥,𝑦) prosta 𝑙 o równaniu 𝑥−𝑦−2 = 0 przecina parabolę o równaniu 𝑦 = 4𝑥2 −7𝑥 +1 w punktach 𝐴 oraz 𝐵. Odcinek 𝐴𝐵 jest średnicą okręgu 𝒪. Punkt 𝐶 leży na okręgu 𝒪 nad prostą 𝑙, a kąt 𝐵𝐴𝐶 jest ostry i ma miarę 𝛼 taką, że tg𝛼 = (zobacz rysunek)."
+  }
+]

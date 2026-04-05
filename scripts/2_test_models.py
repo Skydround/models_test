@@ -211,13 +211,45 @@ def main():
     
     with tqdm(total=total_tests, desc="Testing") as pbar:
         for question, model in pending_tests:
+            current_question_id = db.get_current_question_id(
+                question['id'],
+                question['exam_name'],
+                question['question_number'],
+            )
+            if current_question_id is None:
+                pbar.set_description(f"skip {model['name']} Q{question['question_number']}")
+                pbar.update(1)
+                continue
+
+            if db.response_exists(current_question_id, model['name']):
+                pbar.set_description(f"skip {model['name']} Q{question['question_number']}")
+                pbar.update(1)
+                continue
+
             pbar.set_description(f"{model['name']} Q{question['question_number']}")
 
             result = test_model_on_question(model, question)
 
+            current_question_id = db.get_current_question_id(
+                question['id'],
+                question['exam_name'],
+                question['question_number'],
+            )
+            if current_question_id is None:
+                print(
+                    f"\n⚠️ Skipping save for {question['exam_name']} {question['question_number']} "
+                    f"because the question row was replaced during the run."
+                )
+                pbar.update(1)
+                continue
+
+            if db.response_exists(current_question_id, model['name']):
+                pbar.update(1)
+                continue
+
             # Save to database
             db.add_response(
-                question_id=question['id'],
+                question_id=current_question_id,
                 model_name=model['name'],
                 response=result['response'],
                 latency_ms=result['latency_ms'],

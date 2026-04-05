@@ -120,17 +120,39 @@ See available models at: https://openrouter.ai/models
 
 ### Add More Exams
 
-1. Place PDFs in `pdfs/` directory (exam + answer key)
-2. Edit `scripts/1_extract_questions.py`
-3. Add to `exams` list:
+1. Place PDFs in `pdfs/` directory.
+2. Use the normalized naming scheme below.
+3. Run `python scripts/1_extract_questions.py`.
 
-```python
-{
-    'name': 'exam_name',
-    'exam_pdf': 'pdfs/exam.pdf',
-    'answer_pdf': 'pdfs/exam_answers.pdf'
-}
+Required naming:
+
+```text
+przedmiot_rok.pdf
+przedmiot_rok_odp.pdf
+
+przedmiot_rok_roz.pdf
+przedmiot_rok_roz_odp.pdf
 ```
+
+Optional transcript files:
+
+```text
+przedmiot_rok_transkrypcja.pdf
+przedmiot_rok_roz_transkrypcja.pdf
+```
+
+Examples:
+
+```text
+polski_2025.pdf
+polski_2025_odp.pdf
+
+angielski_2025_roz.pdf
+angielski_2025_roz_odp.pdf
+angielski_2025_roz_transkrypcja.pdf
+```
+
+Step 1 automatically discovers all complete sets where exam PDF and answer PDF are both present.
 
 ### Change Evaluation Criteria
 
@@ -149,9 +171,12 @@ models_test/
 │   ├── questions.db               # Main database
 │   ├── polski_2025_raw.json       # Raw extracted text
 │   ├── polski_2025_questions.json # Structured questions
+│   ├── angielski_2025_roz_raw.json
+│   └── angielski_2025_roz_questions.json
 │   └── responses/                 # Model responses (future)
 ├── results/                       # Final outputs
-│   └── comparison.xlsx            # Main report
+│   ├── comparison.xlsx            # Main report
+│   └── comparison.html            # Grouped HTML report
 ├── scripts/                       # Pipeline scripts
 │   ├── utils.py                   # Shared utilities
 │   ├── 1_extract_questions.py     # Step 1

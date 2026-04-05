@@ -4,6 +4,7 @@ Shared utilities for the models testing project
 
 import sqlite3
 import json
+import re
 from pathlib import Path
 from typing import Dict, List, Optional
 from dataclasses import dataclass, asdict
@@ -25,6 +26,135 @@ class Question:
     
     def to_dict(self):
         return asdict(self)
+
+
+@dataclass
+class ExamFileSet:
+    """Represents one normalized exam session discovered from PDF filenames."""
+    name: str
+    subject: str
+    year: int
+    level: str
+    exam_pdf: str
+    answer_pdf: str
+    transcript_pdf: Optional[str] = None
+
+    def to_dict(self):
+        return asdict(self)
+
+
+def parse_exam_name(exam_name: str) -> Dict[str, str | int]:
+    """Parse normalized exam names like subject_2025 or subject_2025_roz."""
+    parts = str(exam_name).split('_')
+    if len(parts) < 2:
+        return {
+            'name': exam_name,
+            'subject': exam_name,
+            'subject_label': exam_name.replace('_', ' ').title(),
+            'year': 0,
+            'level': 'unknown',
+            'level_label': 'Poziom nieznany',
+            'session_label': exam_name,
+        }
+
+    level = 'podstawowa'
+    base_parts = parts
+    if parts[-1] == 'roz':
+        level = 'rozszerzona'
+        base_parts = parts[:-1]
+
+    if len(base_parts) < 2 or not base_parts[-1].isdigit():
+        return {
+            'name': exam_name,
+            'subject': exam_name,
+            'subject_label': exam_name.replace('_', ' ').title(),
+            'year': 0,
+            'level': level,
+            'level_label': f'Matura {level}',
+            'session_label': exam_name,
+        }
+
+    subject = '_'.join(base_parts[:-1])
+    year = int(base_parts[-1])
+    subject_label = subject.replace('_', ' ').title()
+    return {
+        'name': exam_name,
+        'subject': subject,
+        'subject_label': subject_label,
+        'year': year,
+        'level': level,
+        'level_label': f'Matura {level}',
+        'session_label': f'{subject_label} {year} - matura {level}',
+    }
+
+
+def exam_sort_key(exam_name: str):
+    """Sort exams by subject, year, and level."""
+    metadata = parse_exam_name(exam_name)
+    level_order = {'podstawowa': 0, 'rozszerzona': 1}
+    return (
+        str(metadata['subject']),
+        int(metadata['year']),
+        level_order.get(str(metadata['level']), 99),
+        exam_name,
+    )
+
+
+def excel_safe_sheet_name(name: str, fallback: str = 'Sheet') -> str:
+    """Return a valid Excel sheet name capped at 31 characters."""
+    cleaned = re.sub(r"[\\/*?:\[\]]", '_', str(name)).strip()
+    cleaned = cleaned[:31].rstrip()
+    return cleaned or fallback
+
+
+def discover_exam_pdf_sets(pdf_dir: str = 'pdfs') -> List[ExamFileSet]:
+    """Discover exam, answer key, and optional transcript PDFs from normalized filenames."""
+    grouped: Dict[str, Dict[str, str]] = {}
+
+    for pdf_path in sorted(Path(pdf_dir).glob('*.pdf')):
+        stem = pdf_path.stem
+        kind = 'exam'
+        exam_name = stem
+
+        if stem.endswith('_odpowiedzi'):
+            kind = 'answer'
+            exam_name = stem[:-11]
+        elif stem.endswith('_odp'):
+            kind = 'answer'
+            exam_name = stem[:-4]
+        elif stem.endswith('_transkrypcja'):
+            kind = 'transcript'
+            exam_name = stem[:-13]
+
+        metadata = parse_exam_name(exam_name)
+        if int(metadata['year']) == 0 or str(metadata['level']) == 'unknown':
+            continue
+
+        entry = grouped.setdefault(exam_name, {})
+        entry[kind] = str(pdf_path)
+
+    exams: List[ExamFileSet] = []
+    for exam_name, files in grouped.items():
+        exam_pdf = files.get('exam')
+        answer_pdf = files.get('answer')
+        if not exam_pdf or not answer_pdf:
+            continue
+
+        metadata = parse_exam_name(exam_name)
+        exams.append(
+            ExamFileSet(
+                name=exam_name,
+                subject=str(metadata['subject']),
+                year=int(metadata['year']),
+                level=str(metadata['level']),
+                exam_pdf=exam_pdf,
+                answer_pdf=answer_pdf,
+                transcript_pdf=files.get('transcript'),
+            )
+        )
+
+    exams.sort(key=lambda exam: exam_sort_key(exam.name))
+    return exams
 
 
 class QuestionDatabase:
@@ -84,6 +214,18 @@ class QuestionDatabase:
         """)
         
         self.conn.commit()
+
+    def _coerce_text_value(self, value):
+        """Convert structured values into strings before binding them to SQLite TEXT fields."""
+        if value is None:
+            return None
+        if isinstance(value, list):
+            parts = [self._coerce_text_value(item) for item in value]
+            filtered = [part for part in parts if part]
+            return "\n".join(filtered) if filtered else None
+        if isinstance(value, dict):
+            return json.dumps(value, ensure_ascii=False)
+        return str(value)
     
     def add_question(self, question: Question) -> int:
         """Add a question to the database"""
@@ -99,10 +241,10 @@ class QuestionDatabase:
             question.question_text,
             question.question_type,
             question.max_points,
-            question.correct_answer,
-            question.answer_explanation,
+            self._coerce_text_value(question.correct_answer),
+            self._coerce_text_value(question.answer_explanation),
             question.page_number,
-            question.context_text
+            self._coerce_text_value(question.context_text)
         ))
         self.conn.commit()
         return cursor.lastrowid
@@ -157,6 +299,27 @@ class QuestionDatabase:
             (question_id, model_name),
         )
         return cursor.fetchone() is not None
+
+    def get_current_question_id(self, question_id: int, exam_name: str, question_number: str) -> int | None:
+        """Return the latest available ID for a question, even after re-extraction rewrites rows."""
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT id FROM questions WHERE id = ?", (question_id,))
+        row = cursor.fetchone()
+        if row is not None:
+            return int(row[0])
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM questions
+            WHERE exam_name = ? AND question_number = ?
+            ORDER BY id DESC
+            LIMIT 1
+            """,
+            (exam_name, question_number),
+        )
+        row = cursor.fetchone()
+        return int(row[0]) if row is not None else None
     
     def add_response(self, question_id: int, model_name: str, response: str,
                      latency_ms: int, tokens_used: int, cost_usd: float) -> int:

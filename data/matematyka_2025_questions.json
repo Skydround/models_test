@@ -1,0 +1,62 @@
+[
+  {
+    "question_number": "6",
+    "question_text": "Wymaganie ogólne Wymaganie szczegółowe II. Wykorzystanie i tworzenie informacji. Zdający: 1. Interpretowanie i operowanie III.3) rozwiązuje nierówności liniowe z jedną niewiadomą.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "D",
+    "answer_explanation": "1 pkt – odpowiedź poprawna.",
+    "page_number": 30,
+    "context_text": null
+  },
+  {
+    "question_number": "7",
+    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 1. Stosowanie obiektów matematycznych i operowanie nimi, interpretowanie pojęć III.5) rozwiązuje równania wielomianowe postaci ŷ = 0 dla wielomianów doprowadzonych do postaci iloczynowej.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "1 pkt – odpowiedź poprawna.",
+    "page_number": 30,
+    "context_text": null
+  },
+  {
+    "question_number": "8",
+    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 1. Stosowanie obiektów matematycznych i operowanie nimi, interpretowanie pojęć II.4) mnoży […] wyrażenia wymierne.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "1 pkt – odpowiedź poprawna.",
+    "page_number": 30,
+    "context_text": null
+  },
+  {
+    "question_number": "9",
+    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 2. Dobieranie i tworzenie modeli rozwiązywania zadań tekstowych. IV.2) stosuje układy równań do rozwiązywania zadań tekstowych.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "735000 zł.",
+    "answer_explanation": "2 pkt – zastosowanie poprawnej metody i poprawny wynik: 735000 zł.",
+    "page_number": 30,
+    "context_text": null
+  },
+  {
+    "question_number": "10",
+    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 1. Stosowanie obiektów matematycznych i operowanie nimi, interpretowanie pojęć III.4) rozwiązuje […] nierówności kwadratowe.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "x ∈ (1/3, 3)",
+    "answer_explanation": "2 pkt – zastosowanie poprawnej metody i zapisanie zbioru rozwiązań nierówności.",
+    "page_number": 30,
+    "context_text": null
+  },
+  {
+    "question_number": "11",
+    "question_text": "Wymaganie ogólne Wymaganie szczegółowe II. Wykorzystanie i tworzenie informacji. Zdający: 1. Interpretowanie i operowanie V.4) odczytuje z wykresu funkcji: dziedzinę, zbiór wartości, miejsca zerowe, przedziały monotoniczności, przedziały, w których funkcja przyjmuje wartości większe (nie mniejsze) lub mniejsze (nie większe) od danej liczby, największe i najmniejsze wartości funkcji (o ile istnieją) w danym przedziale domkniętym oraz argumenty, dla których wartości największe i najmniejsze są przez funkcję przyjmowane.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "1. Dziedziną funkcji f jest przedział [−4,4]. 2. Zbiorem wartości funkcji f jest przedział (−3,3]. 3. Zbiorem wszystkich argumentów, dla których funkcja f przyjmuje wartości dodatnie, jest przedział [−4,3]. 4. Zbiorem wszystkich rozwiązań równania f(x) = 3 jest przedział [−2,2].",
+    "answer_explanation": "4 pkt – poprawne uzupełnienie czterech zdań.",
+    "page_number": 30,
+    "context_text": null
+  }
+]

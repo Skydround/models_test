@@ -1,0 +1,372 @@
+[
+  {
+    "question_number": "1",
+    "question_text": "Zadanie 1. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\n2\nLiczba (√32−√2) jest równa\nA. 16 B. 18 C. 30 D. 34\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "Wersja A Wersja B B D",
+    "page_number": 4,
+    "context_text": "Zadanie 1. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\n2\nLiczba (√32−√2) jest równa\nA. 16 B. 18 C. 30 D. 34\nBrudnopis"
+  },
+  {
+    "question_number": "2",
+    "question_text": "Zadanie 2. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\n12 13 14\n5 + 5 + 5\nLiczba jest równa\n12\n5\nA. 30 B. 31 C. 512 D. 527\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "Wersja A Wersja B A B",
+    "page_number": 4,
+    "context_text": "Zadanie 2. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\n12 13 14\n5 + 5 + 5\nLiczba jest równa\n12\n5\nA. 30 B. 31 C. 512 D. 527\nBrudnopis"
+  },
+  {
+    "question_number": "3",
+    "question_text": "Zadanie 3. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nLiczba log 108−2log 2 jest równa\n3 3\nA. 3 B. 9 C. log 104 D. 2log 54\n3 3\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "Wersja A Wersja B D C",
+    "page_number": 5,
+    "context_text": "Zadanie 3. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nLiczba log 108−2log 2 jest równa\n3 3\nA. 3 B. 9 C. log 104 D. 2log 54\n3 3\nBrudnopis"
+  },
+  {
+    "question_number": "4",
+    "question_text": "Zadanie 4. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej 𝑥 wartość wyrażenia (3𝑥 +2)2 −(2𝑥−3)2 jest równa\nwartości wyrażenia\nA. 5𝑥2 −5\nB. 5𝑥2 +13\nC. 5𝑥2 +24𝑥 −5\nD. 5𝑥2 +24𝑥 −13\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "Wersja A Wersja B A B",
+    "page_number": 5,
+    "context_text": "Zadanie 4. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej 𝑥 wartość wyrażenia (3𝑥 +2)2 −(2𝑥−3)2 jest równa\nwartości wyrażenia\nA. 5𝑥2 −5\nB. 5𝑥2 +13\nC. 5𝑥2 +24𝑥 −5\nD. 5𝑥2 +24𝑥 −13\nBrudnopis"
+  },
+  {
+    "question_number": "5",
+    "question_text": "Wykaż, że dla każdej nieparzystej liczby naturalnej 𝒏 liczba 𝟑𝒏𝟐 +𝟐𝒏+𝟕 jest podzielna przez 𝟒.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "3n^2 + 2n + 7 is divisible by 4 for every odd natural number n.",
+    "answer_explanation": "The proof involves showing that the expression can be factored or simplified to demonstrate divisibility by 4.",
+    "page_number": 6,
+    "context_text": null
+  },
+  {
+    "question_number": "6",
+    "question_text": "Zadanie 6. (0–1)\nDana jest nierówność\n3−2(1−2𝑥) ≥ 2𝑥 −17\nNa którym rysunku poprawnie zaznaczono na osi liczbowej zbiór wszystkich liczb\nrzeczywistych spełniających powyższą nierówność? Wybierz właściwą odpowiedź\nspośród podanych.\nA.\n0 1 3 𝑥\nB.\n0 1 3 𝑥\nC.\n−9 0 1 𝑥\nD.\n−9 0 1 𝑥\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C.",
+    "answer_explanation": "Wersja A: C, Wersja B: A. Odpowiedź C jest poprawna, ponieważ przedstawia zbiór rozwiązań nierówności na osi liczbowej.",
+    "page_number": 7,
+    "context_text": "Zadanie 6. (0–1)\nDana jest nierówność\n3−2(1−2𝑥) ≥ 2𝑥 −17\nNa którym rysunku poprawnie zaznaczono na osi liczbowej zbiór wszystkich liczb\nrzeczywistych spełniających powyższą nierówność? Wybierz właściwą odpowiedź\nspośród podanych.\nA.\n0 1 3 𝑥\nB.\n0 1 3 𝑥\nC.\n−9 0 1 𝑥\nD.\n−9 0 1 𝑥\nBrudnopis"
+  },
+  {
+    "question_number": "7",
+    "question_text": "Zadanie 7. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nRównanie 2𝑥(𝑥+3)(𝑥2 +25) = 0 w zbiorze liczb rzeczywistych ma dokładnie\nA. dwa rozwiązania: (−3) oraz 0.\nB. dwa rozwiązania: (−3) oraz 2.\nC. trzy rozwiązania: (−5), (−3) oraz 0.\nD. cztery rozwiązania: (−5), (−3), 0 oraz 5.\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A.",
+    "answer_explanation": "Wersja A: D, Wersja B: D. Odpowiedź A jest poprawna, ponieważ równanie ma dwa rozwiązania: (−3) oraz 0.",
+    "page_number": 8,
+    "context_text": "Zadanie 7. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nRównanie 2𝑥(𝑥+3)(𝑥2 +25) = 0 w zbiorze liczb rzeczywistych ma dokładnie\nA. dwa rozwiązania: (−3) oraz 0.\nB. dwa rozwiązania: (−3) oraz 2.\nC. trzy rozwiązania: (−5), (−3) oraz 0.\nD. cztery rozwiązania: (−5), (−3), 0 oraz 5.\nBrudnopis"
+  },
+  {
+    "question_number": "8",
+    "question_text": "Zadanie 8. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej 𝑥 różnej od (−2) oraz różnej od 0 wartość wyrażenia\n𝑥2 + 𝑥 𝑥 + 2\n⋅ jest równa wartości wyrażenia\n𝑥2 + 4𝑥 + 4 𝑥\n𝑥 + 2 𝑥 + 1 𝑥 + 1 2𝑥\nA. B. C. D.\n4𝑥 + 4 4𝑥 + 5 𝑥 + 2 𝑥 + 2\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A.",
+    "answer_explanation": "Wersja A: A, Wersja B: A. Odpowiedź A jest poprawna, ponieważ wyrażenie jest równe 4𝑥 + 4.",
+    "page_number": 8,
+    "context_text": "Zadanie 8. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej 𝑥 różnej od (−2) oraz różnej od 0 wartość wyrażenia\n𝑥2 + 𝑥 𝑥 + 2\n⋅ jest równa wartości wyrażenia\n𝑥2 + 4𝑥 + 4 𝑥\n𝑥 + 2 𝑥 + 1 𝑥 + 1 2𝑥\nA. B. C. D.\n4𝑥 + 4 4𝑥 + 5 𝑥 + 2 𝑥 + 2\nBrudnopis"
+  },
+  {
+    "question_number": "9",
+    "question_text": "Zarząd firmy wydzielił z budżetu kwotę 1200000 złotych łącznie na projekty badawcze dla dwóch zespołów: A i B. W pierwszym półroczu realizacji tych projektów oba zespoły wykorzystały łącznie 146700 złotych – zespół A wykorzystał 13% przyznanych mu środków, a zespół B wykorzystał 11% przyznanych mu środków. Oblicz kwotę przyznaną zespołowi A na realizację projektu badawczego.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "A = 1200000 * 0.13 = 156000 zł.",
+    "answer_explanation": "Zespół A wykorzystał 13% z przyznanej mu kwoty, co daje 156000 zł.",
+    "page_number": 9,
+    "context_text": null
+  },
+  {
+    "question_number": "10",
+    "question_text": "Rozwiąż nierówność 𝟑(𝟐𝒙𝟐 +𝟏) < 𝟏𝟏𝒙. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "Rozwiązanie nierówności prowadzi do x < 2.",
+    "answer_explanation": "To solve the inequality, we first expand and rearrange it to find the critical points and test intervals.",
+    "page_number": 10,
+    "context_text": null
+  },
+  {
+    "question_number": "11",
+    "question_text": "Uzupełnij zdania. Wpisz odpowiednie przedziały w wykropkowanych miejscach, aby zdania były prawdziwe.",
+    "question_type": "short_answer",
+    "max_points": 4,
+    "correct_answer": "[-4, 4]\n[-3, 5]\n(-2, 2]\n(-2, 2]",
+    "answer_explanation": "The domain, range, and intervals where the function is positive or equals 3 are derived from the piecewise definition of the function.",
+    "page_number": 11,
+    "context_text": "Funkcja 𝑓 jest określona następująco: 𝑓(𝑥) = {𝑥+5 dla 𝑥 ∈ [−4,−2], 3 dla 𝑥 ∈ (−2,2], −3𝑥+9 dla 𝑥 ∈ (2,4)}."
+  },
+  {
+    "question_number": "12.1",
+    "question_text": "Wyznacz wzór funkcji 𝒇 w postaci kanonicznej. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "f(x) = -(x - 3)^2 + 6",
+    "answer_explanation": "The vertex form of the quadratic function is derived from the vertex coordinates and the y-intercept.",
+    "page_number": 12,
+    "context_text": "Wierzchołek tej paraboli ma współrzędne (3,6). Ta parabola przecina oś 𝑂𝑦 w punkcie o współrzędnych (0,3)."
+  },
+  {
+    "question_number": "12.2",
+    "question_text": "Zadanie 12.2. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nOsią symetrii wykresu funkcji 𝑓 jest prosta o równaniu\nA. 𝑥 = 3 B. 𝑥 = −3 C. 𝑦 = 6 D. 𝑦 = −6\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. 𝑥 = 3",
+    "answer_explanation": "Osią symetrii wykresu funkcji jest prosta o równaniu 𝑥 = 3, co oznacza, że funkcja jest symetryczna względem tej osi.",
+    "page_number": 13,
+    "context_text": "Zadanie 12.2. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nOsią symetrii wykresu funkcji 𝑓 jest prosta o równaniu\nA. 𝑥 = 3 B. 𝑥 = −3 C. 𝑦 = 6 D. 𝑦 = −6\nBrudnopis"
+  },
+  {
+    "question_number": "12.3",
+    "question_text": "Uzupełnij zdanie. Wpisz odpowiednią liczbę w wykropkowanym miejscu, aby zdanie 12.3. było prawdziwe. Suma 𝑥 +𝑥 jest równa ……… .",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "6",
+    "answer_explanation": "The sum of the roots of the function g(x) = f(x) - 3 can be determined from the properties of the quadratic function.",
+    "page_number": 13,
+    "context_text": null
+  },
+  {
+    "question_number": "13",
+    "question_text": "Zadanie 13. (0–1)\nFunkcja liniowa 𝑓 jest określona wzorem 𝑓(𝑥) = (3−𝑚)𝑥−4.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nFunkcja 𝑓 nie ma miejsca zerowego dla 𝑚 równego\nA. (−3) B. 0 C. 3 D. 4\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 3",
+    "answer_explanation": "Funkcja liniowa 𝑓 nie ma miejsca zerowego, gdy współczynnik 𝑚 = 3, co sprawia, że funkcja nie przecina osi x.",
+    "page_number": 14,
+    "context_text": "Zadanie 13. (0–1)\nFunkcja liniowa 𝑓 jest określona wzorem 𝑓(𝑥) = (3−𝑚)𝑥−4.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nFunkcja 𝑓 nie ma miejsca zerowego dla 𝑚 równego\nA. (−3) B. 0 C. 3 D. 4\nBrudnopis"
+  },
+  {
+    "question_number": "14.1",
+    "question_text": "Zadanie 14.1. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nTrzeci wyraz ciągu (𝑎 ) jest równy\n𝑛\nA. 4 B. 5 C. 7 D. 11\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 5",
+    "answer_explanation": "Trzeci wyraz ciągu (𝑎 ) oblicza się na podstawie wzoru rekurencyjnego, co daje wynik 5.",
+    "page_number": 15,
+    "context_text": "Zadanie 14.1. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nTrzeci wyraz ciągu (𝑎 ) jest równy\n𝑛\nA. 4 B. 5 C. 7 D. 11\nBrudnopis"
+  },
+  {
+    "question_number": "14.2",
+    "question_text": "Zadanie 14.2. (0–1)\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nCiąg (𝑎 ) jest arytmetyczny. P F\n𝑛\nCiąg (𝑎 ) jest geometryczny. P F\n𝑛\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 2,
+    "correct_answer": "P, F",
+    "answer_explanation": "Ciąg (𝑎 ) jest arytmetyczny, ponieważ różnica między kolejnymi wyrazami jest stała, natomiast nie jest geometryczny.",
+    "page_number": 15,
+    "context_text": "Zadanie 14.2. (0–1)\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nCiąg (𝑎 ) jest arytmetyczny. P F\n𝑛\nCiąg (𝑎 ) jest geometryczny. P F\n𝑛\nBrudnopis"
+  },
+  {
+    "question_number": "15",
+    "question_text": "Wyznacz wartość 𝒎, dla której trzywyrazowy ciąg (𝟐𝒎+𝟏𝟏, 𝒎𝟐 +𝟑, 𝟓−𝒎) jest arytmetyczny i malejący. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "m = 2",
+    "answer_explanation": "Aby ciąg był arytmetyczny, różnice między kolejnymi wyrazami muszą być równe. Ustalając równania dla różnic i rozwiązując je, otrzymujemy m = 3.",
+    "page_number": 16,
+    "context_text": null
+  },
+  {
+    "question_number": "16",
+    "question_text": "Zadanie 16. (0–1)\nDany jest ciąg geometryczny (𝑎 ) określony dla każdej liczby naturalnej 𝑛 ≥ 1, w którym\n𝑛\n𝑎 = 27 oraz 𝑎 = 9.\n1 2\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nCzwarty wyraz ciągu (𝑎 ) jest równy\n𝑛\n1\nA. B. 1 C. 3 D. 729\n3\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D. 729",
+    "answer_explanation": "Czwarty wyraz ciągu geometrycznego można obliczyć jako a4 = a1 * r^3, gdzie r to iloraz ciągu. Dla podanych wartości a1 = 9 i r = 3, a4 = 9 * 3^3 = 729.",
+    "page_number": 17,
+    "context_text": "Zadanie 16. (0–1)\nDany jest ciąg geometryczny (𝑎 ) określony dla każdej liczby naturalnej 𝑛 ≥ 1, w którym\n𝑛\n𝑎 = 27 oraz 𝑎 = 9.\n1 2\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nCzwarty wyraz ciągu (𝑎 ) jest równy\n𝑛\n1\nA. B. 1 C. 3 D. 729\n3\nBrudnopis"
+  },
+  {
+    "question_number": "17",
+    "question_text": "Zadanie 17. (0–1)\nKąt 𝛼 jest ostry i spełnia warunek √3tg𝛼 = 2sin𝛼.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nCosinus kąta 𝛼 jest równy\n1 √2 √3 √3\nA. B. C. D.\n2 2 2 3\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. √3/2",
+    "answer_explanation": "Z równania √3tg𝛼 = 2sin𝛼 można wyznaczyć cosinus kąta α, co prowadzi do wyniku √3/2.",
+    "page_number": 17,
+    "context_text": "Zadanie 17. (0–1)\nKąt 𝛼 jest ostry i spełnia warunek √3tg𝛼 = 2sin𝛼.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nCosinus kąta 𝛼 jest równy\n1 √2 √3 √3\nA. B. C. D.\n2 2 2 3\nBrudnopis"
+  },
+  {
+    "question_number": "18.1",
+    "question_text": "Zadanie 18.1. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nTangens kąta 𝛼 jest równy\n2 3 4 4\nA. B. C. D.\n3 4 5 3\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 3/4",
+    "answer_explanation": "Tangens kąta α można obliczyć jako stosunek przeciwprostokątnej do przyprostokątnej, co daje wynik 3/4.",
+    "page_number": 18,
+    "context_text": "Zadanie 18.1. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nTangens kąta 𝛼 jest równy\n2 3 4 4\nA. B. C. D.\n3 4 5 3\nBrudnopis"
+  },
+  {
+    "question_number": "18.2",
+    "question_text": "Zadanie 18.2. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nSinus kąta 𝛽 jest równy\n2 3 5 4\nA. B. C. D.\n√13 √13 2√13 5\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. √13/5",
+    "answer_explanation": "Sinus kąta β można obliczyć z długości boków trójkąta prostokątnego, co prowadzi do wyniku √13/5.",
+    "page_number": 18,
+    "context_text": "Zadanie 18.2. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nSinus kąta 𝛽 jest równy\n2 3 5 4\nA. B. C. D.\n√13 √13 2√13 5\nBrudnopis"
+  },
+  {
+    "question_number": "19",
+    "question_text": "Zadanie 19. (0–1)\nPunkty 𝐴, 𝐵 oraz 𝐶 leżą na okręgu o środku w punkcie 𝑂.\nMiara kąta 𝐵𝐶𝐴 jest równa 50° (zobacz rysunek).\n𝐶\n50°\n𝑂\n𝐴\n𝐵\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nMiara kąta ostrego 𝐴𝐵𝑂 jest równa\nA. 20° B. 35° C. 40° D. 50°\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 40°",
+    "answer_explanation": "Miara kąta ostrego 𝐴𝐵𝑂 w trójkącie wpisanym w okrąg jest równa połowie miary kąta 𝐵𝐶𝐴, który wynosi 50°. Zatem 𝐴𝐵𝑂 = 50° / 2 = 25°.",
+    "page_number": 19,
+    "context_text": "Zadanie 19. (0–1)\nPunkty 𝐴, 𝐵 oraz 𝐶 leżą na okręgu o środku w punkcie 𝑂.\nMiara kąta 𝐵𝐶𝐴 jest równa 50° (zobacz rysunek).\n𝐶\n50°\n𝑂\n𝐴\n𝐵\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nMiara kąta ostrego 𝐴𝐵𝑂 jest równa\nA. 20° B. 35° C. 40° D. 50°\nBrudnopis"
+  },
+  {
+    "question_number": "20",
+    "question_text": "Zadanie 20. (0–1)\nW trójkącie równoramiennym 𝐴𝐵𝐶 dane są: |𝐴𝐶| = |𝐵𝐶| = 4 i |𝐴𝐵| = 3.\nNa boku 𝐵𝐶, między punktami 𝐵 i 𝐶, wybrano taki punkt 𝐷, że trójkąty 𝐴𝐵𝐶 i 𝐵𝐷𝐴 są\npodobne (zobacz rysunek).\n𝐶\n𝐷\n4\n𝐴 3 𝐵\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nOdcinek 𝐵𝐷 ma długość\nA. 2 B. 2,25 C. 2,5 D. 3\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 2,25",
+    "answer_explanation": "Trójkąty 𝐴𝐵𝐶 i 𝐵𝐷𝐴 są podobne, a stosunek długości odpowiadających sobie boków wynosi 3:4. Odcinek 𝐵𝐷 obliczamy jako 3 * (4/3) = 2,25.",
+    "page_number": 20,
+    "context_text": "Zadanie 20. (0–1)\nW trójkącie równoramiennym 𝐴𝐵𝐶 dane są: |𝐴𝐶| = |𝐵𝐶| = 4 i |𝐴𝐵| = 3.\nNa boku 𝐵𝐶, między punktami 𝐵 i 𝐶, wybrano taki punkt 𝐷, że trójkąty 𝐴𝐵𝐶 i 𝐵𝐷𝐴 są\npodobne (zobacz rysunek).\n𝐶\n𝐷\n4\n𝐴 3 𝐵\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nOdcinek 𝐵𝐷 ma długość\nA. 2 B. 2,25 C. 2,5 D. 3\nBrudnopis"
+  },
+  {
+    "question_number": "21",
+    "question_text": "Zadanie 21. (0–1)\nDany jest trójkąt 𝐴𝐵𝐶, w którym |𝐴𝐵| = 11, |𝐵𝐶| = 12 oraz |∡𝐴𝐵𝐶| = 60° (zobacz\nrysunek).\n𝐶\n12\n60°\n𝐴 11 𝐵\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nTrójkąt 𝐴𝐵𝐶 jest równoramienny. P F\nPole trójkąta 𝐴𝐵𝐶 jest równe 33√3. P F\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F, P",
+    "answer_explanation": "Trójkąt 𝐴𝐵𝐶 nie jest równoramienny, ponieważ boki mają różne długości. Pole trójkąta 𝐴𝐵𝐶 obliczamy jako 1/2 * 11 * 12 * sin(60°) = 33√3.",
+    "page_number": 21,
+    "context_text": "Zadanie 21. (0–1)\nDany jest trójkąt 𝐴𝐵𝐶, w którym |𝐴𝐵| = 11, |𝐵𝐶| = 12 oraz |∡𝐴𝐵𝐶| = 60° (zobacz\nrysunek).\n𝐶\n12\n60°\n𝐴 11 𝐵\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nTrójkąt 𝐴𝐵𝐶 jest równoramienny. P F\nPole trójkąta 𝐴𝐵𝐶 jest równe 33√3. P F\nBrudnopis"
+  },
+  {
+    "question_number": "22",
+    "question_text": "Zadanie 22. (0–1)\nW kartezjańskim układzie współrzędnych (𝑥,𝑦) dany jest kwadrat 𝐴𝐵𝐶𝐷, w którym\n𝐴 = (4,−1). Przekątne tego kwadratu przecinają się w punkcie 𝑆 = (1,3).\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nPrzekątna kwadratu 𝐴𝐵𝐶𝐷 ma długość\nA. 5 B. 7 C. 10 D. 14\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 10",
+    "answer_explanation": "Długość przekątnej kwadratu oblicza się ze wzoru d = a√2, gdzie a to długość boku. W tym przypadku, długość boku kwadratu wynosi 7, więc d = 7√2 ≈ 9.9, co zaokrągla się do 10.",
+    "page_number": 22,
+    "context_text": "Zadanie 22. (0–1)\nW kartezjańskim układzie współrzędnych (𝑥,𝑦) dany jest kwadrat 𝐴𝐵𝐶𝐷, w którym\n𝐴 = (4,−1). Przekątne tego kwadratu przecinają się w punkcie 𝑆 = (1,3).\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nPrzekątna kwadratu 𝐴𝐵𝐶𝐷 ma długość\nA. 5 B. 7 C. 10 D. 14\nBrudnopis"
+  },
+  {
+    "question_number": "23",
+    "question_text": "Zadanie 23. (0–1)\nW kartezjańskim układzie współrzędnych (𝑥,𝑦) proste 𝑘 oraz 𝑙 są określone równaniami\n𝑘: 𝑦 = (𝑚−2)𝑥 +5\n𝑙: 𝑦 = −4𝑥+(𝑚+3)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nProste 𝑘 oraz 𝑙 są równoległe, gdy liczba 𝑚 jest równa\nA. (−4) B. (−2) C. 2 D. 5\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 2",
+    "answer_explanation": "Proste są równoległe, gdy mają takie same współczynniki kierunkowe. W tym przypadku, dla prostej k współczynnik kierunkowy wynosi (m-2), a dla prostej l wynosi -4. Ustawiając je równe, otrzymujemy m - 2 = -4, co daje m = -2.",
+    "page_number": 22,
+    "context_text": "Zadanie 23. (0–1)\nW kartezjańskim układzie współrzędnych (𝑥,𝑦) proste 𝑘 oraz 𝑙 są określone równaniami\n𝑘: 𝑦 = (𝑚−2)𝑥 +5\n𝑙: 𝑦 = −4𝑥+(𝑚+3)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nProste 𝑘 oraz 𝑙 są równoległe, gdy liczba 𝑚 jest równa\nA. (−4) B. (−2) C. 2 D. 5\nBrudnopis"
+  },
+  {
+    "question_number": "24",
+    "question_text": "Zadanie 24. (0–1)\nW kartezjańskim układzie współrzędnych (𝑥,𝑦) punkt 𝑃 = (0,0) leży na okręgu 𝒪\no środku w punkcie 𝑆 = (2,4).\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nOkrąg 𝒪 jest określony równaniem\nA. (𝑥−2)2 +(𝑦−4)2 = 2√5\nB. (𝑥−2)2 +(𝑦−4)2 = 20\nC. (𝑥+2)2 +(𝑦+4)2 = 2√5\nD. (𝑥+2)2 +(𝑦+4)2 = 20\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. (𝑥−2)2 +(𝑦−4)2 = 20",
+    "answer_explanation": "Równanie okręgu o środku S(2,4) i promieniu r można zapisać jako (x - 2)² + (y - 4)² = r². Odległość punktu P(0,0) od S(2,4) wynosi √((2-0)² + (4-0)²) = √(4 + 16) = √20, więc r² = 20.",
+    "page_number": 23,
+    "context_text": "Zadanie 24. (0–1)\nW kartezjańskim układzie współrzędnych (𝑥,𝑦) punkt 𝑃 = (0,0) leży na okręgu 𝒪\no środku w punkcie 𝑆 = (2,4).\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nOkrąg 𝒪 jest określony równaniem\nA. (𝑥−2)2 +(𝑦−4)2 = 2√5\nB. (𝑥−2)2 +(𝑦−4)2 = 20\nC. (𝑥+2)2 +(𝑦+4)2 = 2√5\nD. (𝑥+2)2 +(𝑦+4)2 = 20\nBrudnopis"
+  },
+  {
+    "question_number": "25",
+    "question_text": "Tworząca stożka ma długość 8. Kąt rozwarcia tego stożka ma miarę 120°. Oblicz objętość tego stożka. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "V = (1/3) * π * r² * h, gdzie r = 4√3, h = 4. Obliczając, V = (1/3) * π * (4√3)² * 4 = 64π.",
+    "answer_explanation": "Objętość stożka obliczamy ze wzoru V = (1/3) * π * r² * h. Wysokość h można obliczyć z kąta rozwarcia i długości tworzącej. W tym przypadku, r = 4√3 i h = 4, co daje V = 64π.",
+    "page_number": 24,
+    "context_text": null
+  },
+  {
+    "question_number": "26",
+    "question_text": "Zadanie 26. (0–1)\nObjętość sześcianu jest równa 729.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nDługość przekątnej tego sześcianu jest równa\nA. 9√3 B. 9√2 C. 3√3 D. 3√2\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. 9√3",
+    "answer_explanation": "Długość przekątnej sześcianu obliczamy ze wzoru d = a√3, gdzie a to długość krawędzi. Dla objętości 729, a = 9, więc d = 9√3.",
+    "page_number": 25,
+    "context_text": "Zadanie 26. (0–1)\nObjętość sześcianu jest równa 729.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nDługość przekątnej tego sześcianu jest równa\nA. 9√3 B. 9√2 C. 3√3 D. 3√2\nBrudnopis"
+  },
+  {
+    "question_number": "27",
+    "question_text": "Zadanie 27. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nWszystkich liczb naturalnych trzycyfrowych nieparzystych, w których zapisie dziesiętnym\nwystępuje dokładnie jeden raz cyfra 0, jest\nA. 45 B. 50 C. 54 D. 81\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 54",
+    "answer_explanation": "Trzycyfrowe liczby nieparzyste z cyfrą 0 na pozycji setek mogą mieć 0 na pozycji dziesiątek lub jedności. Analizując wszystkie możliwości, otrzymujemy 54 takie liczby.",
+    "page_number": 25,
+    "context_text": "Zadanie 27. (0–1)\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nWszystkich liczb naturalnych trzycyfrowych nieparzystych, w których zapisie dziesiętnym\nwystępuje dokładnie jeden raz cyfra 0, jest\nA. 45 B. 50 C. 54 D. 81\nBrudnopis"
+  },
+  {
+    "question_number": "28",
+    "question_text": "Zadanie 28. (0–1)\nDoświadczenie losowe polega na dwukrotnym rzucie symetryczną sześcienną kostką do gry,\nktóra na każdej ściance ma inną liczbę oczek – od jednego oczka do sześciu oczek.\nZdarzenie 𝐴 polega na tym, że suma liczb wyrzuconych oczek będzie równa 11.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nPrawdopodobieństwo zdarzenia 𝐴 jest równe\n1 6 11 2\nA. B. C. D.\n36 36 36 36\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 11/36",
+    "answer_explanation": "Prawdopodobieństwo uzyskania sumy 11 przy dwóch rzutach kostką wynosi 11/36, ponieważ istnieje 11 kombinacji, które dają tę sumę.",
+    "page_number": 26,
+    "context_text": "Zadanie 28. (0–1)\nDoświadczenie losowe polega na dwukrotnym rzucie symetryczną sześcienną kostką do gry,\nktóra na każdej ściance ma inną liczbę oczek – od jednego oczka do sześciu oczek.\nZdarzenie 𝐴 polega na tym, że suma liczb wyrzuconych oczek będzie równa 11.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nPrawdopodobieństwo zdarzenia 𝐴 jest równe\n1 6 11 2\nA. B. C. D.\n36 36 36 36\nBrudnopis"
+  },
+  {
+    "question_number": "29",
+    "question_text": "Zadanie 29. (0–1)\nŚrednia arytmetyczna siedmiu liczb: 1, 2, 3, 4, 5, 𝑥, 𝑦, jest równa 3.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nSuma 𝑥 +𝑦 jest równa\nA. 4 B. 5 C. 6 D. 7\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 6",
+    "answer_explanation": "Średnia arytmetyczna wynosi 3, więc suma wszystkich liczb wynosi 21. Suma 𝑥 + 𝑦 wynosi 21 - (1 + 2 + 3 + 4 + 5) = 6.",
+    "page_number": 26,
+    "context_text": "Zadanie 29. (0–1)\nŚrednia arytmetyczna siedmiu liczb: 1, 2, 3, 4, 5, 𝑥, 𝑦, jest równa 3.\nDokończ zdanie. Wybierz właściwą odpowiedź spośród podanych.\nSuma 𝑥 +𝑦 jest równa\nA. 4 B. 5 C. 6 D. 7\nBrudnopis"
+  },
+  {
+    "question_number": "30",
+    "question_text": "Na diagramie przedstawiono wyniki sprawdzianu z matematyki w pewnej klasie maturalnej liczącej 24 uczniów. Na osi poziomej podano oceny, które uzyskali uczniowie tej klasy, a na osi pionowej podano liczbę uczniów, którzy otrzymali daną ocenę. Uzupełnij zdania. Wpisz odpowiednie liczby w wykropkowanych miejscach, aby zdania były prawdziwe. 1. Mediana ocen uzyskanych z tego sprawdzianu przez uczniów tej klasy jest równa ………… . 2. Dominanta ocen uzyskanych z tego sprawdzianu przez uczniów tej klasy jest równa ………… .",
+    "question_type": "short_answer",
+    "max_points": 2,
+    "correct_answer": "Mediana: 3, Dominanta: 4",
+    "answer_explanation": "Mediana to środkowa wartość ocen, a dominanta to najczęściej występująca ocena.",
+    "page_number": 27,
+    "context_text": null
+  },
+  {
+    "question_number": "31",
+    "question_text": "Rozważamy wszystkie prostopadłościany 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻, w których krawędź 𝐵𝐶 ma długość 4 oraz suma długości wszystkich krawędzi wychodzących z wierzchołka 𝐵 jest równa 15. Niech 𝑃(𝑥) oznacza funkcję pola powierzchni całkowitej takiego prostopadłościanu w zależności od długości 𝑥 krawędzi 𝐴𝐵. Wyznacz wzór i dziedzinę funkcji 𝑷. Oblicz długość 𝒙 krawędzi 𝑨𝑩 tego prostopadłościanu, którego pole powierzchni całkowitej jest największe. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 4,
+    "correct_answer": "𝑃(𝑥) = 2(4 + 15 + x) * (4 + 15 + x) - 2(4 * 15 + 4 * x + 15 * x) = -2x^2 + 38x + 240, dziedzina: x > 0. Największe pole powierzchni całkowitej osiągane jest dla x = 11, co daje 400.",
+    "answer_explanation": "Funkcja 𝑃(𝑥) jest funkcją kwadratową, której wierzchołek można znaleźć, co pozwala na określenie maksymalnej wartości. Obliczenia prowadzą do wniosku, że największa wartość funkcji wynosi 400, co odpowiada długości krawędzi 𝑨𝑩 równiej 11.",
+    "page_number": 28,
+    "context_text": "Rozważamy wszystkie prostopadłościany 𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻, w których krawędź 𝐵𝐶 ma długość 4 oraz suma długości wszystkich krawędzi wychodzących z wierzchołka 𝐵 jest równa 15."
+  },
+  {
+    "question_number": "31.1",
+    "question_text": "Wymagania egzaminacyjne 2023 i 2024. I. Sprawność rachunkowa. Zdający: V.3) […] interpretuje wartości funkcji określonych za pomocą […] wzorów […]; V.2) oblicza wartość funkcji zadaną wzorem algebraicznym.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "FP",
+    "answer_explanation": "1 pkt – odpowiedź poprawna.",
+    "page_number": 31,
+    "context_text": null
+  },
+  {
+    "question_number": "31.2",
+    "question_text": "Wymagania egzaminacyjne 2023 i 2024. III. Wykorzystanie i interpretowanie reprezentacji. Zdający: XIII) rozwiązuje zadania optymalizacyjne w sytuacjach dających się opisać funkcją kwadratową.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "11 i 400",
+    "answer_explanation": "2 pkt – poprawna metoda rozwiązania zadania oraz poprawne wyniki: 11 i 400.",
+    "page_number": 32,
+    "context_text": null
+  }
+]

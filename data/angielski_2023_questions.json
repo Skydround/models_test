@@ -1,0 +1,492 @@
+[
+  {
+    "question_number": "1.1",
+    "question_text": "Mark found employment in Egypt because he could draw very well.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F",
+    "answer_explanation": "Mark did not find employment in Egypt solely because of his drawing skills; he was initially hired to make sketches.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie wywiad z archeologiem."
+  },
+  {
+    "question_number": "1.2",
+    "question_text": "A well-known professor encouraged Mark to start studying archaeology.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "T",
+    "answer_explanation": "Mark was encouraged by a famous archaeology professor, Mark Thompson, to study archaeology.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie wywiad z archeologiem."
+  },
+  {
+    "question_number": "1.3",
+    "question_text": "Mark stopped working in Egypt because of a natural disaster there.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F",
+    "answer_explanation": "Mark left Egypt to help with archaeological sites in Greece after an earthquake, not because he stopped working due to a disaster in Egypt.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie wywiad z archeologiem."
+  },
+  {
+    "question_number": "1.4",
+    "question_text": "Mark once discovered a vase made of gold.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F",
+    "answer_explanation": "Mark found a vase that appears to be made of gold but is actually made of crystal.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie wywiad z archeologiem."
+  },
+  {
+    "question_number": "1.5",
+    "question_text": "At present, Mark works as a journalist.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "T",
+    "answer_explanation": "Mark currently writes articles for archaeological magazines.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie wywiad z archeologiem."
+  },
+  {
+    "question_number": "2.1",
+    "question_text": "The speaker describes a house which he/she discovered on the way to work.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "E",
+    "answer_explanation": "The speaker mentions discovering a house while on the way to work.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie pięć wypowiedzi związanych z domami."
+  },
+  {
+    "question_number": "2.2",
+    "question_text": "The speaker recommends visiting a house owned by a famous film director.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "The speaker provides information about a house that is part of a tour.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie pięć wypowiedzi związanych z domami."
+  },
+  {
+    "question_number": "2.3",
+    "question_text": "The speaker gives information about a house to people who are on a tour.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F",
+    "answer_explanation": "The speaker does not give information to people on a tour; they are discussing a house in a different context.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie pięć wypowiedzi związanych z domami."
+  },
+  {
+    "question_number": "2.4",
+    "question_text": "The speaker encourages people to book a stay at a certain house.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D",
+    "answer_explanation": "The speaker encourages booking a stay at a specific house.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie pięć wypowiedzi związanych z domami."
+  },
+  {
+    "question_number": "2.5",
+    "question_text": "The speaker talks about a house built only for use in a film.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "The speaker discusses a house that was built for a film.",
+    "page_number": 4,
+    "context_text": "Usłyszysz dwukrotnie pięć wypowiedzi związanych z domami."
+  },
+  {
+    "question_number": "3.1",
+    "question_text": "3.1. Which is the correct order of the events?\nA. calling his wife – offering a reward to the cyclist – getting the car keys\nB. offering a reward to the cyclist – getting the car keys – calling his wife\nC. calling his wife – getting the car keys – offering a reward to the cyclist",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "The correct order of events is offering a reward to the cyclist, getting the car keys, and then calling his wife.",
+    "page_number": 5,
+    "context_text": "3.1. Which is the correct order of the events?\nA. calling his wife – offering a reward to the cyclist – getting the car keys\nB. offering a reward to the cyclist – getting the car keys – calling his wife\nC. calling his wife – getting the car keys – offering a reward to the cyclist"
+  },
+  {
+    "question_number": "3.2",
+    "question_text": "3.2. The speaker tells this story in order to\nA. warn listeners to keep their food away from bears.\nB. amuse listeners with a joke about a bear in a shop.\nC. advise listeners what to take with them when camping in bear territory.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "The speaker warns listeners to keep their food away from bears.",
+    "page_number": 5,
+    "context_text": "3.2. The speaker tells this story in order to\nA. warn listeners to keep their food away from bears.\nB. amuse listeners with a joke about a bear in a shop.\nC. advise listeners what to take with them when camping in bear territory."
+  },
+  {
+    "question_number": "3.3",
+    "question_text": "3.3. Which sunglasses suit the woman best?\nA. round ones\nB. triangular ones\nC. rectangular ones",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "Rectangular sunglasses suit the woman best as her face is round.",
+    "page_number": 5,
+    "context_text": "3.3. Which sunglasses suit the woman best?\nA. round ones\nB. triangular ones\nC. rectangular ones"
+  },
+  {
+    "question_number": "3.4",
+    "question_text": "3.4. The difference between the two pairs of sunglasses which the woman buys is in\ntheir\nA. shape.\nB. brand.\nC. size.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "The difference is in the size of the sunglasses.",
+    "page_number": 5,
+    "context_text": "3.4. The difference between the two pairs of sunglasses which the woman buys is in\ntheir\nA. shape.\nB. brand.\nC. size."
+  },
+  {
+    "question_number": "3.5",
+    "question_text": "3.5. The woman is talking with\nA. a doctor.\nB. a shop assistant.\nC. a member of her family.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "The woman is talking with a shop assistant.",
+    "page_number": 5,
+    "context_text": "3.5. The woman is talking with\nA. a doctor.\nB. a shop assistant.\nC. a member of her family."
+  },
+  {
+    "question_number": "4.1",
+    "question_text": "Dobierz właściwy nagłówek (A–F) do każdej oznaczonej części tekstu (4.1.–4.4.).",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F",
+    "answer_explanation": "The section describes Vera Wang's dream that did not come true.",
+    "page_number": 6,
+    "context_text": "Vera Wang: A successful American fashion designer."
+  },
+  {
+    "question_number": "4.2",
+    "question_text": "Dobierz właściwy nagłówek (A–F) do każdej oznaczonej części tekstu (4.1.–4.4.).",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "E",
+    "answer_explanation": "This section describes an unexpected offer of employment.",
+    "page_number": 6,
+    "context_text": "Vera Wang: A successful American fashion designer."
+  },
+  {
+    "question_number": "4.3",
+    "question_text": "Dobierz właściwy nagłówek (A–F) do każdej oznaczonej części tekstu (4.1.–4.4.).",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "This section discusses designs that gained worldwide popularity.",
+    "page_number": 6,
+    "context_text": "Vera Wang: A successful American fashion designer."
+  },
+  {
+    "question_number": "4.4",
+    "question_text": "Dobierz właściwy nagłówek (A–F) do każdej oznaczonej części tekstu (4.1.–4.4.).",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D",
+    "answer_explanation": "This section describes losing control over a skating business.",
+    "page_number": 6,
+    "context_text": "Vera Wang: A successful American fashion designer."
+  },
+  {
+    "question_number": "5.1",
+    "question_text": "This text describes how an airport solved the problem of annoyed passengers.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "This text describes how an airport solved the problem of annoyed passengers.",
+    "page_number": 10,
+    "context_text": "Tekst B: WALK MORE, WAIT LESS Some years ago, Houston airport received a large number of complaints from passengers who had to wait for their suitcases in the arrivals terminal. The airport administration made a careful analysis. They found that passengers spent just one minute walking from the arrival gate to the baggage pick-up area, and then seven minutes on average waiting for their bags. The airport administration moved the arrival gate further away, so passengers now have to walk six minutes instead of one, before they can pick up their luggage. Complaints have dropped to nearly zero since then. It seems that people prefer walking to just standing and waiting."
+  },
+  {
+    "question_number": "5.2",
+    "question_text": "This text may be useful to people who are looking for travel bargains.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "This text may be useful to people who are looking for travel bargains.",
+    "page_number": 10,
+    "context_text": "Tekst A: When planning a plane trip... Avoid direct flights, book connecting flights instead. To get the cheapest tickets, book your flight at least three weeks in advance. Be flexible with the dates of your flight! Wednesdays are the best days to fly and Sundays are the worst."
+  },
+  {
+    "question_number": "5.3",
+    "question_text": "This text is a review of a book which is based on a true story.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D",
+    "answer_explanation": "This text is a review of a book which is based on a true story.",
+    "page_number": 10,
+    "context_text": "Tekst D: The First World War is over and Wally Shiers, an airplane mechanic, has promised his girlfriend, Helena, that he will return home and marry her. But fighter pilot Ross Smith asks Wally to join him to compete in a dangerous air race. A £10,000 prize has been offered for the first airmen to fly from England to Australia. Ross is a talented and brave pilot. Who could say “no” to his request? Wally writes to Helena to say he won’t be home for another year."
+  },
+  {
+    "question_number": "5.4",
+    "question_text": "W odpowiedzi zdającego musi pojawić się odniesienie do tekstu C. Kluczowe jest przekazanie informacji, że na lotnisku w Stambule znajduje się galeria sztuki.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "an art gallery",
+    "answer_explanation": "The answer must refer to the art gallery located at the Istanbul airport.",
+    "page_number": 7,
+    "context_text": "Tekst C: I came across an art gallery with an exhibition of 20 amazing portraits. They were not painted but made from recycled rubbish such as leaflets, tickets and plastic bags thrown away by passengers at Istanbul Airport."
+  },
+  {
+    "question_number": "5.5",
+    "question_text": "W odpowiedzi zdającego musi pojawić się odniesienie do tekstu C. Kluczowe jest wskazanie, że materiały wykorzystane do stworzenia obrazów zostały zebrane na lotnisku (w Stambule).",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "the airport",
+    "answer_explanation": "The answer must indicate that the materials used for the portraits were collected at the airport.",
+    "page_number": 8,
+    "context_text": "Tekst C: They were not painted but made from recycled rubbish such as leaflets, tickets and plastic bags thrown away by passengers at Istanbul Airport."
+  },
+  {
+    "question_number": "5.6",
+    "question_text": "W odpowiedzi zdającego musi pojawić się odniesienie do tekstu A. Kluczowe jest wskazanie, że bilet lotniczy można kupić w najlepszej cenie, jeśli dokona się rezerwacji w niedzielę.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "a Sunday",
+    "answer_explanation": "The answer must indicate that the best price for tickets is when booked on a Sunday.",
+    "page_number": 9,
+    "context_text": "To have a chance of getting the best price you should book your ticket on..."
+  },
+  {
+    "question_number": "5.7",
+    "question_text": "W odpowiedzi zdającego musi pojawić się odniesienie do tekstu D. Kluczowe jest wskazanie, że główny bohater pracował podczas drugiej wojny światowej jako mechanik samolotowy.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "an airplane mechanic",
+    "answer_explanation": "The answer must indicate that the main character worked as an airplane mechanic during the war.",
+    "page_number": 10,
+    "context_text": "Tekst D: Wally Shiers, an airplane mechanic, has promised his girlfriend, Helena, that he will return home and marry her."
+  },
+  {
+    "question_number": "6.1",
+    "question_text": "6.1. From the beginning of the text, we learn that the steward\nA. told Molly to show an invitation.\nB. went with Molly to Oona’s cabin.\nC. didn’t allow Molly to go up to deck A.\nD. explained to Molly how to get to Oona’s cabin.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "The correct answer is B. The steward went with Molly to Oona’s cabin.",
+    "page_number": 13,
+    "context_text": "6.1. From the beginning of the text, we learn that the steward\nA. told Molly to show an invitation.\nB. went with Molly to Oona’s cabin.\nC. didn’t allow Molly to go up to deck A.\nD. explained to Molly how to get to Oona’s cabin."
+  },
+  {
+    "question_number": "6.2",
+    "question_text": "6.2. Oona invited Molly to her cabin because she\nA. felt very tired of being alone.\nB. knew that Molly wanted to meet her.\nC. wanted Molly to do something for her.\nD. was interested in what a detective does.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "The correct answer is B. Oona knew that Molly wanted to meet her.",
+    "page_number": 13,
+    "context_text": "6.2. Oona invited Molly to her cabin because she\nA. felt very tired of being alone.\nB. knew that Molly wanted to meet her.\nC. wanted Molly to do something for her.\nD. was interested in what a detective does."
+  },
+  {
+    "question_number": "6.3",
+    "question_text": "6.3. Before Molly made her decision, Oona\nA. put on Molly’s clothes.\nB. paid Molly 100 dollars.\nC. told Molly what to say.\nD. advised Molly to stay in bed.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "The correct answer is C. Oona told Molly what to say.",
+    "page_number": 13,
+    "context_text": "6.3. Before Molly made her decision, Oona\nA. put on Molly’s clothes.\nB. paid Molly 100 dollars.\nC. told Molly what to say.\nD. advised Molly to stay in bed."
+  },
+  {
+    "question_number": "6.4",
+    "question_text": "6.4. When Oona left the cabin,\nA. Rose entered the room without Molly’s permission.\nB. she sent Rose to take care of Molly.\nC. she invited Molly to visit Rose.\nD. Molly started to worry.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "The correct answer is B. She sent Rose to take care of Molly.",
+    "page_number": 13,
+    "context_text": "6.4. When Oona left the cabin,\nA. Rose entered the room without Molly’s permission.\nB. she sent Rose to take care of Molly.\nC. she invited Molly to visit Rose.\nD. Molly started to worry."
+  },
+  {
+    "question_number": "6.5",
+    "question_text": "6.5. Which is the best title for the story?\nA. AN UNSUCCESSFUL MEETING\nB. AN UNWANTED PASSENGER\nC. AN UNPLEASANT GUEST\nD. AN UNEXPECTED OFFER",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D",
+    "answer_explanation": "The title reflects the unexpected offer made by Oona.",
+    "page_number": 13,
+    "context_text": "6.5. Which is the best title for the story?\nA. AN UNSUCCESSFUL MEETING\nB. AN UNWANTED PASSENGER\nC. AN UNPLEASANT GUEST\nD. AN UNEXPECTED OFFER"
+  },
+  {
+    "question_number": "7.1",
+    "question_text": "Wpisz w każdą lukę (7.1.–7.4.) literę, którą oznaczono brakujące zdanie (A–E), tak aby otrzymać spójny i logiczny tekst.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D",
+    "answer_explanation": "The correct answer for 7.1 is D. The woman looked worried, so the stranger said he was there to help her.",
+    "page_number": 14,
+    "context_text": "An elderly woman was standing by her car, which was parked on the side of the road. A driver passing by saw that she had a problem, so he stopped near her Mercedes and got out."
+  },
+  {
+    "question_number": "7.2",
+    "question_text": "Wpisz w każdą lukę (7.1.–7.4.) literę, którą oznaczono brakujące zdanie (A–E), tak aby otrzymać spójny i logiczny tekst.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "E",
+    "answer_explanation": "The correct answer for 7.2 is E. The waitress went to get the change but when she came back, the woman was not there.",
+    "page_number": 14,
+    "context_text": "When he took a closer look at her car, he noticed that one of the tyres was flat. It took him some time to change it."
+  },
+  {
+    "question_number": "7.3",
+    "question_text": "Wpisz w każdą lukę (7.1.–7.4.) literę, którą oznaczono brakujące zdanie (A–E), tak aby otrzymać spójny i logiczny tekst.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B",
+    "answer_explanation": "The correct answer for 7.3 is B. Inside, the woman saw a young waitress who looked tired but friendly.",
+    "page_number": 14,
+    "context_text": "Later that evening, the owner of the Mercedes stopped at a small café."
+  },
+  {
+    "question_number": "7.4",
+    "question_text": "Wpisz w każdą lukę (7.1.–7.4.) literę, którą oznaczono brakujące zdanie (A–E), tak aby otrzymać spójny i logiczny tekst.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "The correct answer for 7.4 is C. The woman really admired the waitress, and then she remembered Bryan.",
+    "page_number": 14,
+    "context_text": "The woman finished her meal and paid with a hundred-dollar bill."
+  },
+  {
+    "question_number": "8.1",
+    "question_text": "8.1.\nX: I wonder why they aren’t here yet.\nY: _____\nX: Let’s ask Jimmy then. He might know.\nA. It’s not a good piece of advice.\nB. Jimmy wants to know too.\nC. I have no idea.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "The correct answer is C. I have no idea.",
+    "page_number": 15,
+    "context_text": "8.1.\nX: I wonder why they aren’t here yet.\nY: _____\nX: Let’s ask Jimmy then. He might know.\nA. It’s not a good piece of advice.\nB. Jimmy wants to know too.\nC. I have no idea."
+  },
+  {
+    "question_number": "8.2",
+    "question_text": "8.2.\nX: You did such a good job. Congratulations!\nY: _____\nX: The others are impressed, too.\nA. I’m glad you liked it.\nB. I’m sure I’ll do my best.\nC. I’m afraid I could be right.",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A",
+    "answer_explanation": "The correct answer is A. I’m glad you liked it.",
+    "page_number": 15,
+    "context_text": "8.2.\nX: You did such a good job. Congratulations!\nY: _____\nX: The others are impressed, too.\nA. I’m glad you liked it.\nB. I’m sure I’ll do my best.\nC. I’m afraid I could be right."
+  },
+  {
+    "question_number": "8.3",
+    "question_text": "8.3.\nX: They look so similar. I don’t know which one I should choose.\nY: _____ take both?\nX: Great. I’ll do that. Thanks.\nA. What makes you\nB. Do you have to\nC. Why don’t you",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "The correct answer is C. Why don’t you take both?",
+    "page_number": 15,
+    "context_text": "8.3.\nX: They look so similar. I don’t know which one I should choose.\nY: _____ take both?\nX: Great. I’ll do that. Thanks.\nA. What makes you\nB. Do you have to\nC. Why don’t you"
+  },
+  {
+    "question_number": "9.1",
+    "question_text": "9.1.\n After reading this text, _____ to page 27 and look at the pictures.\n If you want to look good in the photo, _____ your head a bit to the left.\nA. go\nB. put\nC. turn",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. go",
+    "answer_explanation": "The correct answer is 'go' as it fits both sentences logically.",
+    "page_number": 16,
+    "context_text": "9.1.\n After reading this text, _____ to page 27 and look at the pictures.\n If you want to look good in the photo, _____ your head a bit to the left.\nA. go\nB. put\nC. turn"
+  },
+  {
+    "question_number": "9.2",
+    "question_text": "9.2.\n Mr Brown is getting old, and he seems to be in _____ health.\n They were still too _____ to buy the car of their dreams.\nA. bad\nB. poor\nC. serious",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. poor",
+    "answer_explanation": "The correct answer is 'poor' as it fits both sentences logically.",
+    "page_number": 16,
+    "context_text": "9.2.\n Mr Brown is getting old, and he seems to be in _____ health.\n They were still too _____ to buy the car of their dreams.\nA. bad\nB. poor\nC. serious"
+  },
+  {
+    "question_number": "9.3",
+    "question_text": "9.3.\n Don’t forget to let the cat _____ soon. He’s in the garden now.\n Did you hand _____ your essay on time? The deadline was yesterday.\nA. in\nB. out\nC. over",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. in",
+    "answer_explanation": "The correct answer is 'in' as it fits both sentences logically.",
+    "page_number": 16,
+    "context_text": "9.3.\n Don’t forget to let the cat _____ soon. He’s in the garden now.\n Did you hand _____ your essay on time? The deadline was yesterday.\nA. in\nB. out\nC. over"
+  },
+  {
+    "question_number": "9.4",
+    "question_text": "9.4.\n If you win the competition, you’ll get _____ tickets to the cinema.\n Jean likes spending her _____ time cycling.\nA. cheap\nB. easy\nC. free",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. free",
+    "answer_explanation": "The correct answer is 'free' as it fits both sentences logically.",
+    "page_number": 16,
+    "context_text": "9.4.\n If you win the competition, you’ll get _____ tickets to the cinema.\n Jean likes spending her _____ time cycling.\nA. cheap\nB. easy\nC. free"
+  },
+  {
+    "question_number": "10.1",
+    "question_text": "Some time ago, there was an unusual government meeting about the problem of global warming. The Maldivian president and eleven ministers dived 3.8 metres below the sea surface 10.1. _________________________ meet at tables underwater.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "to",
+    "answer_explanation": "The correct answer is 'to' as it completes the sentence grammatically.",
+    "page_number": 17,
+    "context_text": "Some time ago, there was an unusual government meeting about the problem of global warming."
+  },
+  {
+    "question_number": "10.2",
+    "question_text": "They were there with diving instructors 10.2. _________________________ were hired to make sure that everybody was safe.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "who/that",
+    "answer_explanation": "The correct answer is 'who/that' as it connects the clauses correctly.",
+    "page_number": 17,
+    "context_text": "They were there with diving instructors."
+  },
+  {
+    "question_number": "10.3",
+    "question_text": "The politicians were dressed 10.3. _________________________ black diving suits and were wearing masks and oxygen tanks.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "in",
+    "answer_explanation": "The correct answer is 'in' as it indicates the manner of dressing.",
+    "page_number": 17,
+    "context_text": "The politicians were dressed."
+  },
+  {
+    "question_number": "11.1",
+    "question_text": "(Czy mogę użyć) _______________________________________________________ your laptop for a while?",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "May/Can/Could/Might I use",
+    "answer_explanation": "The correct answer is 'May/Can/Could/Might I use' as it translates the question correctly.",
+    "page_number": 18,
+    "context_text": null
+  },
+  {
+    "question_number": "11.2",
+    "question_text": "This city is worth visiting. I (nigdy nie widziałam) ______________________________ _____________________ such beautiful buildings in my life. They are really amazing.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "have never seen / never have seen / haven’t ever seen / never saw",
+    "answer_explanation": "The correct answer is 'have never seen / never have seen / haven’t ever seen / never saw' as it translates the phrase correctly.",
+    "page_number": 18,
+    "context_text": null
+  },
+  {
+    "question_number": "11.3",
+    "question_text": "Don’t make (tak dużo hałasu) _____________________________________________ when the baby is sleeping.",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "so much noise / that/this much noise",
+    "answer_explanation": "The correct answer is 'so much noise / that/this much noise' as it translates the phrase correctly.",
+    "page_number": 18,
+    "context_text": null
+  },
+  {
+    "question_number": "12",
+    "question_text": "W ubiegłym tygodniu wygrałeś(-aś) konkurs fotograficzny dla młodzieży. W e-mailu do kolegi z Anglii: • wyjaśnij powody uczestnictwa w tym konkursie • opisz, co przedstawia Twoje zwycięskie zdjęcie • zrelacjonuj przebieg wręczania nagród • zachęć kolegę do udziału w konkursie fotograficznym w przyszłym roku i napisz, w jaki sposób pomożesz mu przygotować się do tego konkursu.",
+    "question_type": "extended",
+    "max_points": 12,
+    "correct_answer": "Hi Mark, Guess what! Last week I won a photo competition for teenagers. I decided to take part in the competition because I love taking photos and I wanted to show my talent to a wider audience. In the photo you can see my parents with my brother and our dog. The ceremony started with a concert and then the winners got their prizes and congratulations. You should also take part in the photo competition the following year. It’s really worth doing it. Maybe someday we’ll go on a trip together and I’ll show you how to take good photos.",
+    "answer_explanation": "Należy uznać każdą komunikatywną odpowiedź, w której zdający podaje przynajmniej jeden powód/cel wzięcia udziału w konkursie fotograficznym. Powód/cel może dotyczyć na przykład: umiejętności/zdolności, preferencji, zainteresowań, upodobań, intencji zdającego, które wpłynęły na jego decyzję o udziale w tym konkursie. Należy uznać każdą komunikatywną odpowiedź, w której zdający opisuje swoje zwycięskie zdjęcie, czyli zdjęcie dzięki któremu wygrał konkurs. Należy uznać każdą komunikatywną odpowiedź, w której zdający relacjonuje przebieg wręczania nagród. Należy uznać każdą komunikatywną odpowiedź, w której zdający zachęca kolegę do udziału w konkursie fotograficznym w przyszłym roku oraz informuje, w jaki sposób pomoże mu przygotować się do tego konkursu.",
+    "page_number": 19,
+    "context_text": null
+  }
+]

@@ -1,62 +1,352 @@
 [
   {
-    "question_number": "6",
-    "question_text": "Wymaganie ogólne Wymaganie szczegółowe II. Wykorzystanie i tworzenie informacji. Zdający: 1. Interpretowanie i operowanie III.3) rozwiązuje nierówności liniowe z jedną niewiadomą.",
-    "question_type": "short_answer",
+    "question_number": "1",
+    "question_text": "Zadanie 1. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\n2\nLiczba [?]−[?] jest równa\nA. [?]6 B. [?]8 C. [?]0 D. [?]4\nBrudnopis",
+    "question_type": "multiple_choice",
     "max_points": 1,
-    "correct_answer": "D",
-    "answer_explanation": "1 pkt – odpowiedź poprawna.",
-    "page_number": 30,
+    "correct_answer": "D. 34",
+    "answer_explanation": "Liczba (√32 − √2)² = (√32)² - 2(√32)(√2) + (√2)² = 32 - 4√16 + 2 = 34.",
+    "page_number": 4,
+    "context_text": "Zadanie 1. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\n2\nLiczba [?]−[?] jest równa\nA. [?]6 B. [?]8 C. [?]0 D. [?]4\nBrudnopis"
+  },
+  {
+    "question_number": "2",
+    "question_text": "Zadanie 2. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\n[?] [?] [?]4\n5 +5 +5\nLiczba jest równa\n[?]\n5\nA. [?]0 B. [?] C. 512 D. 527\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 31",
+    "answer_explanation": "5¹² + 5¹³ + 5¹⁴ = 5¹²(1 + 5 + 5²) = 5¹²(31).",
+    "page_number": 4,
+    "context_text": "Zadanie 2. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\n[?] [?] [?]4\n5 +5 +5\nLiczba jest równa\n[?]\n5\nA. [?]0 B. [?] C. 512 D. 527\nBrudnopis"
+  },
+  {
+    "question_number": "3",
+    "question_text": "Zadanie 3. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nLiczba log [?]08−[?]log [?] jest równa\n3 3\nA. [?] B. 9 C. log [?]04 D. [?]log 54\n3 3\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 9",
+    "answer_explanation": "log₃ 108 − 2log₃ 2 = log₃ (108 / 4) = log₃ 27 = 3.",
+    "page_number": 5,
+    "context_text": "Zadanie 3. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nLiczba log [?]08−[?]log [?] jest równa\n3 3\nA. [?] B. 9 C. log [?]04 D. [?]log 54\n3 3\nBrudnopis"
+  },
+  {
+    "question_number": "4",
+    "question_text": "Zadanie 4. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej [?] wartośćwyrażenia ([?] +[?])2 −([?]−[?])2 jest równa\nwartości wyrażenia\nA. 5[?]2 −5\nB. 5[?]2 +[?]\nC. 5[?]2 +[?]4[?] −5\nD. 5[?]2 +[?]4[?] −[?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 5x² + 24x − 5",
+    "answer_explanation": "Rozwijając oba kwadraty i upraszczając, otrzymujemy 5x² + 24x − 5.",
+    "page_number": 5,
+    "context_text": "Zadanie 4. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej [?] wartośćwyrażenia ([?] +[?])2 −([?]−[?])2 jest równa\nwartości wyrażenia\nA. 5[?]2 −5\nB. 5[?]2 +[?]\nC. 5[?]2 +[?]4[?] −5\nD. 5[?]2 +[?]4[?] −[?]\nBrudnopis"
+  },
+  {
+    "question_number": "5",
+    "question_text": "Wykaż, że dla każdej nieparzystej liczby naturalnej n liczba 3n² + 2n + 7 jest podzielna przez 4.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "3n² + 2n + 7 jest podzielna przez 4.",
+    "answer_explanation": "Dla n nieparzystego, n = 2k + 1, po podstawieniu i uproszczeniu, uzyskujemy, że wyrażenie jest podzielne przez 4.",
+    "page_number": 6,
     "context_text": null
+  },
+  {
+    "question_number": "6",
+    "question_text": "Zadanie 6. (0–1)\nDana jest nierówność\n[?]−[?]([?]−[?]) ≥ [?] −[?]\nNa którym rysunku poprawnie zaznaczono na osi liczbowej zbiórwszystkich liczb\nrzeczywistych spełniających powyższą nierówność? Wybierz właściwąodpowiedź\nspośród podanych.\nA.\n0 1 3 [?]\nB.\n0 1 3 [?]\nC.\n−9 0 1 [?]\nD.\n−9 0 1 [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "D.",
+    "answer_explanation": "Rozwiązując nierówność, otrzymujemy przedział, który jest zaznaczony na rysunku D.",
+    "page_number": 7,
+    "context_text": "Zadanie 6. (0–1)\nDana jest nierówność\n[?]−[?]([?]−[?]) ≥ [?] −[?]\nNa którym rysunku poprawnie zaznaczono na osi liczbowej zbiórwszystkich liczb\nrzeczywistych spełniających powyższą nierówność? Wybierz właściwąodpowiedź\nspośród podanych.\nA.\n0 1 3 [?]\nB.\n0 1 3 [?]\nC.\n−9 0 1 [?]\nD.\n−9 0 1 [?]\nBrudnopis"
   },
   {
     "question_number": "7",
-    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 1. Stosowanie obiektów matematycznych i operowanie nimi, interpretowanie pojęć III.5) rozwiązuje równania wielomianowe postaci ŷ = 0 dla wielomianów doprowadzonych do postaci iloczynowej.",
-    "question_type": "short_answer",
+    "question_text": "Zadanie 7. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nRównanie [?]([?]+[?])([?]2 +[?]5) = 0 wzbiorze liczb rzeczywistych ma dokładnie\nA. dwa rozwiązania: (−[?]) oraz 0.\nB. dwa rozwiązania: (−[?]) oraz [?].\nC. trzy rozwiązania: (−5), (−[?]) oraz 0.\nD. cztery rozwiązania: (−5), (−[?]), 0 oraz 5.\nBrudnopis",
+    "question_type": "multiple_choice",
     "max_points": 1,
     "correct_answer": "A",
-    "answer_explanation": "1 pkt – odpowiedź poprawna.",
-    "page_number": 30,
-    "context_text": null
+    "answer_explanation": "Zadanie 7. (0–1) - Wersja A: A. Wersja B: A.",
+    "page_number": 8,
+    "context_text": "Zadanie 7. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nRównanie [?]([?]+[?])([?]2 +[?]5) = 0 wzbiorze liczb rzeczywistych ma dokładnie\nA. dwa rozwiązania: (−[?]) oraz 0.\nB. dwa rozwiązania: (−[?]) oraz [?].\nC. trzy rozwiązania: (−5), (−[?]) oraz 0.\nD. cztery rozwiązania: (−5), (−[?]), 0 oraz 5.\nBrudnopis"
   },
   {
     "question_number": "8",
-    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 1. Stosowanie obiektów matematycznych i operowanie nimi, interpretowanie pojęć II.4) mnoży […] wyrażenia wymierne.",
-    "question_type": "short_answer",
+    "question_text": "Zadanie 8. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej [?] różnej od (−[?]) oraz różnej od 0 wartośćwyrażenia\n[?]+[?] [?]+[?]\n⋅ jest równa wartości wyrażenia\n[?]+4[?]+4 [?]\n[?]+[?] [?]+[?] [?]+[?] [?]\nA. B. C. D.\n4[?]+4 4[?]+5 [?]+[?] [?]+[?]\nBrudnopis",
+    "question_type": "multiple_choice",
     "max_points": 1,
     "correct_answer": "C",
-    "answer_explanation": "1 pkt – odpowiedź poprawna.",
-    "page_number": 30,
-    "context_text": null
+    "answer_explanation": "Zadanie 8. (0–1) - Wersja A: C. Wersja B: B.",
+    "page_number": 8,
+    "context_text": "Zadanie 8. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nDla każdej liczby rzeczywistej [?] różnej od (−[?]) oraz różnej od 0 wartośćwyrażenia\n[?]+[?] [?]+[?]\n⋅ jest równa wartości wyrażenia\n[?]+4[?]+4 [?]\n[?]+[?] [?]+[?] [?]+[?] [?]\nA. B. C. D.\n4[?]+4 4[?]+5 [?]+[?] [?]+[?]\nBrudnopis"
   },
   {
     "question_number": "9",
-    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 2. Dobieranie i tworzenie modeli rozwiązywania zadań tekstowych. IV.2) stosuje układy równań do rozwiązywania zadań tekstowych.",
+    "question_text": "Zarząd firmy wydzielił z budżetu kwotę 1 200 000 złotych łącznie na projekty badawcze dla dwóch zespołów: A i B. W pierwszym półroczu realizacji tych projektów oba zespoły wykorzystały łącznie 146 700 złotych – zespół A wykorzystał 13% przyznanych mu środków, a zespół B wykorzystał 11% przyznanych mu środków. Oblicz kwotę przyznaną zespołowi A na realizację projektu badawczego. Zapisz obliczenia.",
     "question_type": "extended",
     "max_points": 2,
-    "correct_answer": "735000 zł.",
-    "answer_explanation": "2 pkt – zastosowanie poprawnej metody i poprawny wynik: 735000 zł.",
-    "page_number": 30,
+    "correct_answer": "735000 zł",
+    "answer_explanation": "Zadanie 9. (0–2) - 2 pkt – zastosowanie poprawnej metody i poprawny wynik: 735000 zł.",
+    "page_number": 9,
     "context_text": null
   },
   {
     "question_number": "10",
-    "question_text": "Wymaganie ogólne Wymaganie szczegółowe III. Wykorzystanie i interpretowanie Zdający: 1. Stosowanie obiektów matematycznych i operowanie nimi, interpretowanie pojęć III.4) rozwiązuje […] nierówności kwadratowe.",
+    "question_text": "Rozwiąż nierówność 3(2x^2 + 1) < 11x. Zapisz obliczenia.",
     "question_type": "extended",
     "max_points": 2,
-    "correct_answer": "x ∈ (1/3, 3)",
-    "answer_explanation": "2 pkt – zastosowanie poprawnej metody i zapisanie zbioru rozwiązań nierówności.",
-    "page_number": 30,
+    "correct_answer": "x ∈ (−∞, 1) ∪ (3, ∞)",
+    "answer_explanation": "Zastosowanie poprawnej metody i zapisanie zbioru rozwiązań nierówności.",
+    "page_number": 10,
     "context_text": null
   },
   {
     "question_number": "11",
-    "question_text": "Wymaganie ogólne Wymaganie szczegółowe II. Wykorzystanie i tworzenie informacji. Zdający: 1. Interpretowanie i operowanie V.4) odczytuje z wykresu funkcji: dziedzinę, zbiór wartości, miejsca zerowe, przedziały monotoniczności, przedziały, w których funkcja przyjmuje wartości większe (nie mniejsze) lub mniejsze (nie większe) od danej liczby, największe i najmniejsze wartości funkcji (o ile istnieją) w danym przedziale domkniętym oraz argumenty, dla których wartości największe i najmniejsze są przez funkcję przyjmowane.",
+    "question_text": "Uzupełnij zdania. Wpisz odpowiednie przedziały w wykropkowanych miejscach, aby zdania były prawdziwe.\n1. Dziedziną funkcji f jest przedział …………………… .\n2. Zbiorem wartości funkcji f jest przedział …………………… .\n3. Zbiorem wszystkich argumentów, dla których funkcja f przyjmuje wartości dodatnie, jest przedział …………………… .\n4. Zbiorem wszystkich rozwiązań równania f(x) = 3 jest przedział …………………… .",
+    "question_type": "short_answer",
+    "max_points": 4,
+    "correct_answer": "[-4, 2]\n[-3, 3]\n[-4, 3)\n[-1, 2]",
+    "answer_explanation": "Poprawne uzupełnienie czterech zdań.",
+    "page_number": 11,
+    "context_text": "Funkcja f jest określona następująco:\nf(x) = { x + 5 dla x ∈ [−4,−2], 3 dla x ∈ (−2,2), −3x + 9 dla x ∈ (2,4)"
+  },
+  {
+    "question_number": "12.1",
+    "question_text": "Wyznacz wzór funkcji f w postaci kanonicznej. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "f(x) = a(x - 3)^2 + 6, a > 0",
+    "answer_explanation": "Wyznaczenie wzoru funkcji w postaci kanonicznej.",
+    "page_number": 12,
+    "context_text": "W kartezjańskim układzie współrzędnych (x,y) przedstawiono fragment paraboli, która jest wykresem funkcji kwadratowej f. Wierzchołek tej paraboli ma współrzędne (3,6)."
+  },
+  {
+    "question_number": "12.2",
+    "question_text": "Zadanie 12.2. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nOsią symetrii wykresufunkcji [?] jest prosta o równaniu\nA. [?] = [?] B. [?] = −[?] C. [?] = 6 D. [?] = −6\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. x = 3",
+    "answer_explanation": "Osią symetrii wykresu funkcji kwadratowej jest prosta o równaniu x = -3.",
+    "page_number": 13,
+    "context_text": "Zadanie 12.2. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nOsią symetrii wykresufunkcji [?] jest prosta o równaniu\nA. [?] = [?] B. [?] = −[?] C. [?] = 6 D. [?] = −6\nBrudnopis"
+  },
+  {
+    "question_number": "12.3",
+    "question_text": "Funkcja g jest określona dla każdej liczby rzeczywistej x wzorem g(x) = f(x) − 3. Liczby x1 oraz x2 są różnymi miejscami zerowymi funkcji g. Uzupełnij zdanie. Wpisz odpowiednią liczbę w wykropkowanym miejscu, aby zdanie 12.3 było prawdziwe. Suma x1 + x2 jest równa ……… .",
+    "question_type": "short_answer",
+    "max_points": 1,
+    "correct_answer": "3",
+    "answer_explanation": "Suma miejsc zerowych funkcji kwadratowej f(x) jest równa 6.",
+    "page_number": 13,
+    "context_text": "Funkcja g jest określona dla każdej liczby rzeczywistej x wzorem g(x) = f(x) - 3. Liczby x1 oraz x2 są różnymi miejscami zerowymi funkcji g."
+  },
+  {
+    "question_number": "13",
+    "question_text": "Zadanie 13. (0–1)\nFunkcja liniowa [?] jest określona wzorem [?]([?]) = ([?]−[?])[?]−4.\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nFunkcja [?] nie ma miejsca zerowego dla [?] równego\nA. (−[?]) B. 0 C. [?] D. 4\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C",
+    "answer_explanation": "Funkcja liniowa nie ma miejsca zerowego, gdy współczynnik kierunkowy (3 - m) = 0, co zachodzi dla m = 3.",
+    "page_number": 14,
+    "context_text": "Zadanie 13. (0–1)\nFunkcja liniowa [?] jest określona wzorem [?]([?]) = ([?]−[?])[?]−4.\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nFunkcja [?] nie ma miejsca zerowego dla [?] równego\nA. (−[?]) B. 0 C. [?] D. 4\nBrudnopis"
+  },
+  {
+    "question_number": "14.1",
+    "question_text": "Zadanie 14.1. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nTrzeci wyraz ciągu ([?] ) jest równy\n[?]\nA. 4 B. 5 C. [?] D. [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "5",
+    "answer_explanation": "Trzeci wyraz ciągu, który jest zdefiniowany rekurencyjnie, wynosi 5.",
+    "page_number": 15,
+    "context_text": "Zadanie 14.1. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nTrzeci wyraz ciągu ([?] ) jest równy\n[?]\nA. 4 B. 5 C. [?] D. [?]\nBrudnopis"
+  },
+  {
+    "question_number": "14.2",
+    "question_text": "Zadanie 14.2. (0–1)\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nCiąg ([?] ) jest arytmetyczny. P F\n[?]\nCiąg ([?] ) jest geometryczny. P F\n[?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "F, F",
+    "answer_explanation": "Ciąg (an) jest arytmetyczny, ponieważ różnica między kolejnymi wyrazami jest stała, a nie jest geometryczny.",
+    "page_number": 15,
+    "context_text": "Zadanie 14.2. (0–1)\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nCiąg ([?] ) jest arytmetyczny. P F\n[?]\nCiąg ([?] ) jest geometryczny. P F\n[?]\nBrudnopis"
+  },
+  {
+    "question_number": "15",
+    "question_text": "Wyznacz wartość m, dla której trzywyrazowy ciąg (2m + 11, m2 + 3, 5 − m) jest arytmetyczny i malejący. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "m = -1 oraz m = 4",
+    "answer_explanation": "Ciąg jest arytmetyczny, gdy różnice są równe. Ustalając równania dla różnic i rozwiązując je, otrzymujemy m = -1 oraz m = 4.",
+    "page_number": 16,
+    "context_text": null
+  },
+  {
+    "question_number": "16",
+    "question_text": "Zadanie 16. (0–1)\nDany jest ciąg geometryczny ([?] ) określony dlakażdej liczby naturalnej [?] ≥ [?], w którym\n[?]\n[?] = [?] oraz [?] = 9.\n1 2\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nCzwarty wyraz ciągu ([?] ) jest równy\n[?]\n[?]\nA. B. [?] C. [?] D. [?]9\n[?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 3",
+    "answer_explanation": "Czwarty wyraz ciągu można obliczyć jako a_4 = a_2 * r, gdzie r to iloraz ciągu. Obliczając, otrzymujemy a_4 = 3.",
+    "page_number": 17,
+    "context_text": "Zadanie 16. (0–1)\nDany jest ciąg geometryczny ([?] ) określony dlakażdej liczby naturalnej [?] ≥ [?], w którym\n[?]\n[?] = [?] oraz [?] = 9.\n1 2\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nCzwarty wyraz ciągu ([?] ) jest równy\n[?]\n[?]\nA. B. [?] C. [?] D. [?]9\n[?]\nBrudnopis"
+  },
+  {
+    "question_number": "17",
+    "question_text": "Zadanie 17. (0–1)\nKąt [?] jest ostry i spełnia warunek [?]tg[?] = [?]sin[?].\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nCosinus kąta [?] jest równy\n[?] √[?] √[?] √[?]\nA. B. C. D.\n[?] [?] [?] [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. √2/2",
+    "answer_explanation": "Rozwiązując równanie, otrzymujemy cos α = √2/2.",
+    "page_number": 17,
+    "context_text": "Zadanie 17. (0–1)\nKąt [?] jest ostry i spełnia warunek [?]tg[?] = [?]sin[?].\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nCosinus kąta [?] jest równy\n[?] √[?] √[?] √[?]\nA. B. C. D.\n[?] [?] [?] [?]\nBrudnopis"
+  },
+  {
+    "question_number": "18.1",
+    "question_text": "Zadanie 18.1. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nTangens kąta [?] jest równy\n[?] [?] 4 4\nA. B. C. D.\n[?] 4 5 [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 3/4",
+    "answer_explanation": "Tangens kąta α obliczamy jako stosunek przeciwległej do przyległej, co daje 3/4.",
+    "page_number": 18,
+    "context_text": "Zadanie 18.1. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nTangens kąta [?] jest równy\n[?] [?] 4 4\nA. B. C. D.\n[?] 4 5 [?]\nBrudnopis"
+  },
+  {
+    "question_number": "18.2",
+    "question_text": "Zadanie 18.2. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nSinus kąta [?] jest równy\n[?] [?] 5 4\nA. B. C. D.\n√[?] √[?] [?]√[?] 5\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 3/√13",
+    "answer_explanation": "Sinus kąta β obliczamy jako stosunek przeciwległej do przeciwprostokątnej, co daje 3/√13.",
+    "page_number": 18,
+    "context_text": "Zadanie 18.2. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nSinus kąta [?] jest równy\n[?] [?] 5 4\nA. B. C. D.\n√[?] √[?] [?]√[?] 5\nBrudnopis"
+  },
+  {
+    "question_number": "19",
+    "question_text": "Zadanie 19. (0–1)\nPunkty [?], [?] oraz [?] leżą na okręguo środkuwpunkcie [?].\nMiara kąta [?] jest równa 50° (zobacz rysunek).\n[?]\n50°\n[?]\n[?]\n[?]\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nMiara kąta ostrego [?] jest równa\nA. [?]0° B. [?]5° C. 40° D. 50°\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 40°",
+    "answer_explanation": "Zadanie 19. (0–1) Wymaganie ogólne IV. Rozumowanie i argumentacja. Zdający: 1. Przeprowadzanie rozumowań, także kilkuetapowych, podawanie argumentów uzasadniających poprawność rozumowania, odróżnianie dowodu od przykładu.",
+    "page_number": 19,
+    "context_text": "Zadanie 19. (0–1)\nPunkty [?], [?] oraz [?] leżą na okręguo środkuwpunkcie [?].\nMiara kąta [?] jest równa 50° (zobacz rysunek).\n[?]\n50°\n[?]\n[?]\n[?]\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nMiara kąta ostrego [?] jest równa\nA. [?]0° B. [?]5° C. 40° D. 50°\nBrudnopis"
+  },
+  {
+    "question_number": "20",
+    "question_text": "Zadanie 20. (0–1)\nW trójkącie równoramiennym [?] dane są: |[?]| = |[?]| = 4 i |[?]| = [?].\nNa boku [?], między punktami [?] i [?], wybrano taki punkt [?], żetrójkąty [?] i [?] są\npodobne (zobacz rysunek).\n[?]\n[?]\n4\n[?] [?] [?]\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nOdcinek [?] madługość\nA. [?] B. [?],[?]5 C. [?],5 D. [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 2,25",
+    "answer_explanation": "Zadanie 20. (0–1) Wymaganie ogólne IV. Rozumowanie i argumentacja. Zdający: 1. Przeprowadzanie rozumowań, także kilkuetapowych, podawanie argumentów uzasadniających poprawność rozumowania, odróżnianie dowodu od przykładu.",
+    "page_number": 20,
+    "context_text": "Zadanie 20. (0–1)\nW trójkącie równoramiennym [?] dane są: |[?]| = |[?]| = 4 i |[?]| = [?].\nNa boku [?], między punktami [?] i [?], wybrano taki punkt [?], żetrójkąty [?] i [?] są\npodobne (zobacz rysunek).\n[?]\n[?]\n4\n[?] [?] [?]\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nOdcinek [?] madługość\nA. [?] B. [?],[?]5 C. [?],5 D. [?]\nBrudnopis"
+  },
+  {
+    "question_number": "21",
+    "question_text": "Dany jest trójkąt ABC, w którym |AB| = 11, |BC| = 12 oraz |∡ABC| = 60° (zobacz rysunek). Oceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest prawdziwe, albo F – jeśli jest fałszywe. Trójkąt ABC jest równoramienny. P F Pole trójkąta ABC jest równe 33√3. P F",
+    "question_type": "extended",
+    "max_points": 1,
+    "correct_answer": "P, F",
+    "answer_explanation": "Zadanie 21. (0–1) Wymaganie ogólne IV. Rozumowanie i argumentacja. Zdający: 3. Dobieranie argumentów do uzasadnienia poprawności rozwiązywania problemów, tworzenie ciągu argumentów, gwarantujących poprawność rozwiązania i skuteczność w poszukiwaniu rozwiązań zagadnienia.",
+    "page_number": 21,
+    "context_text": "Zadanie 21. (0–1)\nDany jest trójkąt [?], wktórym |[?]| = [?], |[?]| = [?] oraz |∡[?]| = 60° (zobacz\nrysunek).\n[?]\n[?]\n60°\n[?] [?] [?]\nOceń prawdziwość poniższych stwierdzeń. Wybierz P, jeśli stwierdzenie jest\nprawdziwe, albo F – jeśli jest fałszywe.\nTrójkąt [?] jest równoramienny. P F\nPole trójkąta [?] jest równe [?]. P F\nBrudnopis"
+  },
+  {
+    "question_number": "22",
+    "question_text": "Zadanie 22. (0–1)\nW kartezjańskim układzie współrzędnych ([?],[?]) dany jest kwadrat [?], wktórym\n[?] = (4,−[?]). Przekątne tegokwadratu przecinają się wpunkcie [?] = ([?],[?]).\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nPrzekątna kwadratu [?] ma długość\nA. 5 B. [?] C. [?]0 D. [?]4\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 7",
+    "answer_explanation": "Zadanie 22. (0–1) Wymaganie ogólne IV. Rozumowanie i argumentacja. Zdający: 4. Stosowanie i tworzenie strategii przy rozwiązywaniu zadań, również w sytuacjach nietypowych.",
+    "page_number": 22,
+    "context_text": "Zadanie 22. (0–1)\nW kartezjańskim układzie współrzędnych ([?],[?]) dany jest kwadrat [?], wktórym\n[?] = (4,−[?]). Przekątne tegokwadratu przecinają się wpunkcie [?] = ([?],[?]).\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nPrzekątna kwadratu [?] ma długość\nA. 5 B. [?] C. [?]0 D. [?]4\nBrudnopis"
+  },
+  {
+    "question_number": "23",
+    "question_text": "Zadanie 23. (0–1)\nW kartezjańskim układzie współrzędnych ([?],[?]) proste [?] oraz [?] są określonerównaniami\n[?]: [?] = ([?]−[?])[?] +5\n[?]: [?] = −4[?]+([?]+[?])\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nProste [?] oraz [?] są równoległe, gdy liczba [?] jest równa\nA. (−4) B. (−[?]) C. [?] D. 5\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. (−4)",
+    "answer_explanation": "Zadanie 23. (0–1) Wymaganie ogólne IV. Rozumowanie i argumentacja. Zdający: 4. Stosowanie i tworzenie strategii przy rozwiązywaniu zadań, również w sytuacjach nietypowych.",
+    "page_number": 22,
+    "context_text": "Zadanie 23. (0–1)\nW kartezjańskim układzie współrzędnych ([?],[?]) proste [?] oraz [?] są określonerównaniami\n[?]: [?] = ([?]−[?])[?] +5\n[?]: [?] = −4[?]+([?]+[?])\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nProste [?] oraz [?] są równoległe, gdy liczba [?] jest równa\nA. (−4) B. (−[?]) C. [?] D. 5\nBrudnopis"
+  },
+  {
+    "question_number": "24",
+    "question_text": "Zadanie 24. (0–1)\nWkartezjańskimukładzie współrzędnych ([?],[?]) punkt [?] = (0,0) leżyna okręgu [?]\no środku w punkcie [?] = ([?],4).\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nOkrąg [?] jest określony równaniem\nA. ([?]−[?])2 +([?]−4)2 = [?]5\nB. ([?]−[?])2 +([?]−4)2 = [?]0\nC. ([?]+[?])2 +([?]+4)2 = [?]5\nD. ([?]+[?])2 +([?]+4)2 = [?]0\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. (x − 2)² + (y − 4)² = 20",
+    "answer_explanation": "Równanie okręgu ma postać (x - a)² + (y - b)² = r², gdzie (a,b) to środek, a r to promień. Promień wynosi √20.",
+    "page_number": 23,
+    "context_text": "Zadanie 24. (0–1)\nWkartezjańskimukładzie współrzędnych ([?],[?]) punkt [?] = (0,0) leżyna okręgu [?]\no środku w punkcie [?] = ([?],4).\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nOkrąg [?] jest określony równaniem\nA. ([?]−[?])2 +([?]−4)2 = [?]5\nB. ([?]−[?])2 +([?]−4)2 = [?]0\nC. ([?]+[?])2 +([?]+4)2 = [?]5\nD. ([?]+[?])2 +([?]+4)2 = [?]0\nBrudnopis"
+  },
+  {
+    "question_number": "25",
+    "question_text": "Tworząca stożka ma długość 8. Kąt rozwarcia tego stożka ma miarę 120°. Oblicz objętość tego stożka. Zapisz obliczenia.",
+    "question_type": "extended",
+    "max_points": 3,
+    "correct_answer": "V = (1/3) * π * r² * h, gdzie r = 4√3, h = 4.",
+    "answer_explanation": "Objętość stożka oblicza się ze wzoru V = (1/3) * π * r² * h. Po obliczeniach uzyskujemy 64π.",
+    "page_number": 24,
+    "context_text": null
+  },
+  {
+    "question_number": "26",
+    "question_text": "Zadanie 26. (0–1)\nObjętośćsześcianu jest równa [?]9.\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nDługość przekątnej tegosześcianu jest równa\nA. 9[?] B. 9[?] C. [?] D. [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "A. 9√3",
+    "answer_explanation": "Długość przekątnej sześcianu oblicza się ze wzoru d = a√3, gdzie a to długość krawędzi. Krawędź wynosi 9, więc d = 9√3.",
+    "page_number": 25,
+    "context_text": "Zadanie 26. (0–1)\nObjętośćsześcianu jest równa [?]9.\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nDługość przekątnej tegosześcianu jest równa\nA. 9[?] B. 9[?] C. [?] D. [?]\nBrudnopis"
+  },
+  {
+    "question_number": "27",
+    "question_text": "Zadanie 27. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nWszystkich liczb naturalnych trzycyfrowych nieparzystych, wktórych zapisie dziesiętnym\nwystępuje dokładniejeden raz cyfra 0, jest\nA. 45 B. 50 C. 54 D. 8[?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 54",
+    "answer_explanation": "Trzycyfrowe liczby nieparzyste z cyfrą 0 w środkowej pozycji mogą być obliczone, co daje 54 możliwości.",
+    "page_number": 25,
+    "context_text": "Zadanie 27. (0–1)\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nWszystkich liczb naturalnych trzycyfrowych nieparzystych, wktórych zapisie dziesiętnym\nwystępuje dokładniejeden raz cyfra 0, jest\nA. 45 B. 50 C. 54 D. 8[?]\nBrudnopis"
+  },
+  {
+    "question_number": "28",
+    "question_text": "Zadanie 28. (0–1)\nDoświadczenie losowe polega na dwukrotnym rzucie symetryczną sześcienną kostką do gry,\nktóra na każdej ściancema inną liczbę oczek – od jednegooczkado sześciu oczek.\nZdarzenie [?] polegana tym, że suma liczb wyrzuconych oczek będzie równa [?].\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nPrawdopodobieństwo zdarzenia [?] jest równe\n[?] 6 [?] [?]\nA. B. C. D.\n[?]6 [?]6 [?]6 [?]6\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "B. 6/36",
+    "answer_explanation": "Wersja B",
+    "page_number": 26,
+    "context_text": "Zadanie 28. (0–1)\nDoświadczenie losowe polega na dwukrotnym rzucie symetryczną sześcienną kostką do gry,\nktóra na każdej ściancema inną liczbę oczek – od jednegooczkado sześciu oczek.\nZdarzenie [?] polegana tym, że suma liczb wyrzuconych oczek będzie równa [?].\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nPrawdopodobieństwo zdarzenia [?] jest równe\n[?] 6 [?] [?]\nA. B. C. D.\n[?]6 [?]6 [?]6 [?]6\nBrudnopis"
+  },
+  {
+    "question_number": "29",
+    "question_text": "Zadanie 29. (0–1)\nŚrednia arytmetyczna siedmiu liczb: [?], [?], [?], 4, 5, [?], [?], jest równa [?].\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nSuma [?] +[?] jest równa\nA. 4 B. 5 C. 6 D. [?]\nBrudnopis",
+    "question_type": "multiple_choice",
+    "max_points": 1,
+    "correct_answer": "C. 6",
+    "answer_explanation": "Wersja A",
+    "page_number": 26,
+    "context_text": "Zadanie 29. (0–1)\nŚrednia arytmetyczna siedmiu liczb: [?], [?], [?], 4, 5, [?], [?], jest równa [?].\nDokończ zdanie. Wybierzwłaściwą odpowiedź spośród podanych.\nSuma [?] +[?] jest równa\nA. 4 B. 5 C. 6 D. [?]\nBrudnopis"
+  },
+  {
+    "question_number": "30",
+    "question_text": "Na diagramie przedstawiono wyniki sprawdzianu z matematyki w pewnej klasie maturalnej liczącej 24 uczniów. Uzupełnij zdania. Wpisz odpowiednie liczby w wykropkowanych miejscach, aby zdania były prawdziwe. 1. Mediana ocen uzyskanych z tego sprawdzianu przez uczniów tej klasy jest równa ………… . 2. Dominanta ocen uzyskanych z tego sprawdzianu przez uczniów tej klasy jest równa ………… .",
+    "question_type": "extended",
+    "max_points": 2,
+    "correct_answer": "1. 4,5; 2. 6",
+    "answer_explanation": "Mediana i dominanta ocen.",
+    "page_number": 27,
+    "context_text": "Na diagramie przedstawiono wyniki sprawdzianu z matematyki w pewnej klasie maturalnej liczącej 24 uczniów. Na osi poziomej podano oceny, które uzyskali uczniowie tej klasy, a na osi pionowej podano liczbę uczniów, którzy otrzymali daną ocenę."
+  },
+  {
+    "question_number": "31",
+    "question_text": "Rozważamy wszystkie prostopadłościany ABCDEFGH, w których krawędź BC ma długość 4 oraz suma długości wszystkich krawędzi wychodzących z wierzchołka B jest równa 15. Niech P(x) oznacza funkcję pola powierzchni całkowitej takiego prostopadłościanu w zależności od długości x krawędzi AB. Wyznacz wzór i dziedzinę funkcji P. Oblicz długość x krawędzi AB tego z rozważanych prostopadłościanów, którego pole powierzchni całkowitej jest największe. Zapisz obliczenia.",
     "question_type": "extended",
     "max_points": 4,
-    "correct_answer": "1. Dziedziną funkcji f jest przedział [−4,4]. 2. Zbiorem wartości funkcji f jest przedział (−3,3]. 3. Zbiorem wszystkich argumentów, dla których funkcja f przyjmuje wartości dodatnie, jest przedział [−4,3]. 4. Zbiorem wszystkich rozwiązań równania f(x) = 3 jest przedział [−2,2].",
-    "answer_explanation": "4 pkt – poprawne uzupełnienie czterech zdań.",
-    "page_number": 30,
-    "context_text": null
+    "correct_answer": "P(x) = 2(4x + 4*4 + x*4); x = 5/2",
+    "answer_explanation": "Funkcja P(x) = -x^2 + 44, dziedzina: x ∈ (0, 5). Największe pole powierzchni całkowitej osiągane jest dla x = 3.",
+    "page_number": 28,
+    "context_text": "Rozważamy wszystkie prostopadłościany ABCDEFGH, w których krawędź BC ma długość 4 oraz suma długości wszystkich krawędzi wychodzących z wierzchołka B jest równa 15."
   }
 ]

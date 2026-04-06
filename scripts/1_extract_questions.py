@@ -11,7 +11,15 @@ This script:
 import os
 import re
 import sys
+import time
+import threading
+import base64
 from pathlib import Path
+try:
+    import fitz  # pymupdf
+    _FITZ_AVAILABLE = True
+except ImportError:
+    _FITZ_AVAILABLE = False
 from dotenv import load_dotenv
 from openai import OpenAI
 import json
@@ -39,7 +47,29 @@ EXAM_START_PAGE = int(os.getenv('EXAM_START_PAGE', '4'))
 EXAM_BATCH_SIZE = int(os.getenv('EXAM_BATCH_SIZE', '4'))
 EXAM_BATCH_OVERLAP = min(int(os.getenv('EXAM_BATCH_OVERLAP', '1')), EXAM_BATCH_SIZE - 1)
 MAX_CONTEXT_CHARS = int(os.getenv('MAX_CONTEXT_CHARS', '1200'))
+# How many answer-key pages to send per batch (sliding window).
+# Keeping this small drastically reduces prompt size and API latency.
+ANSWER_WINDOW_SIZE = int(os.getenv('ANSWER_WINDOW_SIZE', '8'))
 EXAM_FILTER = [item.strip() for item in os.getenv('EXAM_FILTER', '').split(',') if item.strip()]
+
+
+def render_page_to_base64(pdf_path: str, page_number: int, dpi: int = 150) -> str:
+    """Render a PDF page (1-indexed) to a PNG base64 string using pymupdf."""
+    doc = fitz.open(pdf_path)
+    page = doc[page_number - 1]  # fitz is 0-indexed
+    mat = fitz.Matrix(dpi / 72.0, dpi / 72.0)
+    pix = page.get_pixmap(matrix=mat)
+    png_bytes = pix.tobytes("png")
+    doc.close()
+    return base64.b64encode(png_bytes).decode()
+
+
+def has_pua(pages: list) -> bool:
+    """Return True if any page text contains Private Use Area unicode glyphs."""
+    return any(
+        re.search(r'[\uE000-\uF8FF]', page.get('text') or '')
+        for page in pages
+    )
 
 
 def format_table_block(table) -> str | None:
@@ -82,7 +112,13 @@ def page_content(page: dict) -> str:
     if table_blocks:
         parts.append('TABLES:\n' + '\n\n'.join(table_blocks))
 
-    return '\n\n'.join(parts).strip()
+    combined = '\n\n'.join(parts).strip()
+    # Replace Private Use Area characters (U+E000–U+F8FF) with a placeholder.
+    # These are non-standard math/symbol glyphs from some PDF fonts.
+    # Removing them entirely breaks formula context, so we substitute with [?]
+    # so the model knows a symbol was here without echoing invalid codepoints.
+    combined = re.sub(r'[\uE000-\uF8FF]+', '[?]', combined)
+    return combined
 
 
 def format_pages(pages: list) -> str:
@@ -90,6 +126,35 @@ def format_pages(pages: list) -> str:
     return "\n\n".join(
         [f"=== PAGE {page['page_number']} ===\n{page_content(page)}" for page in pages]
     )
+
+
+def slice_answer_pages_for_batch(
+    answer_pages: list,
+    batch_index: int,
+    batch_count: int,
+) -> list:
+    """Return a window of answer-key pages proportional to where we are in the exam.
+
+    Instead of sending all answer pages every batch (which balloons the prompt),
+    we slide a window of ANSWER_WINDOW_SIZE pages that tracks the current batch
+    position.  The first and last batches always include the first/last answer
+    pages so coverage is complete even for short answer keys.
+    """
+    if not answer_pages or ANSWER_WINDOW_SIZE <= 0:
+        return answer_pages
+    n = len(answer_pages)
+    if n <= ANSWER_WINDOW_SIZE:
+        return answer_pages  # small key — send it all
+
+    # Centre the window on the proportional position in the answer key.
+    centre = int((batch_index - 1) / max(batch_count - 1, 1) * (n - 1))
+    half = ANSWER_WINDOW_SIZE // 2
+    start = max(0, centre - half)
+    end = min(n, start + ANSWER_WINDOW_SIZE)
+    # Slide back if we hit the end
+    if end == n:
+        start = max(0, n - ANSWER_WINDOW_SIZE)
+    return answer_pages[start:end]
 
 
 def build_page_batches(exam_pages: list) -> list:
@@ -197,6 +262,10 @@ def normalize_question(raw_question: dict) -> dict | None:
     question_text = normalize_text_field(raw_question.get('question_text')) or ''
     question_text = strip_noise_lines(question_text) or ''
     if not question_number or not question_text:
+        return None
+    # Reject question_text that was accidentally taken from the answer-key
+    # curriculum metadata table ("Wymaganie ogólne / szczegółowe").
+    if re.match(r'Wymaganie', question_text, re.IGNORECASE):
         return None
 
     return {
@@ -411,6 +480,8 @@ def parse_exam_batch_with_ai(
     batch_index: int,
     batch_count: int,
     transcript_pages: list | None = None,
+    use_vision: bool = False,
+    exam_pdf_path: str | None = None,
 ) -> tuple[list, float]:
     """
     Parse one batch of exam pages into structured Q&A pairs.
@@ -442,10 +513,12 @@ OPTIONAL TRANSCRIPT TEXT:
 INSTRUCTIONS:
 1. Extract every question that appears on the CURRENT EXAM PAGES only.
 2. Do not include questions from other pages.
-3. Match each extracted question with its correct answer and explanation from the answer key.
-4. Preserve the original task numbering, e.g. 6, 7.1, 10.2.
-5. Infer question_type as one of: multiple_choice, short_answer, extended.
-6. If the task depends on listening or a transcript, use OPTIONAL TRANSCRIPT TEXT as supporting context.
+3. question_text MUST be taken verbatim from EXAM TEXT or the page images. NEVER use text from FULL ANSWER KEY TEXT as question_text.
+4. The answer key may contain curriculum metadata tables starting with "Wymaganie ogólne" / "Wymaganie szczegółowe" — ignore these completely; they are NOT question content.
+5. Match each extracted question with its correct answer and explanation from the answer key.
+6. Preserve the original task numbering, e.g. 6, 7.1, 10.2.
+7. Infer question_type as one of: multiple_choice, short_answer, extended.
+8. If the task depends on listening or a transcript, use OPTIONAL TRANSCRIPT TEXT as supporting context.
 
 CONTEXT RULES:
 - If a question refers to a reading passage, chart, table, diagram, or source text, include only the relevant passage or a concise excerpt.
@@ -475,22 +548,68 @@ Example:
 
 Return only valid JSON."""
 
+    # Build vision-aware message content
+    if use_vision and exam_pdf_path and _FITZ_AVAILABLE:
+        prompt += (
+            "\n\nVISUAL CONTEXT: The exam pages are also attached as images below. "
+            "Use them to resolve any [?] placeholders in the text — each [?] "
+            "represents a character that could not be extracted as plain text (usually "
+            "a digit or symbol inside a math expression). "
+            "Prefer the image as the authoritative source for mathematical content."
+        )
+        content: list = [{"type": "text", "text": prompt}]
+        for page in exam_batch:
+            try:
+                b64 = render_page_to_base64(exam_pdf_path, page['page_number'])
+                content.append({
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}
+                })
+            except Exception as e:
+                print(f"   ⚠️  Could not render page {page['page_number']} for vision: {e}")
+        messages = [{"role": "user", "content": content}]
+    else:
+        messages = [{"role": "user", "content": prompt}]
+
     print(f"\n🤖 Parsing batch {batch_index}/{batch_count} for {exam_name}")
-    print(f"   Exam pages: {batch_pages}")
+    print(f"   Exam pages: {batch_pages}  |  Answer pages sent: {len(answer_pages)}")
+
+    # Spinner so the terminal doesn't look frozen during the API call
+    _stop_spinner = threading.Event()
+    def _spinner():
+        frames = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏']
+        i = 0
+        start = time.time()
+        while not _stop_spinner.is_set():
+            elapsed = time.time() - start
+            sys.stdout.write(f"\r   {frames[i % len(frames)]}  waiting for model... {elapsed:.0f}s ")
+            sys.stdout.flush()
+            i += 1
+            time.sleep(0.1)
+        sys.stdout.write('\r' + ' ' * 50 + '\r')
+        sys.stdout.flush()
+    spinner_thread = threading.Thread(target=_spinner, daemon=True)
+    spinner_thread.start()
     
     try:
         response = client.chat.completions.create(
             model=EXTRACTION_MODEL,
-            messages=[{
-                "role": "user", 
-                "content": prompt
-            }],
+            messages=messages,
             response_format={"type": "json_object"},
             temperature=0
         )
-        
+        _stop_spinner.set()
+        spinner_thread.join()
+
         # Extract JSON from response
         response_text = response.choices[0].message.content
+
+        # Some models echo back PUA / malformed \uXXXX sequences in JSON.
+        # Replace any invalid \uXXXX (non-hex digits) and lone surrogates
+        # before parsing, so json.loads does not crash.
+        response_text = re.sub(r'\\u[0-9A-Fa-f]{0,3}[^0-9A-Fa-f"]', '', response_text)
+        # Also strip actual PUA codepoints that may have survived
+        response_text = re.sub(r'[\uE000-\uF8FF]', '', response_text)
         
         # Parse JSON
         data = json.loads(response_text)
@@ -512,6 +631,8 @@ Return only valid JSON."""
         return normalized_questions, cost
         
     except Exception as e:
+        _stop_spinner.set()
+        spinner_thread.join()
         print(f"❌ Error parsing with AI: {e}")
         import traceback
         traceback.print_exc()
@@ -590,18 +711,24 @@ def main():
         
         # Parse with AI in batches to cover the full exam
         batches = build_page_batches(exam_pages)
+        use_vision = _FITZ_AVAILABLE and has_pua(exam_pages)
+        if use_vision:
+            print(f"   👁️  PUA characters detected — enabling vision mode (images will be attached)")
         print(f"\n🧩 Parsing {len(batches)} batch(es) starting from page {EXAM_START_PAGE}")
 
         merged_questions = {}
         total_cost = 0.0
         for batch_index, batch in enumerate(batches, start=1):
+            answer_slice = slice_answer_pages_for_batch(answer_pages, batch_index, len(batches))
             batch_questions, batch_cost = parse_exam_batch_with_ai(
                 batch,
-                answer_pages,
+                answer_slice,
                 exam['name'],
                 batch_index,
                 len(batches),
                 transcript_pages=transcript_pages,
+                use_vision=use_vision,
+                exam_pdf_path=exam['exam_pdf'],
             )
             total_cost += batch_cost
             for question in batch_questions:

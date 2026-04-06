@@ -22,7 +22,9 @@ from utils import QuestionDatabase
 load_dotenv()
 
 # Initialize OpenRouter client (using OpenAI-compatible interface)
+import httpx
 client = OpenAI(
+    http_client=httpx.Client(timeout=httpx.Timeout(90.0, connect=10.0)),  # hard socket-level timeout
     base_url="https://openrouter.ai/api/v1",
     api_key=os.getenv('OPENROUTER_API_KEY'),
     default_headers={
@@ -37,28 +39,28 @@ client = OpenAI(
 # Sorted by cost efficiency (cheapest first)
 MODELS = [
     {
-        'name': 'gpt-4o-mini',
-        'model_id': 'openai/gpt-4o-mini',
-        'input_cost_per_1m': 0.15,
-        'output_cost_per_1m': 0.60
+        'name': 'step-3.5-flash-free',
+        'model_id': 'stepfun/step-3.5-flash:free',
+        'input_cost_per_1m': 0.00,
+        'output_cost_per_1m': 0.00
     },
     {
-        'name': 'grok-4-fast',
-        'model_id': 'x-ai/grok-4-fast',
-        'input_cost_per_1m': 0.20,
-        'output_cost_per_1m': 0.50
-    },
-    {
-        'name': 'deepseek-v3',
-        'model_id': 'deepseek/deepseek-chat',
+        'name': 'deepseek-v3.2',
+        'model_id': 'deepseek/deepseek-v3.2',
         'input_cost_per_1m': 0.28,
-        'output_cost_per_1m': 0.40
+        'output_cost_per_1m': 0.88
     },
     {
-        'name': 'gemini-2.5-flash',
-        'model_id': 'google/gemini-2.5-flash',
-        'input_cost_per_1m': 0.30,
-        'output_cost_per_1m': 2.50
+        'name': 'qwen3.5-35b',
+        'model_id': 'qwen/qwen3.5-35b-a3b',
+        'input_cost_per_1m': 0.10,
+        'output_cost_per_1m': 0.30
+    },
+    {
+        'name': 'glm-4.7-nitro',
+        'model_id': 'z-ai/glm-4.7:nitro',
+        'input_cost_per_1m': 2.25,
+        'output_cost_per_1m': 2.75
     },
     {
         'name': 'gemini-3-flash',
@@ -67,11 +69,12 @@ MODELS = [
         'output_cost_per_1m': 3.00
     },
     {
-        'name': 'claude-haiku-4.5',
-        'model_id': 'anthropic/claude-haiku-4.5',
-        'input_cost_per_1m': 1.00,
-        'output_cost_per_1m': 5.00
-    }
+        # hunter-alpha was renamed – now available as mimo-v2-pro
+        'name': 'mimo-v2-pro',
+        'model_id': 'xiaomi/mimo-v2-pro',
+        'input_cost_per_1m': 0.90,
+        'output_cost_per_1m': 0.90
+    },
 ]
 
 
@@ -114,21 +117,39 @@ def build_question_prompt(question: dict) -> str:
 
 def ask_model(model_config: dict, question: dict) -> dict:
     """Ask any model a question via OpenRouter"""
-    start_time = time.time()
-    
-    response = client.chat.completions.create(
-        model=model_config['model_id'],
-        messages=[{
-            "role": "user",
-            "content": build_question_prompt(question)
-        }],
-        temperature=0,
-        max_tokens=2000
-    )
+    prompt = build_question_prompt(question)
+    max_retries = 3
+    for attempt in range(1, max_retries + 1):
+        start_time = time.time()
+        try:
+            response = client.chat.completions.create(
+                model=model_config['model_id'],
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0,
+                max_tokens=8000,
+            )
+            break  # success
+        except Exception as e:
+            wait = 2 ** attempt  # 2s, 4s, 8s
+            if attempt < max_retries:
+                print(f"\n   ⚠️  Attempt {attempt}/{max_retries} failed ({type(e).__name__}), retrying in {wait}s…")
+                time.sleep(wait)
+            else:
+                raise
     
     latency_ms = int((time.time() - start_time) * 1000)
     
     answer = response.choices[0].message.content
+    # Reasoning models (e.g. stepfun, glm) may return content=None when all
+    # budget was consumed by thinking tokens.  Fall back to the reasoning text.
+    if answer is None:
+        msg = response.choices[0].message
+        reasoning = getattr(msg, 'reasoning', None)
+        if not reasoning and hasattr(msg, 'reasoning_details'):
+            parts = [d.get('text', '') for d in (msg.reasoning_details or []) if d.get('text')]
+            reasoning = '\n'.join(parts)
+        answer = reasoning or '(no response generated)'
+
     input_tokens = response.usage.prompt_tokens
     output_tokens = response.usage.completion_tokens
     total_tokens = response.usage.total_tokens

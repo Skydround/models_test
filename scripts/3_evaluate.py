@@ -8,13 +8,17 @@ This script:
 3. Generates an Excel comparison spreadsheet
 """
 
+import argparse
 import os
 import sys
 import html
+from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
+from openpyxl.styles import PatternFill, Font, Alignment
+from openpyxl.utils import get_column_letter
 import pandas as pd
 from tqdm import tqdm
 import json
@@ -241,61 +245,127 @@ def generate_excel_report(db: QuestionDatabase, output_path: str):
     pivot_df = pd.DataFrame(pivot_data)
     pivot_df_excel = sanitize_excel_dataframe(pivot_df)
     
-    # Create Excel file with multiple sheets
-    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
-        # Sheet 1: Full comparison
-        pivot_df_excel.to_excel(writer, sheet_name='Comparison', index=False)
-        
-        # Sheet 2: Summary statistics
-        summary_data = []
-        for model in df['model_name'].dropna().unique():
-            model_data = df[df['model_name'] == model]
-            summary_data.append({
+    models = sorted(df['model_name'].dropna().unique())
+    exams  = sorted(df['exam_name'].dropna().unique(), key=exam_sort_key)
+
+    # ── helpers ────────────────────────────────────────────────────────────
+    def pct(series):
+        v = series.fillna(0).astype(float).mean()
+        return f"{v * 100:.1f}%"
+
+    def build_model_summary(subset, label_col=None, label_val=None) -> list[dict]:
+        rows = []
+        for model in models:
+            md = subset[subset['model_name'] == model]
+            if md.empty:
+                continue
+            row = {}
+            if label_col:
+                row[label_col] = label_val
+            row.update({
                 'Model': model,
-                'Total Questions': len(model_data),
-                'Correct': model_data['is_correct'].sum(),
-                'Accuracy': f"{model_data['is_correct'].mean() * 100:.1f}%",
-                'Avg Score': f"{model_data['score'].mean():.2f}",
-                'Avg Latency (ms)': f"{model_data['latency_ms'].mean():.0f}",
-                'Total Cost (USD)': f"${model_data['cost_usd'].sum():.4f}",
-                'Cost per Question': f"${model_data['cost_usd'].mean():.4f}"
+                'Questions': len(md),
+                'Correct': int(md['is_correct'].fillna(0).sum()),
+                'Accuracy %': pct(md['is_correct']),
+                'Avg Score': round(md['score'].fillna(0).mean(), 3),
+                'Avg Latency ms': round(md['latency_ms'].fillna(0).mean()),
+                'Total Cost $': round(md['cost_usd'].fillna(0).sum(), 5),
+                'Cost/Q $': round(md['cost_usd'].fillna(0).mean(), 6),
             })
-        
-        summary_df = sanitize_excel_dataframe(pd.DataFrame(summary_data))
-        summary_df.to_excel(writer, sheet_name='Summary', index=False)
+            rows.append(row)
+        return rows
 
-        exam_summary_rows = []
-        for exam_name in sorted(df['exam_name'].dropna().unique(), key=exam_sort_key):
-            exam_data = df[df['exam_name'] == exam_name]
-            for model in exam_data['model_name'].dropna().unique():
-                model_data = exam_data[exam_data['model_name'] == model]
-                exam_summary_rows.append({
-                    'Exam': exam_name,
-                    'Exam Label': exam_data.iloc[0]['session_label'],
-                    'Subject': exam_data.iloc[0]['subject_label'],
-                    'Year': exam_data.iloc[0]['year'],
-                    'Level': exam_data.iloc[0]['level'],
+    def build_type_breakdown(subset) -> list[dict]:
+        rows = []
+        for qtype in sorted(subset['question_type'].dropna().unique()):
+            td = subset[subset['question_type'] == qtype]
+            for model in models:
+                md = td[td['model_name'] == model]
+                if md.empty:
+                    continue
+                rows.append({
+                    'Question Type': qtype,
                     'Model': model,
-                    'Responses': len(model_data),
-                    'Accuracy': f"{model_data['is_correct'].mean() * 100:.1f}%",
-                    'Avg Score': f"{model_data['score'].mean():.2f}",
-                    'Total Cost (USD)': f"${model_data['cost_usd'].sum():.4f}",
+                    'Questions': len(md),
+                    'Correct': int(md['is_correct'].fillna(0).sum()),
+                    'Accuracy %': pct(md['is_correct']),
+                    'Avg Score': round(md['score'].fillna(0).mean(), 3),
                 })
+        return rows
 
-        exam_summary_df = sanitize_excel_dataframe(pd.DataFrame(exam_summary_rows))
-        exam_summary_df.to_excel(writer, sheet_name='By Exam', index=False)
+    def autofit_sheet(ws):
+        for col_cells in ws.columns:
+            length = max((len(str(c.value or '')) for c in col_cells), default=10)
+            ws.column_dimensions[get_column_letter(col_cells[0].column)].width = min(length + 4, 60)
 
-        for exam_name in sorted(df['exam_name'].dropna().unique(), key=exam_sort_key):
-            exam_pivot = pivot_df_excel[pivot_df_excel['Exam'] == exam_name]
-            exam_pivot.to_excel(
-                writer,
-                sheet_name=excel_safe_sheet_name(exam_name, fallback='Exam'),
-                index=False,
+    def style_header_row(ws, fill_hex='C6EFCE'):
+        fill = PatternFill('solid', fgColor=fill_hex)
+        bold = Font(bold=True)
+        for cell in ws[1]:
+            cell.fill = fill
+            cell.font = bold
+            cell.alignment = Alignment(horizontal='center')
+
+    # ── write workbook ──────────────────────────────────────────────────────
+    with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
+
+        # ── 1. Summary (per model, overall) ─────────────────────────────────
+        summary_df = sanitize_excel_dataframe(pd.DataFrame(build_model_summary(df)))
+        summary_df.to_excel(writer, sheet_name='Summary', index=False)
+        ws = writer.sheets['Summary']
+        style_header_row(ws, 'BDD7EE')
+        autofit_sheet(ws)
+
+        # ── 2. By Exam (per exam × model) ───────────────────────────────────
+        by_exam_rows = []
+        for exam_name in exams:
+            ed = df[df['exam_name'] == exam_name]
+            meta = ed.iloc[0]
+            rows = build_model_summary(
+                ed, label_col='Exam', label_val=meta['session_label']
             )
-        
-        # Sheet 3: Raw data
+            for r in rows:
+                r['Subject'] = meta['subject_label']
+                r['Year']    = meta['year']
+                r['Level']   = meta['level']
+                r['Exam Code'] = exam_name
+            by_exam_rows.extend(rows)
+        by_exam_df = sanitize_excel_dataframe(pd.DataFrame(by_exam_rows))
+        # reorder columns
+        front = ['Exam', 'Subject', 'Year', 'Level', 'Model']
+        rest  = [c for c in by_exam_df.columns if c not in front + ['Exam Code']]
+        by_exam_df = by_exam_df[front + rest + ['Exam Code']]
+        by_exam_df.to_excel(writer, sheet_name='By Exam', index=False)
+        ws = writer.sheets['By Exam']
+        style_header_row(ws, 'FCE4D6')
+        autofit_sheet(ws)
+
+        # ── 3. By Question Type ─────────────────────────────────────────────
+        type_df = sanitize_excel_dataframe(pd.DataFrame(build_type_breakdown(df)))
+        type_df.to_excel(writer, sheet_name='By Type', index=False)
+        ws = writer.sheets['By Type']
+        style_header_row(ws, 'E2EFDA')
+        autofit_sheet(ws)
+
+        # ── 4. Per-exam detail sheets ────────────────────────────────────────
+        for exam_name in exams:
+            exam_pivot = pivot_df_excel[pivot_df_excel['Exam'] == exam_name]
+            sheet_name = excel_safe_sheet_name(exam_name, fallback='Exam')
+            exam_pivot.to_excel(writer, sheet_name=sheet_name, index=False)
+            ws = writer.sheets[sheet_name]
+            style_header_row(ws, 'FFF2CC')
+            autofit_sheet(ws)
+
+        # ── 5. Full Comparison (all exams, all models) ───────────────────────
+        pivot_df_excel.to_excel(writer, sheet_name='All Questions', index=False)
+        ws = writer.sheets['All Questions']
+        style_header_row(ws, 'EDEDED')
+        autofit_sheet(ws)
+
+        # ── 6. Raw Data ──────────────────────────────────────────────────────
         sanitize_excel_dataframe(df).to_excel(writer, sheet_name='Raw Data', index=False)
-    
+        style_header_row(writer.sheets['Raw Data'], 'EDEDED')
+
     print(f"✅ Excel report saved to: {output_path}")
 
 
@@ -350,41 +420,33 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
         def as_html_block(value, fallback='Brak'):
                 return html.escape(as_text(value, fallback)).replace('\n', '<br>')
 
+        all_models = sorted(df['model_name'].dropna().unique())
+        all_exams  = sorted(df['exam_name'].dropna().unique(), key=exam_sort_key)
+
+        def pct_val(series):
+            v = series.fillna(0).astype(float)
+            if v.empty:
+                return '—'
+            return f'{v.mean() * 100:.1f}%'
+
         summary_rows = []
-        for model in df['model_name'].dropna().unique():
+        for model in all_models:
                 model_data = df[df['model_name'] == model]
                 accuracy = model_data['is_correct'].fillna(0).astype(float).mean() * 100
                 avg_score = model_data['score'].fillna(0).mean()
+                correct   = int(model_data['is_correct'].fillna(0).sum())
                 summary_rows.append(
-                        f"""
-                        <tr>
-                            <td>{html.escape(model)}</td>
-                            <td>{len(model_data)}</td>
-                            <td>{accuracy:.1f}%</td>
-                            <td>{avg_score:.2f}</td>
-                            <td>${model_data['cost_usd'].fillna(0).sum():.4f}</td>
-                        </tr>
-                        """
+                        f'<tr>'
+                        f'<td>{html.escape(model)}</td>'
+                        f'<td>{len(model_data)}</td>'
+                        f'<td>{correct}</td>'
+                        f'<td>{accuracy:.1f}%</td>'
+                        f'<td>{avg_score:.3f}</td>'
+                        f'<td>${model_data["cost_usd"].fillna(0).sum():.4f}</td>'
+                        f'</tr>'
                 )
 
-                exam_summary_rows = []
-                for exam_name in sorted(df['exam_name'].dropna().unique(), key=exam_sort_key):
-                    exam_data = df[df['exam_name'] == exam_name]
-                    for model in exam_data['model_name'].dropna().unique():
-                        model_data = exam_data[exam_data['model_name'] == model]
-                        accuracy = model_data['is_correct'].fillna(0).astype(float).mean() * 100
-                        avg_score = model_data['score'].fillna(0).mean()
-                        exam_summary_rows.append(
-                            f"""
-                            <tr>
-                                <td>{html.escape(exam_data.iloc[0]['session_label'])}</td>
-                                <td>{html.escape(model)}</td>
-                                <td>{len(model_data)}</td>
-                                <td>{accuracy:.1f}%</td>
-                                <td>{avg_score:.2f}</td>
-                            </tr>
-                            """
-                        )
+        exam_summary_rows = []  # kept for compat but replaced by exam_stats_rows_html below
 
         question_sections_by_exam = {}
         for question_id in df['question_id'].unique():
@@ -500,8 +562,45 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                         """
                 )
 
+        # ── per-type stats ───────────────────────────────────────────────────
+        type_stats_rows = []
+        for qtype in sorted(df['question_type'].dropna().unique()):
+            td = df[df['question_type'] == qtype]
+            cells = ''.join(
+                f'<td>{pct_val(td[td["model_name"] == m]["is_correct"])}</td>'
+                for m in all_models
+            )
+            type_stats_rows.append(f'<tr><td>{html.escape(qtype)}</td>{cells}</tr>')
+
+        model_header_cells = ''.join(f'<th>{html.escape(m)}</th>' for m in all_models)
+
+        # ── per-exam stats ───────────────────────────────────────────────────
+        exam_stats_rows_html = []
+        for exam_name in all_exams:
+            ed = df[df['exam_name'] == exam_name]
+            label = html.escape(ed.iloc[0]['session_label'])
+            anchor = f'exam-{exam_name}'
+            cells = ''.join(
+                f'<td>{pct_val(ed[ed["model_name"] == m]["is_correct"])}</td>'
+                for m in all_models
+            )
+            exam_stats_rows_html.append(
+                f'<tr><td><a href="#{anchor}">{label}</a></td>{cells}</tr>'
+            )
+
+        # ── nav links ────────────────────────────────────────────────────────
+        nav_links = ''
+        for subject in subject_names:
+            sr = df[df['subject'] == subject]
+            subject_label_safe = html.escape(sr.iloc[0]['subject_label'])
+            exam_anchors = ''.join(
+                f'<a class="nav-exam" href="#exam-{en}">{html.escape(df[df["exam_name"]==en].iloc[0]["session_label"])}</a>'
+                for en in sorted(sr['exam_name'].dropna().unique(), key=exam_sort_key)
+            )
+            nav_links += f'<div class="nav-group"><span class="nav-subject">{subject_label_safe}</span>{exam_anchors}</div>'
+
         html_output = f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -520,26 +619,37 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
             --warn: #9d5c0d;
             --bad: #a63f3f;
             --shadow: 0 14px 40px rgba(71, 48, 26, 0.08);
+            --nav-h: 52px;
         }}
         * {{ box-sizing: border-box; }}
         body {{ margin: 0; font-family: Georgia, 'Times New Roman', serif; background: radial-gradient(circle at top, #fff7ea 0%, var(--bg) 45%, #efe4d3 100%); color: var(--text); }}
+        /* sticky nav */
+        .topnav {{ position: sticky; top: 0; z-index: 100; background: rgba(31,26,23,0.96); backdrop-filter: blur(8px); display: flex; gap: 0; overflow-x: auto; padding: 0 16px; height: var(--nav-h); align-items: center; scrollbar-width: thin; }}
+        .nav-group {{ display: flex; align-items: center; gap: 6px; padding: 0 10px; border-right: 1px solid rgba(255,255,255,.12); }}
+        .nav-group:last-child {{ border-right: none; }}
+        .nav-subject {{ color: rgba(255,255,255,.45); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; margin-right: 4px; }}
+        .nav-exam {{ color: #f3d9bf; font-size: .88rem; text-decoration: none; white-space: nowrap; padding: 4px 8px; border-radius: 8px; transition: background .15s; }}
+        .nav-exam:hover {{ background: rgba(243,217,191,.2); }}
         .page {{ max-width: 1500px; margin: 0 auto; padding: 32px 20px 60px; }}
-        .hero {{ background: linear-gradient(135deg, rgba(184, 92, 56, 0.12), rgba(243, 217, 191, 0.75)); border: 1px solid var(--border); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); }}
+        .hero {{ background: linear-gradient(135deg, rgba(184,92,56,.12), rgba(243,217,191,.75)); border: 1px solid var(--border); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); }}
         h1 {{ margin: 0 0 8px; font-size: clamp(2rem, 4vw, 3.5rem); }}
         .subtitle {{ margin: 0; color: var(--muted); font-size: 1.05rem; }}
-        .summary-table {{ width: 100%; border-collapse: collapse; margin-top: 24px; background: var(--surface); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }}
-        .summary-table th, .summary-table td {{ padding: 14px 16px; border-bottom: 1px solid #efe2d3; text-align: left; }}
+        .stats-wrap {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; margin-top: 24px; }}
+        .summary-table {{ width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }}
+        .summary-table caption {{ text-align: left; font-size: .9rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 12px 16px 6px; }}
+        .summary-table th, .summary-table td {{ padding: 12px 16px; border-bottom: 1px solid #efe2d3; text-align: left; font-size: .93rem; }}
         .summary-table th {{ background: var(--surface-strong); }}
-        .subject-section {{ margin-top: 36px; }}
-        .subject-header {{ margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid rgba(184, 92, 56, 0.2); }}
+        .summary-table a {{ color: var(--accent); }}
+        .subject-section {{ margin-top: 48px; scroll-margin-top: calc(var(--nav-h) + 12px); }}
+        .subject-header {{ margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid rgba(184,92,56,.2); }}
         .subject-header h2 {{ margin: 0; font-size: clamp(1.5rem, 2vw, 2rem); }}
-        .exam-section {{ margin-top: 18px; }}
+        .exam-section {{ margin-top: 24px; scroll-margin-top: calc(var(--nav-h) + 12px); }}
         .exam-header {{ display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-bottom: 8px; }}
         .exam-header h3 {{ margin: 0; font-size: 1.15rem; }}
-        .exam-code {{ color: var(--muted); font-size: 0.95rem; font-family: 'Courier New', monospace; }}
-        .question-card {{ margin-top: 28px; background: rgba(255, 253, 248, 0.88); border: 1px solid var(--border); border-radius: 28px; padding: 24px; box-shadow: var(--shadow); backdrop-filter: blur(4px); }}
+        .exam-code {{ color: var(--muted); font-size: .95rem; font-family: 'Courier New', monospace; }}
+        .question-card {{ margin-top: 28px; background: rgba(255,253,248,.88); border: 1px solid var(--border); border-radius: 28px; padding: 24px; box-shadow: var(--shadow); backdrop-filter: blur(4px); }}
         .question-topline {{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }}
-        .exam-pill, .session-pill, .question-pill, .type-pill, .points-pill, .badge {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; }}
+        .exam-pill,.session-pill,.question-pill,.type-pill,.points-pill,.badge {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 6px 12px; font-size: .9rem; font-weight: 600; }}
         .exam-pill {{ background: var(--accent); color: white; }}
         .session-pill {{ background: #f5dfc6; color: #6d4c37; }}
         .question-pill {{ background: #f0e3d1; }}
@@ -547,19 +657,19 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
         .points-pill {{ background: #f7ead8; color: #6d4c37; }}
         .details-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 18px 0; }}
         .responses-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 18px; }}
-        .response-card {{ background: var(--surface); border: 1px solid #eadbc9; border-radius: 22px; padding: 18px; box-shadow: 0 10px 30px rgba(71, 48, 26, 0.05); }}
+        .response-card {{ background: var(--surface); border: 1px solid #eadbc9; border-radius: 22px; padding: 18px; box-shadow: 0 10px 30px rgba(71,48,26,.05); }}
         .response-header {{ display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 10px; }}
         .response-header h3 {{ margin: 0; font-size: 1.1rem; }}
         .badges {{ display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }}
         .badge {{ background: #ece2d3; color: #3e342e; }}
-        .badge-ok {{ background: rgba(47, 125, 74, 0.14); color: var(--ok); }}
-        .badge-warn {{ background: rgba(157, 92, 13, 0.14); color: var(--warn); }}
-        .score-high {{ background: rgba(47, 125, 74, 0.14); color: var(--ok); }}
-        .score-mid {{ background: rgba(157, 92, 13, 0.14); color: var(--warn); }}
-        .score-low {{ background: rgba(166, 63, 63, 0.14); color: var(--bad); }}
-        .meta {{ color: var(--muted); font-size: 0.92rem; margin-bottom: 12px; }}
+        .badge-ok {{ background: rgba(47,125,74,.14); color: var(--ok); }}
+        .badge-warn {{ background: rgba(157,92,13,.14); color: var(--warn); }}
+        .score-high {{ background: rgba(47,125,74,.14); color: var(--ok); }}
+        .score-mid {{ background: rgba(157,92,13,.14); color: var(--warn); }}
+        .score-low {{ background: rgba(166,63,63,.14); color: var(--bad); }}
+        .meta {{ color: var(--muted); font-size: .92rem; margin-bottom: 12px; }}
         .panel {{ background: #fffaf3; border: 1px solid #efe1cf; border-radius: 16px; padding: 14px; margin-top: 12px; }}
-        .panel-title {{ font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }}
+        .panel-title {{ font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }}
         .panel-body {{ line-height: 1.6; white-space: normal; word-break: break-word; }}
         .context-block {{ margin-top: 10px; }}
         @media (max-width: 720px) {{
@@ -571,41 +681,32 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
     </style>
 </head>
 <body>
+    <nav class="topnav">{nav_links}</nav>
     <main class="page">
         <section class="hero">
             <h1>Matura Models Comparison</h1>
-            <p class="subtitle">Question-first report with the official answer, model responses, and evaluator verdicts in one place.</p>
+            <p class="subtitle">Wygenerowano: {datetime.now().strftime('%Y-%m-%d %H:%M')} &mdash; {len(all_models)} modeli, {len(all_exams)} egzaminów</p>
         </section>
 
-        <table class="summary-table">
-            <thead>
-                <tr>
-                    <th>Model</th>
-                    <th>Responses</th>
-                    <th>Accuracy</th>
-                    <th>Avg score</th>
-                    <th>Total cost</th>
-                </tr>
-            </thead>
-            <tbody>
-                {''.join(summary_rows)}
-            </tbody>
-        </table>
+        <div class="stats-wrap">
+          <table class="summary-table">
+            <caption>Wyniki ogólne</caption>
+            <thead><tr><th>Model</th><th>Pytania</th><th>Poprawne</th><th>Celność</th><th>Śr. wynik</th><th>Koszt $</th></tr></thead>
+            <tbody>{''.join(summary_rows)}</tbody>
+          </table>
 
-        <table class="summary-table">
-            <thead>
-                <tr>
-                    <th>Exam</th>
-                    <th>Model</th>
-                    <th>Responses</th>
-                    <th>Accuracy</th>
-                    <th>Avg score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {''.join(exam_summary_rows)}
-            </tbody>
-        </table>
+          <table class="summary-table">
+            <caption>Celność wg egzaminu</caption>
+            <thead><tr><th>Egzamin</th>{model_header_cells}</tr></thead>
+            <tbody>{''.join(exam_stats_rows_html)}</tbody>
+          </table>
+
+          <table class="summary-table">
+            <caption>Celność wg typu pytania</caption>
+            <thead><tr><th>Typ</th>{model_header_cells}</tr></thead>
+            <tbody>{''.join(type_stats_rows)}</tbody>
+          </table>
+        </div>
 
         {''.join(grouped_sections)}
     </main>
@@ -619,7 +720,24 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
 
 def main():
     """Main evaluation workflow"""
-    
+
+    parser = argparse.ArgumentParser(description='Evaluate model responses and generate reports')
+    parser.add_argument(
+        '--output', '-o',
+        default=None,
+        help='Output file stem (without extension). Default: results/comparison_YYYYMMDD_HHMMSS'
+    )
+    parser.add_argument(
+        '--excel',
+        action='store_true',
+        default=False,
+        help='Also generate an Excel report (off by default)'
+    )
+    args = parser.parse_args()
+
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    stem = args.output if args.output else f'results/comparison_{timestamp}'
+
     print("="*70)
     print("STEP 3: EVALUATE RESPONSES")
     print("="*70)
@@ -703,24 +821,24 @@ def main():
                 f"{total_completion_tokens} completion"
             )
     
-    # Generate Excel report
-    output_dir = Path("results")
+    # Generate reports
+    output_dir = Path(stem).parent
     output_dir.mkdir(parents=True, exist_ok=True)
-    excel_output_path = output_dir / "comparison.xlsx"
-    html_output_path = output_dir / "comparison.html"
+    html_output_path = Path(f'{stem}.html')
 
-    generate_excel_report(db, str(excel_output_path))
     generate_html_report(db, str(html_output_path))
-    
-    # Print summary
+
+    if args.excel:
+        excel_output_path = Path(f'{stem}.xlsx')
+        generate_excel_report(db, str(excel_output_path))
+        excel_line = f"\n📊 Excel: {excel_output_path}"
+    else:
+        excel_line = ''
+
     print(f"\n{'='*70}")
     print(f"EVALUATION COMPLETE")
     print(f"{'='*70}")
-    print(f"\n📊 Results saved to: {excel_output_path}")
-    print(f"🌐 HTML report saved to: {html_output_path}")
-    print(f"\nOpen the generated files to see:")
-    print(f"  - HTML report: Question-by-question review with model answers and evaluation")
-    print(f"  - Excel comparison: Side-by-side table and summary statistics")
+    print(f"\n🌐 HTML:  {html_output_path}{excel_line}")
     
     db.close()
 

@@ -11,6 +11,8 @@ This script:
 import os
 import sys
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -212,77 +214,75 @@ def main():
     for model in available_models:
         print(f"   - {model['name']} ({model['model_id']})")
     
-    # Test each model on each question
-    pending_tests = []
+    # Build per-question work: {question -> [models to test]}
+    work = {}
     for question in questions:
-        for model in available_models:
-            if not db.response_exists(question['id'], model['name']):
-                pending_tests.append((question, model))
+        pending_models = [
+            model for model in available_models
+            if not db.response_exists(question['id'], model['name'])
+        ]
+        if pending_models:
+            work[question['id']] = (question, pending_models)
 
-    total_tests = len(pending_tests)
+    total_tests = sum(len(m) for _, m in work.values())
     total_cost = 0
-    
-    print(f"\n📊 Total tests to run: {total_tests}")
-    print(f"   ({len(questions)} questions × {len(available_models)} models)")
+    completed = 0
+    lock = threading.Lock()
 
-    if not pending_tests:
+    print(f"\n📊 Total tests to run: {total_tests}")
+    print(f"   ({len(questions)} questions × {len(available_models)} models, {len(work)} questions have pending work)")
+
+    if not work:
         print("\n✅ All question/model pairs already have saved responses")
         db.close()
         return
-    
-    with tqdm(total=total_tests, desc="Testing") as pbar:
-        for question, model in pending_tests:
-            current_question_id = db.get_current_question_id(
-                question['id'],
-                question['exam_name'],
-                question['question_number'],
+
+    # How many model calls to run in parallel (one per model, capped at 6)
+    MAX_WORKERS = int(os.getenv('TEST_WORKERS', '6'))
+
+    with tqdm(total=total_tests, desc="Testing", unit="req") as pbar:
+        for question, models_to_run in work.values():
+            current_qid = db.get_current_question_id(
+                question['id'], question['exam_name'], question['question_number']
             )
-            if current_question_id is None:
-                pbar.set_description(f"skip {model['name']} Q{question['question_number']}")
-                pbar.update(1)
+            if current_qid is None:
+                pbar.update(len(models_to_run))
                 continue
 
-            if db.response_exists(current_question_id, model['name']):
-                pbar.set_description(f"skip {model['name']} Q{question['question_number']}")
-                pbar.update(1)
-                continue
+            # Fire all pending models for this question in parallel
+            futures = {}
+            with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, len(models_to_run))) as pool:
+                for model in models_to_run:
+                    if not db.response_exists(current_qid, model['name']):
+                        futures[pool.submit(test_model_on_question, model, question)] = model
 
-            pbar.set_description(f"{model['name']} Q{question['question_number']}")
+            # Collect results and write to DB sequentially (SQLite is not thread-safe for writes)
+            for future, model in futures.items():
+                pbar.set_description(f"{model['name']} Q{question['question_number']}")
+                try:
+                    result = future.result()
+                except Exception as e:
+                    result = {'response': f'ERROR: {e}', 'latency_ms': 0, 'tokens_used': 0, 'cost_usd': 0}
 
-            result = test_model_on_question(model, question)
-
-            current_question_id = db.get_current_question_id(
-                question['id'],
-                question['exam_name'],
-                question['question_number'],
-            )
-            if current_question_id is None:
-                print(
-                    f"\n⚠️ Skipping save for {question['exam_name']} {question['question_number']} "
-                    f"because the question row was replaced during the run."
+                # Re-check qid in case of concurrent re-extraction
+                current_qid = db.get_current_question_id(
+                    question['id'], question['exam_name'], question['question_number']
                 )
+                if current_qid is None or db.response_exists(current_qid, model['name']):
+                    pbar.update(1)
+                    continue
+
+                db.add_response(
+                    question_id=current_qid,
+                    model_name=model['name'],
+                    response=result['response'],
+                    latency_ms=result['latency_ms'],
+                    tokens_used=result['tokens_used'],
+                    cost_usd=result['cost_usd'],
+                )
+                with lock:
+                    total_cost += result['cost_usd']
                 pbar.update(1)
-                continue
-
-            if db.response_exists(current_question_id, model['name']):
-                pbar.update(1)
-                continue
-
-            # Save to database
-            db.add_response(
-                question_id=current_question_id,
-                model_name=model['name'],
-                response=result['response'],
-                latency_ms=result['latency_ms'],
-                tokens_used=result['tokens_used'],
-                cost_usd=result['cost_usd']
-            )
-
-            total_cost += result['cost_usd']
-            pbar.update(1)
-
-            # Small delay to avoid rate limits
-            time.sleep(0.5)
     
     # Summary
     print(f"\n{'='*70}")

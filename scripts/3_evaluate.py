@@ -541,7 +541,7 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                         exam_rows = subject_rows[subject_rows['exam_name'] == exam_name]
                         exam_sections.append(
                                 f"""
-                                <section class="exam-section">
+                                <section class="exam-section" id="exam-{html.escape(exam_name)}">
                                     <div class="exam-header">
                                         <h3>{html.escape(exam_rows.iloc[0]['session_label'])}</h3>
                                         <div class="exam-code">{html.escape(exam_name)}</div>
@@ -562,31 +562,122 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
                         """
                 )
 
+        # ── helpers ──────────────────────────────────────────────────────────
+        def bar_html(pct_str, width=None):
+            """Return a progress-bar cell for a percentage string like '73.4%' or '—'."""
+            if pct_str == '—':
+                return f'<td class="heat-na">—</td>'
+            val = float(pct_str.rstrip('%'))
+            col = 'bar-hi' if val >= 65 else ('bar-mid' if val >= 40 else 'bar-lo')
+            heat = 'heat-hi' if val >= 65 else ('heat-mid' if val >= 40 else 'heat-lo')
+            w = round(val)
+            return (
+                f'<td class="bar-cell {heat}">'
+                f'<div class="bar-wrap">'
+                f'<div class="bar-bg"><div class="bar-fill {col}" style="width:{w}%"></div></div>'
+                f'<span class="bar-pct">{pct_str}</span>'
+                f'</div></td>'
+            )
+
+        def scorecard_bar(pct_str):
+            if pct_str == '—':
+                return ''
+            val = float(pct_str.rstrip('%'))
+            col = 'bar-hi' if val >= 65 else ('bar-mid' if val >= 40 else 'bar-lo')
+            return (
+                f'<div class="scorecard-bar-bg">'
+                f'<div class="scorecard-bar-fill {col}" style="width:{round(val)}%"></div>'
+                f'</div>'
+            )
+
+        # ── ranking table (sorted by accuracy) ──────────────────────────────
+        model_acc = []
+        for model in all_models:
+            md = df[df['model_name'] == model]
+            acc = md['is_correct'].fillna(0).astype(float).mean() * 100
+            correct = int(md['is_correct'].fillna(0).sum())
+            avg_score = md['score'].fillna(0).mean()
+            cost = md['cost_usd'].fillna(0).sum()
+            questions = len(md)
+            model_acc.append((acc, model, correct, avg_score, cost, questions))
+        model_acc.sort(reverse=True)
+
+        ranking_rows = []
+        for i, (acc, model, correct, avg_score, cost, questions) in enumerate(model_acc, 1):
+            rank_cls = f'rank rank-{i}' if i <= 3 else 'rank'
+            pct = f'{acc:.1f}%'
+            col = 'bar-hi' if acc >= 65 else ('bar-mid' if acc >= 40 else 'bar-lo')
+            ranking_rows.append(
+                f'<tr>'
+                f'<td><span class="{rank_cls}">{i}</span></td>'
+                f'<td>{html.escape(model)}</td>'
+                f'<td>{questions}</td>'
+                f'<td>{correct}</td>'
+                f'<td class="bar-cell"><div class="bar-wrap">'
+                f'<div class="bar-bg"><div class="bar-fill {col}" style="width:{round(acc)}%"></div></div>'
+                f'<span class="bar-pct">{pct}</span></div></td>'
+                f'<td>{avg_score:.3f}</td>'
+                f'<td>${cost:.4f}</td>'
+                f'</tr>'
+            )
+
+        # sorted model list (by rank) for consistent column order
+        ranked_models = [m for _, m, *_ in model_acc]
+        model_header_cells = ''.join(f'<th>{html.escape(m)}</th>' for m in ranked_models)
+
         # ── per-type stats ───────────────────────────────────────────────────
         type_stats_rows = []
         for qtype in sorted(df['question_type'].dropna().unique()):
             td = df[df['question_type'] == qtype]
             cells = ''.join(
-                f'<td>{pct_val(td[td["model_name"] == m]["is_correct"])}</td>'
-                for m in all_models
+                bar_html(pct_val(td[td['model_name'] == m]['is_correct']))
+                for m in ranked_models
             )
             type_stats_rows.append(f'<tr><td>{html.escape(qtype)}</td>{cells}</tr>')
 
-        model_header_cells = ''.join(f'<th>{html.escape(m)}</th>' for m in all_models)
-
-        # ── per-exam stats ───────────────────────────────────────────────────
+        # ── per-exam stats (heatmap) ─────────────────────────────────────────
         exam_stats_rows_html = []
         for exam_name in all_exams:
             ed = df[df['exam_name'] == exam_name]
             label = html.escape(ed.iloc[0]['session_label'])
             anchor = f'exam-{exam_name}'
+            q_count = ed['question_id'].nunique()
             cells = ''.join(
-                f'<td>{pct_val(ed[ed["model_name"] == m]["is_correct"])}</td>'
-                for m in all_models
+                bar_html(pct_val(ed[ed['model_name'] == m]['is_correct']))
+                for m in ranked_models
             )
             exam_stats_rows_html.append(
-                f'<tr><td><a href="#{anchor}">{label}</a></td>{cells}</tr>'
+                f'<tr><td><a href="#{anchor}">{label}</a><br><small style="color:var(--muted)">{q_count} pyt.</small></td>{cells}</tr>'
             )
+
+        # ── per-exam scorecards ──────────────────────────────────────────────
+        scorecard_items = []
+        for exam_name in all_exams:
+            ed = df[df['exam_name'] == exam_name]
+            label = html.escape(ed.iloc[0]['session_label'])
+            q_count = ed['question_id'].nunique()
+            rows_html = ''
+            for model in ranked_models:
+                p = pct_val(ed[ed['model_name'] == model]['is_correct'])
+                if p == '—':
+                    continue
+                rows_html += (
+                    f'<div class="scorecard-row">'
+                    f'<span class="scorecard-model" title="{html.escape(model)}">{html.escape(model)}</span>'
+                    f'{scorecard_bar(p)}'
+                    f'<span class="scorecard-pct">{p}</span>'
+                    f'</div>'
+                )
+            scorecard_items.append(
+                f'<div class="exam-scorecard">'
+                f'<div class="exam-scorecard-header">'
+                f'<a class="exam-scorecard-title" href="#exam-{html.escape(exam_name)}">{label}</a>'
+                f'<span class="exam-scorecard-meta">{q_count} pytań</span>'
+                f'</div>'
+                f'{rows_html}'
+                f'</div>'
+            )
+        scorecards_html = ''.join(scorecard_items)
 
         # ── nav links ────────────────────────────────────────────────────────
         nav_links = ''
@@ -634,12 +725,45 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
         .hero {{ background: linear-gradient(135deg, rgba(184,92,56,.12), rgba(243,217,191,.75)); border: 1px solid var(--border); border-radius: 28px; padding: 28px; box-shadow: var(--shadow); }}
         h1 {{ margin: 0 0 8px; font-size: clamp(2rem, 4vw, 3.5rem); }}
         .subtitle {{ margin: 0; color: var(--muted); font-size: 1.05rem; }}
-        .stats-wrap {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 20px; margin-top: 24px; }}
-        .summary-table {{ width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }}
-        .summary-table caption {{ text-align: left; font-size: .9rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 12px 16px 6px; }}
-        .summary-table th, .summary-table td {{ padding: 12px 16px; border-bottom: 1px solid #efe2d3; text-align: left; font-size: .93rem; }}
+        .stats-wrap {{ display: flex; flex-direction: column; gap: 20px; margin-top: 24px; }}
+        .stats-row {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; }}
+        .table-box {{ background: var(--surface); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }}
+        .table-scroll {{ overflow-x: auto; }}
+        .table-box caption {{ display: block; text-align: left; font-size: .9rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); padding: 14px 18px 6px; }}
+        .summary-table {{ width: 100%; border-collapse: collapse; min-width: 320px; }}
+        .summary-table th, .summary-table td {{ padding: 10px 14px; border-bottom: 1px solid #efe2d3; text-align: left; font-size: .88rem; white-space: nowrap; }}
         .summary-table th {{ background: var(--surface-strong); }}
-        .summary-table a {{ color: var(--accent); }}
+        .summary-table a {{ color: var(--accent); text-decoration: none; }}
+        .summary-table a:hover {{ text-decoration: underline; }}
+        .summary-table tbody tr:last-child td {{ border-bottom: none; }}
+        .summary-table tbody tr:hover td {{ background: rgba(184,92,56,.04); }}
+        .rank {{ display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 50%; font-size: .78rem; font-weight: 700; background: var(--accent-soft); color: var(--accent); }}
+        .rank-1 {{ background: #ffd700; color: #7a5800; }}
+        .rank-2 {{ background: #e0e0e0; color: #555; }}
+        .rank-3 {{ background: #e8b97a; color: #6b3d00; }}
+        .bar-cell {{ min-width: 140px; }}
+        .bar-wrap {{ display: flex; align-items: center; gap: 8px; }}
+        .bar-bg {{ flex: 1; height: 8px; background: #efe2d3; border-radius: 4px; overflow: hidden; min-width: 60px; }}
+        .bar-fill {{ height: 100%; border-radius: 4px; }}
+        .bar-hi {{ background: var(--ok); }}
+        .bar-mid {{ background: var(--warn); }}
+        .bar-lo {{ background: var(--bad); }}
+        .bar-pct {{ font-size: .85rem; color: var(--muted); min-width: 42px; text-align: right; }}
+        .heat-na {{ color: var(--muted); }}
+        .heat-hi {{ color: var(--ok); font-weight: 600; }}
+        .heat-mid {{ color: var(--warn); }}
+        .heat-lo {{ color: var(--bad); }}
+        .exam-scorecards {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }}
+        .exam-scorecard {{ background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }}
+        .exam-scorecard-header {{ display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; gap: 10px; }}
+        .exam-scorecard-title {{ font-size: .95rem; font-weight: 700; }}
+        .exam-scorecard-meta {{ font-size: .78rem; color: var(--muted); }}
+        .scorecard-row {{ display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }}
+        .scorecard-model {{ font-size: .8rem; min-width: 120px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+        .scorecard-bar-bg {{ flex: 1; height: 7px; background: #efe2d3; border-radius: 4px; overflow: hidden; }}
+        .scorecard-bar-fill {{ height: 100%; border-radius: 4px; }}
+        .scorecard-pct {{ font-size: .78rem; color: var(--muted); min-width: 38px; text-align: right; }}
+        .section-title {{ font-size: .9rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin: 24px 0 12px; }}
         .subject-section {{ margin-top: 48px; scroll-margin-top: calc(var(--nav-h) + 12px); }}
         .subject-header {{ margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid rgba(184,92,56,.2); }}
         .subject-header h2 {{ margin: 0; font-size: clamp(1.5rem, 2vw, 2rem); }}
@@ -689,23 +813,43 @@ def generate_html_report(db: QuestionDatabase, output_path: str):
         </section>
 
         <div class="stats-wrap">
-          <table class="summary-table">
-            <caption>Wyniki ogólne</caption>
-            <thead><tr><th>Model</th><th>Pytania</th><th>Poprawne</th><th>Celność</th><th>Śr. wynik</th><th>Koszt $</th></tr></thead>
-            <tbody>{''.join(summary_rows)}</tbody>
-          </table>
+          <div class="stats-row">
+            <div class="table-box">
+              <caption>Ranking modeli</caption>
+              <div class="table-scroll">
+                <table class="summary-table">
+                  <thead><tr><th>#</th><th>Model</th><th>Pytania</th><th>Poprawne</th><th class="bar-cell">Celność</th><th>Śr. wynik</th><th>Koszt $</th></tr></thead>
+                  <tbody>{''.join(ranking_rows)}</tbody>
+                </table>
+              </div>
+            </div>
+            <div class="table-box">
+              <caption>Celność wg typu pytania</caption>
+              <div class="table-scroll">
+                <table class="summary-table">
+                  <thead><tr><th>Typ</th>{model_header_cells}</tr></thead>
+                  <tbody>{''.join(type_stats_rows)}</tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-          <table class="summary-table">
+          <div class="table-box">
             <caption>Celność wg egzaminu</caption>
-            <thead><tr><th>Egzamin</th>{model_header_cells}</tr></thead>
-            <tbody>{''.join(exam_stats_rows_html)}</tbody>
-          </table>
+            <div class="table-scroll">
+              <table class="summary-table">
+                <thead><tr><th>Egzamin</th>{model_header_cells}</tr></thead>
+                <tbody>{''.join(exam_stats_rows_html)}</tbody>
+              </table>
+            </div>
+          </div>
 
-          <table class="summary-table">
-            <caption>Celność wg typu pytania</caption>
-            <thead><tr><th>Typ</th>{model_header_cells}</tr></thead>
-            <tbody>{''.join(type_stats_rows)}</tbody>
-          </table>
+          <div>
+            <p class="section-title">Wyniki per egzamin</p>
+            <div class="exam-scorecards">
+              {scorecards_html}
+            </div>
+          </div>
         </div>
 
         {''.join(grouped_sections)}
